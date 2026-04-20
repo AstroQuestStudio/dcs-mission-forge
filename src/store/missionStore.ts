@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { MizFile, DCSGroup, DCSUnit, DCSTriggerZone, MistConfig } from '../types/dcs';
+import type { MizFile, DCSGroup, DCSUnit, DCSCountry, DCSTriggerZone, MistConfig } from '../types/dcs';
 
 export type ActiveTab = 'map' | 'groups' | 'triggers' | 'weather' | 'mist' | 'settings' | 'warehouses';
 export type SelectedEntity = { type: 'group'; coalition: string; countryIdx: number; category: string; groupIdx: number } | null;
@@ -114,6 +114,18 @@ export interface GroupEntry {
   groupIdx: number;
 }
 
+/** Normalise un objet Lua (clés "1","2",...) ou array JS en array JS */
+function toArray<T>(val: unknown): T[] {
+  if (!val) return [];
+  if (Array.isArray(val)) return val as T[];
+  if (typeof val === 'object') {
+    const obj = val as Record<string, unknown>;
+    const keys = Object.keys(obj).map(Number).filter(n => !isNaN(n)).sort((a, b) => a - b);
+    if (keys.length > 0) return keys.map(k => obj[String(k)]) as T[];
+  }
+  return [];
+}
+
 export function extractAllGroups(miz: MizFile): GroupEntry[] {
   const result: GroupEntry[] = [];
   const coalitions = ['blue', 'red', 'neutrals'] as const;
@@ -122,14 +134,24 @@ export function extractAllGroups(miz: MizFile): GroupEntry[] {
   for (const coal of coalitions) {
     const coalData = miz.mission.coalition[coal];
     if (!coalData) continue;
-    for (let ci = 0; ci < coalData.country.length; ci++) {
-      const country = coalData.country[ci];
+    const countries = toArray<DCSCountry>(coalData.country);
+    for (let ci = 0; ci < countries.length; ci++) {
+      const country = countries[ci];
       for (const cat of categories) {
-        const catData = (country as unknown as Record<string, { group: DCSGroup[] }>)[cat];
-        if (!catData?.group) continue;
-        for (let gi = 0; gi < catData.group.length; gi++) {
+        const catData = (country as unknown as Record<string, { group: unknown }>)[cat];
+        if (!catData) continue;
+        const groups = toArray<DCSGroup>(catData.group);
+        for (let gi = 0; gi < groups.length; gi++) {
+          const group = groups[gi];
+          if (!group || !group.units) continue;
+          // Normaliser les units en array
+          group.units = toArray<DCSUnit>(group.units);
+          // Normaliser les waypoints
+          if (group.route?.points) {
+            group.route.points = toArray(group.route.points);
+          }
           result.push({
-            group: catData.group[gi],
+            group,
             coalition: coal,
             countryName: country.name,
             countryIdx: ci,
@@ -144,11 +166,7 @@ export function extractAllGroups(miz: MizFile): GroupEntry[] {
 }
 
 export function extractTriggerZones(miz: MizFile): DCSTriggerZone[] {
-  const zones: DCSTriggerZone[] = [];
   const rawZones = miz.mission.triggers?.zones;
-  if (!rawZones || typeof rawZones !== 'object') return zones;
-  for (const v of Object.values(rawZones)) {
-    if (v && typeof v === 'object' && 'x' in v) zones.push(v as DCSTriggerZone);
-  }
-  return zones;
+  if (!rawZones || typeof rawZones !== 'object') return [];
+  return toArray<DCSTriggerZone>(rawZones).filter(z => z && typeof z === 'object' && 'x' in z);
 }

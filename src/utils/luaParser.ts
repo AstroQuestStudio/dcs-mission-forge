@@ -182,8 +182,15 @@ class LuaParser {
         else if (keyTok.type === 'number') key = String((keyTok as { type: 'number'; value: number }).value);
         else key = String(keyTok);
 
-        obj[key] = value;
-        arrayMode = false;
+        if (keyTok.type === 'number') {
+          // Clé numérique [1]=, [2]= etc. → candidat array
+          const numKey = (keyTok as { type: 'number'; value: number }).value;
+          obj[String(numKey)] = value;
+          arr[numKey - 1] = value; // index 0-based dans arr
+        } else {
+          obj[key] = value;
+          arrayMode = false;
+        }
       }
       // ident = value
       else if (t.type === 'ident' && this.tokens[this.pos + 1]?.type === 'equals') {
@@ -192,7 +199,7 @@ class LuaParser {
         obj[key] = this.parseValue();
         arrayMode = false;
       }
-      // positional value
+      // positional value (sans clé)
       else {
         const value = this.parseValue();
         arr.push(value);
@@ -205,8 +212,13 @@ class LuaParser {
 
     this.expect('rbrace');
 
-    // If all keys are numeric from 1..N, return as array
+    // Si toutes les clés sont numériques consécutives depuis 1, retourner un array
     if (arrayMode && arr.length > 0) return arr;
+    // Vérifier si l'objet n'a QUE des clés numériques consécutives
+    const keys = Object.keys(obj);
+    if (keys.length > 0 && keys.every((k, i) => parseInt(k) === i + 1)) {
+      return keys.map(k => obj[k]);
+    }
     return obj;
   }
 }
