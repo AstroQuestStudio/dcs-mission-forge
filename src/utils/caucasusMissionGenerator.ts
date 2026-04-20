@@ -5,7 +5,7 @@
 
 import JSZip from 'jszip';
 import { serializeLuaTable } from './luaParser';
-import { CAUCASUS_AIRFIELDS, latLonToDcsXZ, type CaucasusAirfield } from './caucasusAirfields';
+import { CAUCASUS_AIRFIELDS, latLonToDcsXZ, allocateParkingSpots, type CaucasusAirfield } from './caucasusAirfields';
 import type { MissionGeneratorConfig } from './missionGeneratorData';
 import { MISSION_TASKS, DIFFICULTY_LEVELS, WEATHER_PRESETS, SEASONS, TIMES_OF_DAY } from './missionGeneratorData';
 
@@ -223,9 +223,12 @@ export interface GeneratedMissionResult {
 
 let _groupIdCounter = 1;
 let _unitIdCounter = 100;
+// Track allocated parking spots per airdrome to éviter les collisions
+const _parkingAllocated: Record<number, number> = {};
 
 function nextGroupId() { return _groupIdCounter++; }
 function nextUnitId()  { return _unitIdCounter++; }
+
 
 function makeAircraftGroup(
   name: string,
@@ -241,26 +244,48 @@ function makeAircraftGroup(
   startAirdromeId?: number,
 ) {
   const groupId = nextGroupId();
-  const units = Array.from({ length: count }, (_, i) => ({
-    unitId: nextUnitId(),
-    name: `${name} #${i + 1}`,
-    type: unitType,
-    x: startX + i * 30,
-    y: startZ + i * 30,
-    alt: isPlayer ? 0 : alt,
-    heading: 0,
-    skill: isPlayer ? 'Player' : skill,
-    onboard_num: String(10 + i),
-    callsign: { [1]: name.split(' ')[0].substring(0, 3).toUpperCase(), [2]: 1, [3]: i + 1, name: `${name.substring(0,3)}${i+1}` },
-    payload: { fuel: 100, flare: 60, chaff: 60, gun: 100, pylons: {} },
-  }));
+  // Alloue des spots de parking réels pour chaque unité du groupe
+  const parkingSpots = startAirdromeId
+    ? allocateParkingSpots(startAirdromeId, count)
+    : [];
 
+  const units = Array.from({ length: count }, (_, i) => {
+    const parkingId = parkingSpots[i];
+    return {
+      unitId: nextUnitId(),
+      name: `${name} #${i + 1}`,
+      type: unitType,
+      // Quand en parking, x/y = position de l'aérodrome (DCS place l'unité au spot)
+      x: startX,
+      y: startZ,
+      alt: 0,
+      heading: 0,
+      skill: isPlayer ? 'Player' : skill,
+      onboard_num: String(10 + i).padStart(3, '0'),
+      callsign: {
+        [1]: name.split(' ')[0].substring(0, 3).toUpperCase(),
+        [2]: 1,
+        [3]: i + 1,
+        name: `${name.substring(0, 3).toUpperCase()}${i + 1}`,
+      },
+      payload: { fuel: 100, flare: 60, chaff: 60, gun: 100, pylons: {} },
+      // Champs parking DCS (clés avec strings pour sérialisation Lua)
+      ...(parkingId !== undefined ? { parking: parkingId } : {}),
+      ...(parkingId !== undefined ? { parking_landing: parkingId } : {}),
+    };
+  });
+
+  // Waypoint de départ : TakeOffParking si aérodrome connu
   const takeoffWP = startAirdromeId ? {
-    x: startX, y: startZ, alt: 0, type: 'TakeOffParking', action: 'From Parking Area',
+    x: startX, y: startZ, alt: 0,
+    type: 'TakeOffParking',
+    action: 'From Parking Area',
     speed: 0, ETA: 0, ETA_locked: true, speed_locked: true,
-    airdromeId: startAirdromeId, name: 'Départ',
+    airdromeId: startAirdromeId,
+    name: 'Départ',
   } : {
-    x: startX, y: startZ, alt, type: 'Turning Point', action: 'Turning Point',
+    x: startX, y: startZ, alt,
+    type: 'Turning Point', action: 'Turning Point',
     speed: 200, name: 'WP1',
   };
 
@@ -279,7 +304,11 @@ function makeAircraftGroup(
     route: {
       points: [
         takeoffWP,
-        { x: waypointX, y: waypointZ, alt, type: 'Turning Point', action: 'Turning Point', speed: 220, name: 'WP2' },
+        {
+          x: waypointX, y: waypointZ, alt,
+          type: 'Turning Point', action: 'Turning Point',
+          speed: 220, name: 'Objectif',
+        },
       ],
     },
   };
@@ -388,6 +417,7 @@ export async function generateCaucasusMiz(
   // Reset counters
   _groupIdCounter = 1;
   _unitIdCounter = 100;
+  Object.keys(_parkingAllocated).forEach(k => delete _parkingAllocated[Number(k)]);
 
   const scenario = CAUCASUS_SCENARIOS.find(s => s.id === scenarioId) ?? CAUCASUS_SCENARIOS[0];
   const task = MISSION_TASKS.find(t => t.id === config.taskId) ?? MISSION_TASKS[0];

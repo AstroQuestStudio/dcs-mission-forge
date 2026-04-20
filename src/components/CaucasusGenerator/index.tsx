@@ -38,10 +38,11 @@ function AirfieldCard({ id, side }: { id: number; side: 'blue' | 'red' }) {
       <div className="grid grid-cols-2 gap-x-3 gap-y-0.5 text-[10px] text-slate-400">
         <span>UHF {af.radioUHF} MHz</span>
         <span>VHF {af.radioVHF} MHz</span>
-        <span>Piste {af.runways.map(r => `${r.hdg1}°`).join('/')}</span>
+        <span>Piste {af.runways.map(r => `${r.hdg1}°/${r.hdg2}°`).join(' · ')}</span>
         <span>Alt {af.elevation} m MSL</span>
-        {af.ils?.[0] && <span>ILS {(af.ils[0].freq/1000).toFixed(2)} MHz</span>}
-        <span>~{af.parkingSpots} places parking</span>
+        {af.ils?.[0] && <span>ILS {(af.ils[0].freq / 1000).toFixed(2)} MHz rwy{af.ils[0].rwy}</span>}
+        {af.vor && <span>VOR {(af.vor.freq / 1e6).toFixed(1)} {af.vor.callsign}{af.vor.channel ? ` ch${af.vor.channel}` : ''}</span>}
+        <span>{af.parkingIds.length} spots parking (IDs DCS)</span>
       </div>
       {af.notes && (
         <div className="text-[10px] text-slate-600 italic mt-1">{af.notes}</div>
