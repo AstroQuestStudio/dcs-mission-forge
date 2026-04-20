@@ -18,7 +18,6 @@ const SKILL_ALPHA: Record<string, number> = {
 };
 
 // ── Icônes SVG dynamiques ──────────────────────────────────────────────────
-
 function makeUnitIcon(coalition: string, category: string, selected: boolean, isLeader: boolean, skill?: string) {
   const color = COAL_COLOR[coalition] ?? '#888';
   const sym = CAT_SYM[category] ?? '•';
@@ -27,7 +26,9 @@ function makeUnitIcon(coalition: string, category: string, selected: boolean, is
   const borderW = selected ? 3 : (isLeader ? 2 : 1.5);
   const borderColor = selected ? '#fbbf24' : color;
   const bg = selected ? '#0f172a' : `rgba(15,23,42,${0.7 + alpha * 0.3})`;
-  const shadow = selected ? '0 0 12px 3px rgba(251,191,36,.6)' : isLeader ? '0 2px 8px rgba(0,0,0,.6)' : '0 1px 4px rgba(0,0,0,.5)';
+  const shadow = selected
+    ? '0 0 12px 3px rgba(251,191,36,.6)'
+    : isLeader ? '0 2px 8px rgba(0,0,0,.6)' : '0 1px 4px rgba(0,0,0,.5)';
   const fontSize = isLeader ? Math.round(size * 0.48) : Math.round(size * 0.52);
 
   return divIcon({
@@ -63,10 +64,13 @@ function makeAirportIcon() {
   });
 }
 
-// ── Helpers ────────────────────────────────────────────────────────────────
+// ── Sub-composants avec hooks (utilisés directement dans MapContainer) ──────
 
-function ClickHandler({ addMode, onMapClick }: { addMode: boolean; onMapClick: (e: LeafletMouseEvent) => void }) {
-  const { selectEntity } = useMissionStore();
+function ClickHandler({ addMode, onMapClick }: {
+  addMode: boolean;
+  onMapClick: (e: LeafletMouseEvent) => void;
+}) {
+  const selectEntity = useMissionStore(s => s.selectEntity);
   useMapEvents({
     click: e => { if (addMode) onMapClick(e); else selectEntity(null); },
   });
@@ -74,7 +78,7 @@ function ClickHandler({ addMode, onMapClick }: { addMode: boolean; onMapClick: (
 }
 
 function FlyTo({ groups }: { groups: GroupEntry[] }) {
-  const { selectedEntity } = useMissionStore();
+  const selectedEntity = useMissionStore(s => s.selectedEntity);
   const map = useMap();
   const prev = useRef('');
   useEffect(() => {
@@ -96,20 +100,24 @@ function FlyTo({ groups }: { groups: GroupEntry[] }) {
   return null;
 }
 
-// ── Marqueur d'unité individuelle ──────────────────────────────────────────
+// ── Marqueur d'une unité individuelle (PAS de hooks) ──────────────────────
+// Ce composant est un Marker pur — aucun hook React dedans pour éviter #310
 function UnitMarker({
-  unit, unitIdx, entry, isGroupSelected, onSelectGroup, onMoveUnit,
+  unit, unitIdx, groupName, coalition, category, isLeader, isGroupSelected,
+  onSelectGroup, onMoveUnit,
 }: {
   unit: DCSUnit;
   unitIdx: number;
-  entry: GroupEntry;
+  groupName: string;
+  coalition: string;
+  category: string;
+  isLeader: boolean;
   isGroupSelected: boolean;
   onSelectGroup: () => void;
   onMoveUnit: (unitIdx: number, x: number, y: number) => void;
 }) {
-  const isLeader = unitIdx === 0;
-  const pos = dcsToLatLng(unit.x, unit.y);
-  const icon = makeUnitIcon(entry.coalition, entry.category, isGroupSelected && isLeader, isLeader, unit.skill);
+  const pos = dcsToLatLng(unit.x ?? 0, unit.y ?? 0);
+  const icon = makeUnitIcon(coalition, category, isGroupSelected && isLeader, isLeader, unit.skill);
 
   return (
     <Marker
@@ -120,7 +128,7 @@ function UnitMarker({
       eventHandlers={{
         click: e => { e.originalEvent.stopPropagation(); onSelectGroup(); },
         dragend: e => {
-          const ll = e.target.getLatLng();
+          const ll = (e.target as { getLatLng: () => { lat: number; lng: number } }).getLatLng();
           const { x, y } = latLngToDcs(ll.lat, ll.lng);
           onMoveUnit(unitIdx, x, y);
         },
@@ -129,13 +137,13 @@ function UnitMarker({
       <Tooltip direction="top" offset={[0, -14]} opacity={0.97}>
         <div style={{ fontFamily: 'monospace', fontSize: 11, lineHeight: 1.5 }}>
           {isLeader && (
-            <div style={{ fontWeight: 'bold', color: COAL_COLOR[entry.coalition] ?? '#888' }}>
-              {entry.group.name}
+            <div style={{ fontWeight: 'bold', color: COAL_COLOR[coalition] ?? '#888' }}>
+              {groupName}
             </div>
           )}
           <div style={{ color: '#cbd5e1' }}>{unit.name}</div>
           <div style={{ color: '#64748b' }}>
-            {unit.type} · {unit.skill} · {Math.round(unit.alt ?? 0)}m
+            {unit.type} · {unit.skill ?? '—'} · {Math.round(unit.alt ?? 0)}m
           </div>
           {isGroupSelected && isLeader && (
             <div style={{ color: '#fbbf24', fontSize: 10 }}>✦ Sélectionné · glisser = déplacer</div>
@@ -146,20 +154,19 @@ function UnitMarker({
   );
 }
 
-// ── Groupe complet (toutes ses unités + route) ─────────────────────────────
-function GroupMarkers({ entry, isSelected, onSelect, onMove }: {
+// ── Rendu d'un groupe (toutes ses unités + route) — SANS hooks ──────────────
+// Reçoit tout en props calculées, aucun hook ici pour éviter React #310
+function GroupMarkers({
+  entry, isSelected, waypoints, onSelect, onMove,
+}: {
   entry: GroupEntry;
   isSelected: boolean;
+  waypoints: [number, number][];
   onSelect: () => void;
   onMove: (unitIdx: number, x: number, y: number) => void;
 }) {
-  const { group } = entry;
-
-  // Waypoints visibles si groupe sélectionné ou si peu de groupes
-  const waypoints = useMemo(() =>
-    (group.route?.points ?? []).filter(wp => wp.x != null && wp.y != null).map(wp => dcsToLatLng(wp.x, wp.y)),
-    [group.route?.points]
-  );
+  const { group, coalition, category } = entry;
+  const units = group.units ?? [];
 
   return (
     <>
@@ -168,7 +175,7 @@ function GroupMarkers({ entry, isSelected, onSelect, onMove }: {
         <Polyline
           positions={waypoints}
           pathOptions={{
-            color: COAL_COLOR[entry.coalition] ?? '#888',
+            color: COAL_COLOR[coalition] ?? '#888',
             weight: isSelected ? 2.5 : 1,
             opacity: isSelected ? 0.85 : 0.25,
             dashArray: isSelected ? '8 4' : '3 6',
@@ -177,12 +184,15 @@ function GroupMarkers({ entry, isSelected, onSelect, onMove }: {
       )}
 
       {/* Chaque unité individuellement */}
-      {(group.units ?? []).map((unit, ui) => (
+      {units.map((unit, ui) => (
         <UnitMarker
-          key={ui}
+          key={`u${ui}`}
           unit={unit}
           unitIdx={ui}
-          entry={entry}
+          groupName={group.name}
+          coalition={coalition}
+          category={category}
+          isLeader={ui === 0}
           isGroupSelected={isSelected}
           onSelectGroup={onSelect}
           onMoveUnit={onMove}
@@ -196,25 +206,28 @@ function GroupMarkers({ entry, isSelected, onSelect, onMove }: {
 const COALITIONS = ['blue', 'red', 'neutrals'] as const;
 const CATEGORIES = ['plane', 'helicopter', 'vehicle', 'ship', 'static'] as const;
 const SKILLS_OPTS = ['Average', 'Good', 'High', 'Excellent', 'Random', 'Player', 'Client'] as const;
-type CoalType = typeof COALITIONS[number];
-type CatType = typeof CATEGORIES[number];
+type CoalType = (typeof COALITIONS)[number];
+type CatType = (typeof CATEGORIES)[number];
 
 interface UnitDBEntry { type: string; name: string }
 
 function AddGroupModal({ lat, lon, onClose }: { lat: number; lon: number; onClose: () => void }) {
-  const { miz, addGroup } = useMissionStore();
+  const miz = useMissionStore(s => s.miz);
+  const addGroup = useMissionStore(s => s.addGroup);
   const [coal, setCoal] = useState<CoalType>('blue');
   const [cat, setCat] = useState<CatType>('plane');
   const [name, setName] = useState('Nouveau Groupe');
   const [unitType, setUnitType] = useState('');
-  const [skill, setSkill] = useState<typeof SKILLS_OPTS[number]>('Good');
+  const [skill, setSkill] = useState<(typeof SKILLS_OPTS)[number]>('Good');
   const [count, setCount] = useState(1);
   const [unitsDB, setUnitsDB] = useState<Record<string, UnitDBEntry[]> | null>(null);
   const [search, setSearch] = useState('');
 
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}data/units_db.json`)
-      .then(r => r.json()).then(d => setUnitsDB(d as Record<string, UnitDBEntry[]>)).catch(() => {});
+      .then(r => r.json())
+      .then(d => setUnitsDB(d as Record<string, UnitDBEntry[]>))
+      .catch(() => {});
   }, []);
 
   const unitList = useMemo(() => {
@@ -286,13 +299,12 @@ function AddGroupModal({ lat, lon, onClose }: { lat: number; lon: number; onClos
         </div>
 
         <div className="p-5 space-y-4 text-xs">
-          {/* Nom */}
           <div>
             <label className="text-[10px] text-slate-500 uppercase tracking-wider block mb-1">Nom</label>
-            <input className="w-full bg-slate-800 text-slate-100 px-3 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 text-sm" value={name} onChange={e => setName(e.target.value)} />
+            <input className="w-full bg-slate-800 text-slate-100 px-3 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 text-sm"
+              value={name} onChange={e => setName(e.target.value)} />
           </div>
 
-          {/* Coalition */}
           <div>
             <label className="text-[10px] text-slate-500 uppercase tracking-wider block mb-1.5">Coalition</label>
             <div className="flex gap-2">
@@ -305,7 +317,6 @@ function AddGroupModal({ lat, lon, onClose }: { lat: number; lon: number; onClos
             </div>
           </div>
 
-          {/* Catégorie */}
           <div>
             <label className="text-[10px] text-slate-500 uppercase tracking-wider block mb-1.5">Catégorie</label>
             <div className="flex gap-1 flex-wrap">
@@ -318,7 +329,6 @@ function AddGroupModal({ lat, lon, onClose }: { lat: number; lon: number; onClos
             </div>
           </div>
 
-          {/* Type d'unité */}
           <div>
             <label className="text-[10px] text-slate-500 uppercase tracking-wider block mb-1">Type d'unité</label>
             <input className="w-full bg-slate-800 text-slate-400 px-2.5 py-1.5 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 mb-1.5"
@@ -330,7 +340,6 @@ function AddGroupModal({ lat, lon, onClose }: { lat: number; lon: number; onClos
             <div className="text-[10px] text-slate-600 mt-1 font-mono">{unitType}</div>
           </div>
 
-          {/* Skill + nombre */}
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="text-[10px] text-slate-500 uppercase tracking-wider block mb-1">Niveau IA</label>
@@ -341,7 +350,8 @@ function AddGroupModal({ lat, lon, onClose }: { lat: number; lon: number; onClos
             </div>
             <div>
               <label className="text-[10px] text-slate-500 uppercase tracking-wider block mb-1">Nb unités</label>
-              <input type="number" min={1} max={16} className="w-full bg-slate-800 text-slate-100 px-2 py-1.5 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500"
+              <input type="number" min={1} max={16}
+                className="w-full bg-slate-800 text-slate-100 px-2 py-1.5 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500"
                 value={count} onChange={e => setCount(Math.max(1, Math.min(16, parseInt(e.target.value) || 1)))} />
             </div>
           </div>
@@ -352,7 +362,10 @@ function AddGroupModal({ lat, lon, onClose }: { lat: number; lon: number; onClos
         </div>
 
         <div className="px-5 pb-5 flex gap-2">
-          <button onClick={onClose} className="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2 rounded-xl text-sm transition-colors">Annuler</button>
+          <button onClick={onClose}
+            className="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2 rounded-xl text-sm transition-colors">
+            Annuler
+          </button>
           <button onClick={handleAdd} disabled={!unitType}
             className="flex-1 bg-blue-600 hover:bg-blue-500 disabled:bg-slate-700 disabled:text-slate-500 text-white py-2 rounded-xl text-sm font-medium transition-colors">
             ✚ Créer
@@ -367,7 +380,11 @@ function AddGroupModal({ lat, lon, onClose }: { lat: number; lon: number; onClos
 interface Airport { id: number; name: string; lat: number; lon: number; parkingCount: number }
 
 export default function MapView() {
-  const { miz, selectedEntity, selectEntity, updateGroup } = useMissionStore();
+  const miz = useMissionStore(s => s.miz);
+  const selectedEntity = useMissionStore(s => s.selectedEntity);
+  const selectEntity = useMissionStore(s => s.selectEntity);
+  const updateGroup = useMissionStore(s => s.updateGroup);
+
   const [airports, setAirports] = useState<Airport[]>([]);
   const [showAirports, setShowAirports] = useState(true);
   const [showZones, setShowZones] = useState(true);
@@ -377,17 +394,28 @@ export default function MapView() {
 
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}data/airports_caucasus.json`)
-      .then(r => r.json()).then(d => setAirports(d as Airport[])).catch(() => setAirports([]));
+      .then(r => r.json())
+      .then(d => setAirports(d as Airport[]))
+      .catch(() => setAirports([]));
   }, []);
 
   const groups = useMemo(() => miz ? extractAllGroups(miz) : [], [miz]);
   const zones = useMemo(() => miz ? extractTriggerZones(miz) : [], [miz]);
 
+  // Calcul des waypoints pour chaque groupe — fait ici dans le parent, pas dans GroupMarkers
+  const groupWaypoints = useMemo(() =>
+    groups.map(entry =>
+      (entry.group.route?.points ?? [])
+        .filter(wp => wp.x != null && wp.y != null)
+        .map(wp => dcsToLatLng(wp.x, wp.y) as [number, number])
+    ),
+    [groups]
+  );
+
   const handleMove = useCallback((entry: GroupEntry, unitIdx: number, x: number, y: number) => {
     const { group, coalition, countryIdx, category, groupIdx } = entry;
     const units = [...(group.units ?? [])];
     units[unitIdx] = { ...units[unitIdx], x, y };
-    // Mettre à jour aussi x/y du groupe si c'est le leader
     const patch = unitIdx === 0
       ? { ...group, x, y, units }
       : { ...group, units };
@@ -453,11 +481,12 @@ export default function MapView() {
       )}
 
       {/* ── Carte ── */}
-      <MapContainer center={[42.5, 41.5]} zoom={7}
+      <MapContainer
+        center={[42.5, 41.5]}
+        zoom={7}
         style={{ height: '100%', width: '100%', background: '#0d1117' }}
-        zoomControl={false}>
-
-        {/* Satellite ESRI — seul fond, pas de choix inutile */}
+        zoomControl={false}
+      >
         <TileLayer
           url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
           attribution="© Esri"
@@ -483,8 +512,18 @@ export default function MapView() {
         {showZones && zones.map((zone, i) => {
           if (!zone.x || !zone.y) return null;
           return (
-            <Circle key={i} center={dcsToLatLng(zone.x, zone.y)} radius={zone.radius ?? 1000}
-              pathOptions={{ color: '#f59e0b', fillColor: '#f59e0b', fillOpacity: 0.07, weight: 1.5, dashArray: '6 4' }}>
+            <Circle
+              key={i}
+              center={dcsToLatLng(zone.x, zone.y)}
+              radius={zone.radius ?? 1000}
+              pathOptions={{
+                color: '#f59e0b',
+                fillColor: '#f59e0b',
+                fillOpacity: 0.07,
+                weight: 1.5,
+                dashArray: '6 4',
+              }}
+            >
               <Tooltip permanent direction="center" opacity={0.9}>
                 <span style={{ fontSize: 10, color: '#fbbf24', fontFamily: 'monospace' }}>{zone.name}</span>
               </Tooltip>
@@ -492,8 +531,8 @@ export default function MapView() {
           );
         })}
 
-        {/* Groupes — chaque unité affichée individuellement */}
-        {groups.map((entry, gi) => {
+        {/* Groupes — waypoints précalculés dans le parent, GroupMarkers sans hooks */}
+        {showRoutes && groups.map((entry, gi) => {
           const isSelected =
             selectedEntity?.type === 'group' &&
             selectedEntity.coalition === entry.coalition &&
@@ -503,9 +542,10 @@ export default function MapView() {
 
           return (
             <GroupMarkers
-              key={`${entry.coalition}.${entry.category}.${entry.groupIdx}.${gi}`}
+              key={`grp-${entry.coalition}-${entry.category}-${entry.groupIdx}-${gi}`}
               entry={entry}
               isSelected={isSelected}
+              waypoints={groupWaypoints[gi] ?? []}
               onSelect={() => selectEntity({
                 type: 'group',
                 coalition: entry.coalition,
@@ -516,6 +556,38 @@ export default function MapView() {
               onMove={(ui, x, y) => handleMove(entry, ui, x, y)}
             />
           );
+        })}
+
+        {/* Groupes avec routes cachées (toujours afficher les marqueurs) */}
+        {!showRoutes && groups.map((entry, gi) => {
+          const isSelected =
+            selectedEntity?.type === 'group' &&
+            selectedEntity.coalition === entry.coalition &&
+            selectedEntity.countryIdx === entry.countryIdx &&
+            selectedEntity.category === entry.category &&
+            selectedEntity.groupIdx === entry.groupIdx;
+
+          const units = entry.group.units ?? [];
+          return units.map((unit, ui) => (
+            <UnitMarker
+              key={`grp-${entry.coalition}-${entry.category}-${entry.groupIdx}-${gi}-u${ui}`}
+              unit={unit}
+              unitIdx={ui}
+              groupName={entry.group.name}
+              coalition={entry.coalition}
+              category={entry.category}
+              isLeader={ui === 0}
+              isGroupSelected={isSelected}
+              onSelectGroup={() => selectEntity({
+                type: 'group',
+                coalition: entry.coalition,
+                countryIdx: entry.countryIdx,
+                category: entry.category,
+                groupIdx: entry.groupIdx,
+              })}
+              onMoveUnit={(unitIdx, x, y) => handleMove(entry, unitIdx, x, y)}
+            />
+          ));
         })}
       </MapContainer>
     </div>
