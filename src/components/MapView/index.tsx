@@ -1,12 +1,11 @@
-import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
-import { MapContainer, TileLayer, Marker, Polyline, Circle, Tooltip, useMapEvents, useMap } from 'react-leaflet';
-import { divIcon } from 'leaflet';
+import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import { useMissionStore, extractAllGroups, extractTriggerZones, type GroupEntry } from '../../store/missionStore';
 import { dcsToLatLng, latLngToDcs } from '../../utils/dcsCoords';
-import type { LeafletMouseEvent } from 'leaflet';
 import type { DCSGroup, DCSUnit } from '../../types/dcs';
 
-// ── Constantes ─────────────────────────────────────────────────────────────
+// ── Couleurs & symboles ────────────────────────────────────────────────────
 const COAL_COLOR: Record<string, string> = {
   blue: '#3b82f6', red: '#ef4444', neutrals: '#94a3b8',
 };
@@ -17,33 +16,22 @@ const SKILL_ALPHA: Record<string, number> = {
   Excellent: 1.0, High: 0.85, Good: 0.7, Average: 0.55, Random: 0.5, Player: 1.0, Client: 1.0,
 };
 
-// ── Icônes SVG dynamiques ──────────────────────────────────────────────────
-function makeUnitIcon(coalition: string, category: string, selected: boolean, isLeader: boolean, skill?: string) {
+// ── Création icône HTML Leaflet native ─────────────────────────────────────
+function makeIcon(coalition: string, category: string, selected: boolean, isLeader: boolean, skill?: string) {
   const color = COAL_COLOR[coalition] ?? '#888';
   const sym = CAT_SYM[category] ?? '•';
   const alpha = SKILL_ALPHA[skill ?? 'Good'] ?? 0.7;
   const size = selected ? (isLeader ? 38 : 30) : (isLeader ? 30 : 22);
-  const borderW = selected ? 3 : (isLeader ? 2 : 1.5);
+  const borderW = selected ? 3 : isLeader ? 2 : 1.5;
   const borderColor = selected ? '#fbbf24' : color;
   const bg = selected ? '#0f172a' : `rgba(15,23,42,${0.7 + alpha * 0.3})`;
   const shadow = selected
     ? '0 0 12px 3px rgba(251,191,36,.6)'
     : isLeader ? '0 2px 8px rgba(0,0,0,.6)' : '0 1px 4px rgba(0,0,0,.5)';
-  const fontSize = isLeader ? Math.round(size * 0.48) : Math.round(size * 0.52);
-
-  return divIcon({
-    html: `<div style="
-      width:${size}px;height:${size}px;
-      border-radius:${isLeader ? '50%' : '4px'};
-      background:${bg};
-      border:${borderW}px solid ${borderColor};
-      display:flex;align-items:center;justify-content:center;
-      font-size:${fontSize}px;
-      box-shadow:${shadow};
-      cursor:pointer;
-      transition:all .12s;
-      opacity:${alpha};
-    ">${sym}</div>`,
+  const fs = isLeader ? Math.round(size * 0.48) : Math.round(size * 0.52);
+  const radius = isLeader ? '50%' : '4px';
+  return L.divIcon({
+    html: `<div style="width:${size}px;height:${size}px;border-radius:${radius};background:${bg};border:${borderW}px solid ${borderColor};display:flex;align-items:center;justify-content:center;font-size:${fs}px;box-shadow:${shadow};cursor:pointer;opacity:${alpha}">${sym}</div>`,
     className: '',
     iconSize: [size, size],
     iconAnchor: [size / 2, size / 2],
@@ -51,156 +39,17 @@ function makeUnitIcon(coalition: string, category: string, selected: boolean, is
 }
 
 function makeAirportIcon() {
-  return divIcon({
-    html: `<div style="
-      width:28px;height:28px;border-radius:6px;
-      background:#0f172a;border:2px solid #334155;
-      display:flex;align-items:center;justify-content:center;
-      font-size:14px;box-shadow:0 2px 6px rgba(0,0,0,.5);
-    ">✈</div>`,
+  return L.divIcon({
+    html: `<div style="width:28px;height:28px;border-radius:6px;background:#0f172a;border:2px solid #334155;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 2px 6px rgba(0,0,0,.5)">✈</div>`,
     className: '',
     iconSize: [28, 28],
     iconAnchor: [14, 14],
   });
 }
 
-// ── Sub-composants avec hooks (utilisés directement dans MapContainer) ──────
-
-function ClickHandler({ addMode, onMapClick }: {
-  addMode: boolean;
-  onMapClick: (e: LeafletMouseEvent) => void;
-}) {
-  const selectEntity = useMissionStore(s => s.selectEntity);
-  useMapEvents({
-    click: e => { if (addMode) onMapClick(e); else selectEntity(null); },
-  });
-  return null;
-}
-
-function FlyTo({ groups }: { groups: GroupEntry[] }) {
-  const selectedEntity = useMissionStore(s => s.selectedEntity);
-  const map = useMap();
-  const prev = useRef('');
-  useEffect(() => {
-    if (!selectedEntity || selectedEntity.type !== 'group') return;
-    const key = `${selectedEntity.coalition}.${selectedEntity.countryIdx}.${selectedEntity.category}.${selectedEntity.groupIdx}`;
-    if (key === prev.current) return;
-    prev.current = key;
-    const e = groups.find(g =>
-      g.coalition === selectedEntity.coalition &&
-      g.countryIdx === selectedEntity.countryIdx &&
-      g.category === selectedEntity.category &&
-      g.groupIdx === selectedEntity.groupIdx
-    );
-    if (!e) return;
-    const x = e.group.x ?? e.group.units?.[0]?.x ?? 0;
-    const y = e.group.y ?? e.group.units?.[0]?.y ?? 0;
-    map.flyTo(dcsToLatLng(x, y), Math.max(map.getZoom(), 9), { duration: 0.8 });
-  }, [selectedEntity, groups, map]);
-  return null;
-}
-
-// ── Marqueur d'une unité individuelle (PAS de hooks) ──────────────────────
-// Ce composant est un Marker pur — aucun hook React dedans pour éviter #310
-function UnitMarker({
-  unit, unitIdx, groupName, coalition, category, isLeader, isGroupSelected,
-  onSelectGroup, onMoveUnit,
-}: {
-  unit: DCSUnit;
-  unitIdx: number;
-  groupName: string;
-  coalition: string;
-  category: string;
-  isLeader: boolean;
-  isGroupSelected: boolean;
-  onSelectGroup: () => void;
-  onMoveUnit: (unitIdx: number, x: number, y: number) => void;
-}) {
-  const pos = dcsToLatLng(unit.x ?? 0, unit.y ?? 0);
-  const icon = makeUnitIcon(coalition, category, isGroupSelected && isLeader, isLeader, unit.skill);
-
-  return (
-    <Marker
-      position={pos}
-      icon={icon}
-      zIndexOffset={isGroupSelected ? (isLeader ? 300 : 200) : (isLeader ? 10 : 0)}
-      draggable
-      eventHandlers={{
-        click: e => { e.originalEvent.stopPropagation(); onSelectGroup(); },
-        dragend: e => {
-          const ll = (e.target as { getLatLng: () => { lat: number; lng: number } }).getLatLng();
-          const { x, y } = latLngToDcs(ll.lat, ll.lng);
-          onMoveUnit(unitIdx, x, y);
-        },
-      }}
-    >
-      <Tooltip direction="top" offset={[0, -14]} opacity={0.97}>
-        <div style={{ fontFamily: 'monospace', fontSize: 11, lineHeight: 1.5 }}>
-          {isLeader && (
-            <div style={{ fontWeight: 'bold', color: COAL_COLOR[coalition] ?? '#888' }}>
-              {groupName}
-            </div>
-          )}
-          <div style={{ color: '#cbd5e1' }}>{unit.name}</div>
-          <div style={{ color: '#64748b' }}>
-            {unit.type} · {unit.skill ?? '—'} · {Math.round(unit.alt ?? 0)}m
-          </div>
-          {isGroupSelected && isLeader && (
-            <div style={{ color: '#fbbf24', fontSize: 10 }}>✦ Sélectionné · glisser = déplacer</div>
-          )}
-        </div>
-      </Tooltip>
-    </Marker>
-  );
-}
-
-// ── Rendu d'un groupe (toutes ses unités + route) — SANS hooks ──────────────
-// Reçoit tout en props calculées, aucun hook ici pour éviter React #310
-function GroupMarkers({
-  entry, isSelected, waypoints, onSelect, onMove,
-}: {
-  entry: GroupEntry;
-  isSelected: boolean;
-  waypoints: [number, number][];
-  onSelect: () => void;
-  onMove: (unitIdx: number, x: number, y: number) => void;
-}) {
-  const { group, coalition, category } = entry;
-  const units = group.units ?? [];
-
-  return (
-    <>
-      {/* Route */}
-      {waypoints.length > 1 && (
-        <Polyline
-          positions={waypoints}
-          pathOptions={{
-            color: COAL_COLOR[coalition] ?? '#888',
-            weight: isSelected ? 2.5 : 1,
-            opacity: isSelected ? 0.85 : 0.25,
-            dashArray: isSelected ? '8 4' : '3 6',
-          }}
-        />
-      )}
-
-      {/* Chaque unité individuellement */}
-      {units.map((unit, ui) => (
-        <UnitMarker
-          key={`u${ui}`}
-          unit={unit}
-          unitIdx={ui}
-          groupName={group.name}
-          coalition={coalition}
-          category={category}
-          isLeader={ui === 0}
-          isGroupSelected={isSelected}
-          onSelectGroup={onSelect}
-          onMoveUnit={onMove}
-        />
-      ))}
-    </>
-  );
-}
+// ── Types ──────────────────────────────────────────────────────────────────
+interface Airport { id: number; name: string; lat: number; lon: number; parkingCount: number }
+interface UnitDBEntry { type: string; name: string }
 
 // ── Modal création de groupe ───────────────────────────────────────────────
 const COALITIONS = ['blue', 'red', 'neutrals'] as const;
@@ -208,8 +57,6 @@ const CATEGORIES = ['plane', 'helicopter', 'vehicle', 'ship', 'static'] as const
 const SKILLS_OPTS = ['Average', 'Good', 'High', 'Excellent', 'Random', 'Player', 'Client'] as const;
 type CoalType = (typeof COALITIONS)[number];
 type CatType = (typeof CATEGORIES)[number];
-
-interface UnitDBEntry { type: string; name: string }
 
 function AddGroupModal({ lat, lon, onClose }: { lat: number; lon: number; onClose: () => void }) {
   const miz = useMissionStore(s => s.miz);
@@ -225,9 +72,7 @@ function AddGroupModal({ lat, lon, onClose }: { lat: number; lon: number; onClos
 
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}data/units_db.json`)
-      .then(r => r.json())
-      .then(d => setUnitsDB(d as Record<string, UnitDBEntry[]>))
-      .catch(() => {});
+      .then(r => r.json()).then(d => setUnitsDB(d as Record<string, UnitDBEntry[]>)).catch(() => {});
   }, []);
 
   const unitList = useMemo(() => {
@@ -258,32 +103,22 @@ function AddGroupModal({ lat, lon, onClose }: { lat: number; lon: number; onClos
       heading: 0,
       skill,
     }));
-
     const newGroup: DCSGroup = {
-      groupId: id,
-      name,
-      x, y,
-      hidden: false,
-      units,
+      groupId: id, name, x, y, hidden: false, units,
       route: {
         points: [{
-          x, y,
-          alt: units[0].alt,
-          type: 'Turning Point',
+          x, y, alt: units[0].alt, type: 'Turning Point',
           action: 'Turning Point',
           speed: cat === 'plane' ? 200 : cat === 'helicopter' ? 60 : 10,
           name: 'WP1',
         }],
       },
     };
-
     addGroup(coal, 0, cat, newGroup);
     onClose();
   };
 
-  const COAL_BTN: Record<CoalType, string> = {
-    blue: '🔵 BLEU', red: '🔴 ROUGE', neutrals: '⚪ NEUTRE',
-  };
+  const COAL_BTN: Record<CoalType, string> = { blue: '🔵 BLEU', red: '🔴 ROUGE', neutrals: '⚪ NEUTRE' };
   const COAL_ACTIVE: Record<CoalType, string> = {
     blue: 'bg-blue-700 border-blue-500 text-white',
     red: 'bg-red-800 border-red-600 text-white',
@@ -295,16 +130,14 @@ function AddGroupModal({ lat, lon, onClose }: { lat: number; lon: number; onClos
       <div className="bg-slate-900 border border-slate-700 rounded-2xl w-96 max-h-[90vh] overflow-y-auto shadow-2xl">
         <div className="flex items-center justify-between px-5 py-4 border-b border-slate-700/60">
           <h2 className="font-bold text-slate-100">Nouveau groupe</h2>
-          <button onClick={onClose} className="text-slate-500 hover:text-white text-xl leading-none transition-colors">✕</button>
+          <button onClick={onClose} className="text-slate-500 hover:text-white text-xl leading-none">✕</button>
         </div>
-
         <div className="p-5 space-y-4 text-xs">
           <div>
             <label className="text-[10px] text-slate-500 uppercase tracking-wider block mb-1">Nom</label>
             <input className="w-full bg-slate-800 text-slate-100 px-3 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 text-sm"
               value={name} onChange={e => setName(e.target.value)} />
           </div>
-
           <div>
             <label className="text-[10px] text-slate-500 uppercase tracking-wider block mb-1.5">Coalition</label>
             <div className="flex gap-2">
@@ -316,7 +149,6 @@ function AddGroupModal({ lat, lon, onClose }: { lat: number; lon: number; onClos
               ))}
             </div>
           </div>
-
           <div>
             <label className="text-[10px] text-slate-500 uppercase tracking-wider block mb-1.5">Catégorie</label>
             <div className="flex gap-1 flex-wrap">
@@ -328,7 +160,6 @@ function AddGroupModal({ lat, lon, onClose }: { lat: number; lon: number; onClos
               ))}
             </div>
           </div>
-
           <div>
             <label className="text-[10px] text-slate-500 uppercase tracking-wider block mb-1">Type d'unité</label>
             <input className="w-full bg-slate-800 text-slate-400 px-2.5 py-1.5 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 mb-1.5"
@@ -339,7 +170,6 @@ function AddGroupModal({ lat, lon, onClose }: { lat: number; lon: number; onClos
             </select>
             <div className="text-[10px] text-slate-600 mt-1 font-mono">{unitType}</div>
           </div>
-
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="text-[10px] text-slate-500 uppercase tracking-wider block mb-1">Niveau IA</label>
@@ -355,17 +185,12 @@ function AddGroupModal({ lat, lon, onClose }: { lat: number; lon: number; onClos
                 value={count} onChange={e => setCount(Math.max(1, Math.min(16, parseInt(e.target.value) || 1)))} />
             </div>
           </div>
-
           <div className="bg-slate-800/50 rounded-lg px-3 py-2 text-[10px] text-slate-500 font-mono">
             📍 {lat.toFixed(5)}°N · {lon.toFixed(5)}°E
           </div>
         </div>
-
         <div className="px-5 pb-5 flex gap-2">
-          <button onClick={onClose}
-            className="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2 rounded-xl text-sm transition-colors">
-            Annuler
-          </button>
+          <button onClick={onClose} className="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2 rounded-xl text-sm transition-colors">Annuler</button>
           <button onClick={handleAdd} disabled={!unitType}
             className="flex-1 bg-blue-600 hover:bg-blue-500 disabled:bg-slate-700 disabled:text-slate-500 text-white py-2 rounded-xl text-sm font-medium transition-colors">
             ✚ Créer
@@ -376,14 +201,18 @@ function AddGroupModal({ lat, lon, onClose }: { lat: number; lon: number; onClos
   );
 }
 
-// ── Composant principal MapView ────────────────────────────────────────────
-interface Airport { id: number; name: string; lat: number; lon: number; parkingCount: number }
-
+// ── Composant principal MapView — Leaflet natif, zéro react-leaflet ─────────
 export default function MapView() {
   const miz = useMissionStore(s => s.miz);
   const selectedEntity = useMissionStore(s => s.selectedEntity);
   const selectEntity = useMissionStore(s => s.selectEntity);
   const updateGroup = useMissionStore(s => s.updateGroup);
+
+  const mapRef = useRef<L.Map | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const layersRef = useRef<{ markers: L.Marker[]; routes: L.Polyline[]; zones: L.Circle[]; airports: L.Marker[] }>({
+    markers: [], routes: [], zones: [], airports: [],
+  });
 
   const [airports, setAirports] = useState<Airport[]>([]);
   const [showAirports, setShowAirports] = useState(true);
@@ -392,46 +221,201 @@ export default function MapView() {
   const [addMode, setAddMode] = useState(false);
   const [pendingAdd, setPendingAdd] = useState<{ lat: number; lon: number } | null>(null);
 
-  useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}data/airports_caucasus.json`)
-      .then(r => r.json())
-      .then(d => setAirports(d as Airport[]))
-      .catch(() => setAirports([]));
-  }, []);
-
   const groups = useMemo(() => miz ? extractAllGroups(miz) : [], [miz]);
   const zones = useMemo(() => miz ? extractTriggerZones(miz) : [], [miz]);
+  const totalUnits = useMemo(() => groups.reduce((a, e) => a + (e.group.units?.length ?? 0), 0), [groups]);
 
-  // Calcul des waypoints pour chaque groupe — fait ici dans le parent, pas dans GroupMarkers
-  const groupWaypoints = useMemo(() =>
-    groups.map(entry =>
-      (entry.group.route?.points ?? [])
-        .filter(wp => wp.x != null && wp.y != null)
-        .map(wp => dcsToLatLng(wp.x, wp.y) as [number, number])
-    ),
-    [groups]
-  );
+  // ── Init carte Leaflet une seule fois ──────────────────────────────────
+  useEffect(() => {
+    if (mapRef.current || !containerRef.current) return;
 
+    const map = L.map(containerRef.current, {
+      center: [42.5, 41.5],
+      zoom: 7,
+      zoomControl: false,
+      preferCanvas: true,
+    });
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap',
+      maxZoom: 18,
+    }).addTo(map);
+
+    // Clic sur la carte
+    map.on('click', (e: L.LeafletMouseEvent) => {
+      const store = useMissionStore.getState();
+      if ((store as { _addMode?: boolean })._addMode) {
+        setPendingAdd({ lat: e.latlng.lat, lon: e.latlng.lng });
+        setAddMode(false);
+      } else {
+        store.selectEntity(null);
+      }
+    });
+
+    mapRef.current = map;
+    return () => { map.remove(); mapRef.current = null; };
+  }, []);
+
+  // ── Stocker addMode dans une ref accessible depuis le handler carte ─────
+  const addModeRef = useRef(false);
+  useEffect(() => {
+    addModeRef.current = addMode;
+    // Patch store pour que le handler map.on('click') y accède
+    (useMissionStore.getState() as unknown as Record<string, unknown>)._addMode = addMode;
+  }, [addMode]);
+
+  // ── Charger aérodromes ─────────────────────────────────────────────────
+  useEffect(() => {
+    fetch(`${import.meta.env.BASE_URL}data/airports_caucasus.json`)
+      .then(r => r.json()).then(d => setAirports(d as Airport[])).catch(() => setAirports([]));
+  }, []);
+
+  // ── FlyTo quand sélection change ───────────────────────────────────────
+  useEffect(() => {
+    if (!mapRef.current || !selectedEntity || selectedEntity.type !== 'group') return;
+    const entry = groups.find(g =>
+      g.coalition === selectedEntity.coalition &&
+      g.countryIdx === selectedEntity.countryIdx &&
+      g.category === selectedEntity.category &&
+      g.groupIdx === selectedEntity.groupIdx
+    );
+    if (!entry) return;
+    const x = entry.group.x ?? entry.group.units?.[0]?.x ?? 0;
+    const y = entry.group.y ?? entry.group.units?.[0]?.y ?? 0;
+    const [lat, lon] = dcsToLatLng(x, y);
+    mapRef.current.flyTo([lat, lon], Math.max(mapRef.current.getZoom(), 9), { duration: 0.8 });
+  }, [selectedEntity]);
+
+  // ── Rendu marqueurs unités ─────────────────────────────────────────────
   const handleMove = useCallback((entry: GroupEntry, unitIdx: number, x: number, y: number) => {
     const { group, coalition, countryIdx, category, groupIdx } = entry;
     const units = [...(group.units ?? [])];
     units[unitIdx] = { ...units[unitIdx], x, y };
-    const patch = unitIdx === 0
-      ? { ...group, x, y, units }
-      : { ...group, units };
+    const patch = unitIdx === 0 ? { ...group, x, y, units } : { ...group, units };
     updateGroup(coalition, countryIdx, category, groupIdx, patch);
   }, [updateGroup]);
 
-  const handleMapClick = useCallback((e: LeafletMouseEvent) => {
-    setPendingAdd({ lat: e.latlng.lat, lon: e.latlng.lng });
-    setAddMode(false);
-  }, []);
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
 
-  const totalUnits = useMemo(() => groups.reduce((a, e) => a + (e.group.units?.length ?? 0), 0), [groups]);
+    // Effacer anciens marqueurs
+    layersRef.current.markers.forEach(m => m.remove());
+    layersRef.current.routes.forEach(r => r.remove());
+    layersRef.current.markers = [];
+    layersRef.current.routes = [];
+
+    groups.forEach(entry => {
+      const isSelected =
+        selectedEntity?.type === 'group' &&
+        selectedEntity.coalition === entry.coalition &&
+        selectedEntity.countryIdx === entry.countryIdx &&
+        selectedEntity.category === entry.category &&
+        selectedEntity.groupIdx === entry.groupIdx;
+
+      // Route
+      if (showRoutes) {
+        const wps = (entry.group.route?.points ?? [])
+          .filter(wp => wp.x != null && wp.y != null)
+          .map(wp => dcsToLatLng(wp.x, wp.y) as L.LatLngTuple);
+        if (wps.length > 1) {
+          const poly = L.polyline(wps, {
+            color: COAL_COLOR[entry.coalition] ?? '#888',
+            weight: isSelected ? 2.5 : 1,
+            opacity: isSelected ? 0.85 : 0.25,
+            dashArray: isSelected ? '8 4' : '3 6',
+          }).addTo(map);
+          layersRef.current.routes.push(poly);
+        }
+      }
+
+      // Marqueurs par unité
+      (entry.group.units ?? []).forEach((unit, ui) => {
+        const isLeader = ui === 0;
+        const [lat, lon] = dcsToLatLng(unit.x ?? 0, unit.y ?? 0);
+        const icon = makeIcon(entry.coalition, entry.category, isSelected && isLeader, isLeader, unit.skill);
+
+        const marker = L.marker([lat, lon], {
+          icon,
+          draggable: true,
+          zIndexOffset: isSelected ? (isLeader ? 300 : 200) : (isLeader ? 10 : 0),
+        }).addTo(map);
+
+        // Tooltip HTML
+        const color = COAL_COLOR[entry.coalition] ?? '#888';
+        marker.bindTooltip(`
+          <div style="font-family:monospace;font-size:11px;line-height:1.5">
+            ${isLeader ? `<div style="font-weight:bold;color:${color}">${entry.group.name}</div>` : ''}
+            <div style="color:#cbd5e1">${unit.name ?? ''}</div>
+            <div style="color:#64748b">${unit.type ?? ''} · ${unit.skill ?? '—'} · ${Math.round(unit.alt ?? 0)}m</div>
+            ${isSelected && isLeader ? '<div style="color:#fbbf24;font-size:10px">✦ Sélectionné · glisser = déplacer</div>' : ''}
+          </div>`, { direction: 'top', offset: [0, -14], opacity: 0.97 });
+
+        marker.on('click', (e: L.LeafletMouseEvent) => {
+          e.originalEvent.stopPropagation();
+          selectEntity({
+            type: 'group',
+            coalition: entry.coalition,
+            countryIdx: entry.countryIdx,
+            category: entry.category,
+            groupIdx: entry.groupIdx,
+          });
+        });
+
+        marker.on('dragend', () => {
+          const ll = marker.getLatLng();
+          const { x, y } = latLngToDcs(ll.lat, ll.lng);
+          handleMove(entry, ui, x, y);
+        });
+
+        layersRef.current.markers.push(marker);
+      });
+    });
+  }, [groups, selectedEntity, showRoutes, handleMove, selectEntity]);
+
+  // ── Rendu aérodromes ───────────────────────────────────────────────────
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    layersRef.current.airports.forEach(m => m.remove());
+    layersRef.current.airports = [];
+    if (!showAirports) return;
+    airports.forEach(ap => {
+      const m = L.marker([ap.lat, ap.lon], { icon: makeAirportIcon() }).addTo(map);
+      m.bindTooltip(`<div style="font-family:monospace;font-size:11px;line-height:1.5">
+        <div style="font-weight:bold;color:#94a3b8">${ap.name}</div>
+        <div style="color:#64748b">${ap.parkingCount} slots parking</div>
+      </div>`, { direction: 'top', offset: [0, -16], opacity: 0.97 });
+      layersRef.current.airports.push(m);
+    });
+  }, [airports, showAirports]);
+
+  // ── Rendu zones trigger ────────────────────────────────────────────────
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    layersRef.current.zones.forEach(z => z.remove());
+    layersRef.current.zones = [];
+    if (!showZones) return;
+    zones.forEach(zone => {
+      if (!zone.x || !zone.y) return;
+      const [lat, lon] = dcsToLatLng(zone.x, zone.y);
+      const c = L.circle([lat, lon], {
+        radius: zone.radius ?? 1000,
+        color: '#f59e0b', fillColor: '#f59e0b', fillOpacity: 0.07, weight: 1.5, dashArray: '6 4',
+      }).addTo(map);
+      c.bindTooltip(`<span style="font-size:10px;color:#fbbf24;font-family:monospace">${zone.name}</span>`,
+        { permanent: true, direction: 'center', opacity: 0.9 });
+      layersRef.current.zones.push(c);
+    });
+  }, [zones, showZones]);
 
   return (
     <div className="relative h-full w-full">
-      {/* ── Overlay contrôles ── */}
+      {/* Carte */}
+      <div ref={containerRef} className="h-full w-full" style={{ background: '#0d1117' }} />
+
+      {/* Overlay contrôles */}
       <div className="absolute top-3 left-3 z-[500] flex flex-col gap-1.5 pointer-events-auto">
         <div className="bg-slate-900/90 backdrop-blur border border-slate-700/60 rounded-xl p-2 shadow-xl space-y-1">
           <div className="text-[9px] text-slate-600 uppercase tracking-widest px-1 mb-1">Affichage</div>
@@ -457,7 +441,7 @@ export default function MapView() {
         )}
       </div>
 
-      {/* ── Bouton ajouter ── */}
+      {/* Bouton ajouter */}
       {miz && (
         <div className="absolute top-3 right-14 z-[500]">
           {!addMode ? (
@@ -475,121 +459,10 @@ export default function MapView() {
         </div>
       )}
 
-      {/* ── Modal création ── */}
+      {/* Modal création */}
       {pendingAdd && miz && (
         <AddGroupModal lat={pendingAdd.lat} lon={pendingAdd.lon} onClose={() => setPendingAdd(null)} />
       )}
-
-      {/* ── Carte ── */}
-      <MapContainer
-        center={[42.5, 41.5]}
-        zoom={7}
-        style={{ height: '100%', width: '100%', background: '#0d1117' }}
-        zoomControl={false}
-      >
-        <TileLayer
-          url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-          attribution="© Esri"
-          maxZoom={18}
-        />
-
-        <ClickHandler addMode={addMode} onMapClick={handleMapClick} />
-        <FlyTo groups={groups} />
-
-        {/* Aérodromes */}
-        {showAirports && airports.map(ap => (
-          <Marker key={ap.id} position={[ap.lat, ap.lon]} icon={makeAirportIcon()}>
-            <Tooltip direction="top" offset={[0, -16]} opacity={0.97}>
-              <div style={{ fontFamily: 'monospace', fontSize: 11, lineHeight: 1.5 }}>
-                <div style={{ fontWeight: 'bold', color: '#94a3b8' }}>{ap.name}</div>
-                <div style={{ color: '#64748b' }}>{ap.parkingCount} slots parking</div>
-              </div>
-            </Tooltip>
-          </Marker>
-        ))}
-
-        {/* Zones trigger */}
-        {showZones && zones.map((zone, i) => {
-          if (!zone.x || !zone.y) return null;
-          return (
-            <Circle
-              key={i}
-              center={dcsToLatLng(zone.x, zone.y)}
-              radius={zone.radius ?? 1000}
-              pathOptions={{
-                color: '#f59e0b',
-                fillColor: '#f59e0b',
-                fillOpacity: 0.07,
-                weight: 1.5,
-                dashArray: '6 4',
-              }}
-            >
-              <Tooltip permanent direction="center" opacity={0.9}>
-                <span style={{ fontSize: 10, color: '#fbbf24', fontFamily: 'monospace' }}>{zone.name}</span>
-              </Tooltip>
-            </Circle>
-          );
-        })}
-
-        {/* Groupes — waypoints précalculés dans le parent, GroupMarkers sans hooks */}
-        {showRoutes && groups.map((entry, gi) => {
-          const isSelected =
-            selectedEntity?.type === 'group' &&
-            selectedEntity.coalition === entry.coalition &&
-            selectedEntity.countryIdx === entry.countryIdx &&
-            selectedEntity.category === entry.category &&
-            selectedEntity.groupIdx === entry.groupIdx;
-
-          return (
-            <GroupMarkers
-              key={`grp-${entry.coalition}-${entry.category}-${entry.groupIdx}-${gi}`}
-              entry={entry}
-              isSelected={isSelected}
-              waypoints={groupWaypoints[gi] ?? []}
-              onSelect={() => selectEntity({
-                type: 'group',
-                coalition: entry.coalition,
-                countryIdx: entry.countryIdx,
-                category: entry.category,
-                groupIdx: entry.groupIdx,
-              })}
-              onMove={(ui, x, y) => handleMove(entry, ui, x, y)}
-            />
-          );
-        })}
-
-        {/* Groupes avec routes cachées (toujours afficher les marqueurs) */}
-        {!showRoutes && groups.map((entry, gi) => {
-          const isSelected =
-            selectedEntity?.type === 'group' &&
-            selectedEntity.coalition === entry.coalition &&
-            selectedEntity.countryIdx === entry.countryIdx &&
-            selectedEntity.category === entry.category &&
-            selectedEntity.groupIdx === entry.groupIdx;
-
-          const units = entry.group.units ?? [];
-          return units.map((unit, ui) => (
-            <UnitMarker
-              key={`grp-${entry.coalition}-${entry.category}-${entry.groupIdx}-${gi}-u${ui}`}
-              unit={unit}
-              unitIdx={ui}
-              groupName={entry.group.name}
-              coalition={entry.coalition}
-              category={entry.category}
-              isLeader={ui === 0}
-              isGroupSelected={isSelected}
-              onSelectGroup={() => selectEntity({
-                type: 'group',
-                coalition: entry.coalition,
-                countryIdx: entry.countryIdx,
-                category: entry.category,
-                groupIdx: entry.groupIdx,
-              })}
-              onMoveUnit={(unitIdx, x, y) => handleMove(entry, unitIdx, x, y)}
-            />
-          ));
-        })}
-      </MapContainer>
     </div>
   );
 }
