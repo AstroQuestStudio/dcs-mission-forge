@@ -1,14 +1,14 @@
 /**
- * MapView — Architecture propre React 18 compatible Firefox.
+ * MapView — Zéro hook Zustand dans ce composant.
  *
- * Principe : React lit le store normalement via hooks, et passe les données
- * au moteur Leaflet via useEffect. Le moteur Leaflet ne touche JAMAIS React
- * ni Zustand directement — il envoie des CustomEvents DOM, que React capture
- * dans ses propres event handlers (onClick, addEventListener dans useEffect).
+ * React 19 + Zustand 5 : useSyncExternalStore plante avec useCallback (#310)
+ * lors des updates concurrentes en Firefox.
  *
- * Aucun setState ni getState() appelé depuis RAF/setTimeout/queueMicrotask.
+ * Solution : MapView subscribe au store via subscribe() (vanilla, pas de hook)
+ * et force un re-render via useReducer quand le store change.
+ * Le moteur Leaflet reste complètement isolé, communique via CustomEvents.
  */
-import { useEffect, useRef, useState, useMemo } from 'react';
+import { useEffect, useRef, useReducer, useMemo, useState } from 'react';
 import { useMissionStore, extractAllGroups, extractTriggerZones } from '../../store/missionStore';
 import { latLngToDcs } from '../../utils/dcsCoords';
 import { createMapEngine } from './mapEngine';
@@ -154,11 +154,11 @@ export default function MapView() {
   const containerRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<MapEngine | null>(null);
 
-  // ── Lire le store via hooks React normaux (pas de getState hors cycle) ──
-  const miz = useMissionStore(s => s.miz);
-  const selectedEntity = useMissionStore(s => s.selectedEntity);
+  // useReducer au lieu de useMissionStore hook — évite useSyncExternalStore
+  // qui plante avec React 19 + Zustand 5 en Firefox (#310)
+  const [, forceRender] = useReducer((n: number) => n + 1, 0);
 
-  // ── État local UI ──────────────────────────────────────────────────
+  // État local UI
   const [airports, setAirports] = useState<Airport[]>([]);
   const [showAirports, setShowAirports] = useState(true);
   const [showZones, setShowZones] = useState(true);
@@ -166,64 +166,64 @@ export default function MapView() {
   const [addMode, setAddMode] = useState(false);
   const [pendingAdd, setPendingAdd] = useState<{ lat: number; lon: number } | null>(null);
 
-  // ── Données dérivées (calculées dans le cycle React) ──────────────
+  // S'abonner au store Zustand via subscribe() vanilla (zéro hook Zustand)
+  // subscribe() appelle forceRender() qui est un dispatch React normal — safe
+  useEffect(() => {
+    return useMissionStore.subscribe(() => forceRender());
+  }, []);
+
+  // Lire l'état courant directement (pas de hook, lecture synchrone)
+  const storeState = useMissionStore.getState();
+  const miz = storeState.miz;
+  const selectedEntity = storeState.selectedEntity;
+
+  // Données dérivées (calculées dans le cycle React)
   const groups = useMemo(() => miz ? extractAllGroups(miz) : [], [miz]);
   const zones = useMemo(() => miz ? extractTriggerZones(miz) : [], [miz]);
   const totalUnits = useMemo(() => groups.reduce((a, e) => a + (e.group.units?.length ?? 0), 0), [groups]);
   const sel = selectedEntity?.type === 'group' ? selectedEntity : null;
 
-  // ── Charger aérodromes ─────────────────────────────────────────────
+  // Charger aérodromes
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}data/airports_caucasus.json`)
       .then(r => r.json()).then(d => setAirports(d as Airport[])).catch(() => {});
   }, []);
 
-  // ── Init moteur Leaflet (une seule fois) ───────────────────────────
+  // Init moteur Leaflet (une seule fois)
   useEffect(() => {
     if (!containerRef.current) return;
-
-    // Le moteur émet des CustomEvents DOM — capturés plus bas par des
-    // event listeners React-safe (dans useEffect avec addEventListener)
-    const emit = (name: string, detail: unknown) => {
-      // Pas de queueMicrotask — on dispatch directement sur window
-      // Les listeners React sont dans useEffect et appellent des actions
-      // Zustand via des handlers DOM natifs, pas depuis un call stack Leaflet
+    const emit = (name: string, detail: unknown) =>
       window.dispatchEvent(new CustomEvent(name, { detail }));
-    };
-
     const engine = createMapEngine(emit, import.meta.env.BASE_URL);
     engine.init(containerRef.current);
     engineRef.current = engine;
-
     return () => { engine.destroy(); engineRef.current = null; };
   }, []);
 
-  // ── Écouter les events du moteur sur window ────────────────────────
-  // Ces listeners sont des event listeners DOM normaux — React ne les
-  // "possède" pas, donc pas de problème d'ordre de hooks
+  // Écouter les events du moteur Leaflet
   useEffect(() => {
     const onSelect = (e: Event) => {
       const d = (e as CustomEvent).detail as { coalition: string; countryIdx: number; category: string; groupIdx: number };
-      // Appel Zustand depuis un event listener DOM = OK, pas dans un cycle React
       useMissionStore.getState().selectEntity({ type: 'group', ...d });
     };
-
     const onMove = (e: Event) => {
       const d = (e as CustomEvent).detail as { coalition: string; countryIdx: number; category: string; groupIdx: number; unitIdx: number; x: number; y: number };
       const s = useMissionStore.getState();
       if (!s.miz) return;
       const allGroups = extractAllGroups(s.miz);
-      const entry = allGroups.find(g => g.coalition === d.coalition && g.countryIdx === d.countryIdx && g.category === d.category && g.groupIdx === d.groupIdx);
+      const entry = allGroups.find(g =>
+        g.coalition === d.coalition && g.countryIdx === d.countryIdx &&
+        g.category === d.category && g.groupIdx === d.groupIdx
+      );
       if (!entry) return;
       const units = [...(entry.group.units ?? [])];
       units[d.unitIdx] = { ...units[d.unitIdx], x: d.x, y: d.y };
-      const patch = d.unitIdx === 0 ? { ...entry.group, x: d.x, y: d.y, units } : { ...entry.group, units };
+      const patch = d.unitIdx === 0
+        ? { ...entry.group, x: d.x, y: d.y, units }
+        : { ...entry.group, units };
       s.updateGroup(d.coalition, d.countryIdx, d.category, d.groupIdx, patch);
     };
-
-    const onMapClick = () => {
-      useMissionStore.getState().selectEntity(null);
-    };
+    const onMapClick = () => { useMissionStore.getState().selectEntity(null); };
 
     window.addEventListener('dcs:select', onSelect);
     window.addEventListener('dcs:move', onMove);
@@ -235,8 +235,7 @@ export default function MapView() {
     };
   }, []);
 
-  // ── Passer les données au moteur via useEffect (dans le cycle React) ──
-  // useEffect s'exécute APRÈS le render — jamais pendant un cycle React
+  // Passer les données au moteur après chaque render
   useEffect(() => {
     engineRef.current?.render({ groups, selectedEntity: sel, airports, showAirports, showZones, showRoutes, zones, addMode });
   }, [groups, sel, airports, showAirports, showZones, showRoutes, zones, addMode]);
