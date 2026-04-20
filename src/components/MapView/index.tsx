@@ -1,64 +1,25 @@
 /**
- * MapView — Leaflet natif uniquement, ZERO react-leaflet, ZERO hooks Zustand dans le rendu.
- * Toutes les interactions Leaflet (click, drag) passent par useMissionStore.getState()
- * pour éviter React error #310 (hooks appelés hors cycle React).
+ * MapView — Shell React.
+ * - Initialise mapEngine (Leaflet pur, zéro React)
+ * - Passe l'état du store au moteur via render()
+ * - Écoute les CustomEvents DOM émis par le moteur et met à jour le store
+ *   via queueMicrotask() pour rester hors du call stack Leaflet
  */
 import { useEffect, useRef, useState, useMemo } from 'react';
-import { flushSync } from 'react-dom';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
 import { useMissionStore, extractAllGroups, extractTriggerZones } from '../../store/missionStore';
-import { dcsToLatLng, latLngToDcs } from '../../utils/dcsCoords';
+import { latLngToDcs } from '../../utils/dcsCoords';
+import { createMapEngine } from './mapEngine';
+import type { MapEngine, RenderState } from './mapEngine';
 import type { DCSGroup, DCSUnit } from '../../types/dcs';
-
-// Wrapper sécurisé pour appeler le store depuis des events non-React (Leaflet)
-function callStore(fn: () => void) {
-  flushSync(fn);
-}
-
-// ── Palette ────────────────────────────────────────────────────────────────
-const COAL_COLOR: Record<string, string> = {
-  blue: '#3b82f6', red: '#ef4444', neutrals: '#94a3b8',
-};
-const CAT_SYM: Record<string, string> = {
-  plane: '✈', helicopter: '🚁', vehicle: '⬛', ship: '⚓', static: '▲',
-};
-const SKILL_ALPHA: Record<string, number> = {
-  Excellent: 1.0, High: 0.85, Good: 0.7, Average: 0.55, Random: 0.5, Player: 1.0, Client: 1.0,
-};
-
-function makeIcon(coalition: string, category: string, selected: boolean, isLeader: boolean, skill?: string) {
-  const color = COAL_COLOR[coalition] ?? '#888';
-  const sym = CAT_SYM[category] ?? '•';
-  const alpha = SKILL_ALPHA[skill ?? 'Good'] ?? 0.7;
-  const size = selected ? (isLeader ? 38 : 30) : (isLeader ? 30 : 22);
-  const borderW = selected ? 3 : isLeader ? 2 : 1.5;
-  const bc = selected ? '#fbbf24' : color;
-  const bg = selected ? '#0f172a' : `rgba(15,23,42,${0.7 + alpha * 0.3})`;
-  const shadow = selected ? '0 0 12px 3px rgba(251,191,36,.6)' : isLeader ? '0 2px 8px rgba(0,0,0,.6)' : '0 1px 4px rgba(0,0,0,.5)';
-  const fs = isLeader ? Math.round(size * 0.48) : Math.round(size * 0.52);
-  return L.divIcon({
-    html: `<div style="width:${size}px;height:${size}px;border-radius:${isLeader ? '50%' : '4px'};background:${bg};border:${borderW}px solid ${bc};display:flex;align-items:center;justify-content:center;font-size:${fs}px;box-shadow:${shadow};cursor:pointer;opacity:${alpha}">${sym}</div>`,
-    className: '',
-    iconSize: [size, size],
-    iconAnchor: [size / 2, size / 2],
-  });
-}
-
-function makeAirportIcon() {
-  return L.divIcon({
-    html: `<div style="width:28px;height:28px;border-radius:6px;background:#0f172a;border:2px solid #334155;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 2px 6px rgba(0,0,0,.5)">✈</div>`,
-    className: '',
-    iconSize: [28, 28],
-    iconAnchor: [14, 14],
-  });
-}
 
 // ── Types ──────────────────────────────────────────────────────────────────
 interface Airport { id: number; name: string; lat: number; lon: number; parkingCount: number }
 interface UnitDBEntry { type: string; name: string }
+const CAT_SYM: Record<string, string> = {
+  plane: '✈', helicopter: '🚁', vehicle: '⬛', ship: '⚓', static: '▲',
+};
 
-// ── Modal ajout groupe (composant React normal, pas de problème de hooks) ──
+// ── Modal ajout groupe ─────────────────────────────────────────────────────
 const COALITIONS = ['blue', 'red', 'neutrals'] as const;
 const CATEGORIES = ['plane', 'helicopter', 'vehicle', 'ship', 'static'] as const;
 const SKILLS = ['Average', 'Good', 'High', 'Excellent', 'Random', 'Player', 'Client'] as const;
@@ -102,6 +63,7 @@ function AddGroupModal({ lat, lon, onClose }: { lat: number; lon: number; onClos
       groupId: id, name, x, y, hidden: false, units,
       route: { points: [{ x, y, alt: units[0].alt, type: 'Turning Point', action: 'Turning Point', speed: cat === 'plane' ? 200 : 10, name: 'WP1' }] },
     };
+    // Appel store normal — on est dans un handler React (bouton)
     useMissionStore.getState().addGroup(coal, 0, cat, grp);
     onClose();
   };
@@ -188,244 +150,136 @@ function AddGroupModal({ lat, lon, onClose }: { lat: number; lon: number; onClos
   );
 }
 
-// ── MapView principal ──────────────────────────────────────────────────────
+// ── MapView ────────────────────────────────────────────────────────────────
 export default function MapView() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<L.Map | null>(null);
+  const engineRef = useRef<MapEngine | null>(null);
   const addModeRef = useRef(false);
 
-  // État local React uniquement — pas de hooks Zustand ici
+  // État local uniquement pour l'UI React
   const [airports, setAirports] = useState<Airport[]>([]);
   const [showAirports, setShowAirports] = useState(true);
   const [showZones, setShowZones] = useState(true);
   const [showRoutes, setShowRoutes] = useState(true);
   const [addMode, setAddMode] = useState(false);
   const [pendingAdd, setPendingAdd] = useState<{ lat: number; lon: number } | null>(null);
-
-  // Stats affichées dans l'overlay — lues via getState() pour ne pas créer de subscription
   const [statGroups, setStatGroups] = useState(0);
   const [statUnits, setStatUnits] = useState(0);
+  const [hasMiz, setHasMiz] = useState(false);
 
-  // Garder addMode en ref pour les handlers Leaflet
-  useEffect(() => { addModeRef.current = addMode; }, [addMode]);
+  addModeRef.current = addMode;
 
-  // ── Init carte une fois ──────────────────────────────────────────────
-  useEffect(() => {
-    if (mapRef.current || !containerRef.current) return;
-
-    const map = L.map(containerRef.current, {
-      center: [42.5, 41.5],
-      zoom: 7,
-      zoomControl: false,
-      preferCanvas: true,
-    });
-
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors',
-      maxZoom: 19,
-    }).addTo(map);
-
-    // Click carte — flushSync pour rester dans le cycle React
-    map.on('click', (e: L.LeafletMouseEvent) => {
-      if (addModeRef.current) {
-        flushSync(() => {
-          setPendingAdd({ lat: e.latlng.lat, lon: e.latlng.lng });
-          setAddMode(false);
-        });
-      } else {
-        callStore(() => useMissionStore.getState().selectEntity(null));
-      }
-    });
-
-    mapRef.current = map;
-    return () => { map.remove(); mapRef.current = null; };
-  }, []);
-
-  // ── Charger aérodromes ───────────────────────────────────────────────
+  // ── Charger aérodromes ─────────────────────────────────────────────
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}data/airports_caucasus.json`)
       .then(r => r.json()).then(d => setAirports(d as Airport[])).catch(() => {});
   }, []);
 
-  // ── Subscribe au store Zustand de façon impérative (pas de hook) ─────
-  // Redessiner la carte quand le store change
+  // ── Initialiser le moteur Leaflet ──────────────────────────────────
   useEffect(() => {
-    // Dessiner immédiatement
-    redrawAll();
+    if (!containerRef.current) return;
 
-    // Subscribe aux changements
-    const unsub = useMissionStore.subscribe(() => {
-      redrawAll();
-    });
-    return unsub;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showAirports, showZones, showRoutes, airports]);
+    // Émetteur d'événements DOM vers React
+    const emit = (name: string, detail: unknown) => {
+      // queueMicrotask garantit qu'on est hors du call stack Leaflet
+      // avant de toucher React/Zustand
+      queueMicrotask(() => {
+        containerRef.current?.dispatchEvent(new CustomEvent(name, { detail, bubbles: false }));
+      });
+    };
 
-  // ── Layers refs (gérés impérativement, jamais via React state) ────────
-  const markersLayerRef = useRef<L.LayerGroup | null>(null);
-  const routesLayerRef = useRef<L.LayerGroup | null>(null);
-  const zonesLayerRef = useRef<L.LayerGroup | null>(null);
-  const airportsLayerRef = useRef<L.LayerGroup | null>(null);
+    const engine = createMapEngine(emit);
+    engine.init(containerRef.current);
+    engineRef.current = engine;
 
-  function ensureLayers(map: L.Map) {
-    if (!markersLayerRef.current) { markersLayerRef.current = L.layerGroup().addTo(map); }
-    if (!routesLayerRef.current) { routesLayerRef.current = L.layerGroup().addTo(map); }
-    if (!zonesLayerRef.current) { zonesLayerRef.current = L.layerGroup().addTo(map); }
-    if (!airportsLayerRef.current) { airportsLayerRef.current = L.layerGroup().addTo(map); }
-  }
+    return () => {
+      engine.destroy();
+      engineRef.current = null;
+    };
+  }, []);
 
-  function redrawAll() {
-    const map = mapRef.current;
-    if (!map) return;
-    ensureLayers(map);
+  // ── Écouter les événements du moteur ──────────────────────────────
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
 
-    const state = useMissionStore.getState();
-    const { miz, selectedEntity } = state;
+    const onSelect = (e: Event) => {
+      const d = (e as CustomEvent).detail as { coalition: string; countryIdx: number; category: string; groupIdx: number };
+      useMissionStore.getState().selectEntity({ type: 'group', ...d });
+    };
 
-    if (!miz) {
-      markersLayerRef.current!.clearLayers();
-      routesLayerRef.current!.clearLayers();
-      zonesLayerRef.current!.clearLayers();
-      airportsLayerRef.current!.clearLayers();
-      flushSync(() => { setStatGroups(0); setStatUnits(0); });
-      return;
-    }
+    const onMove = (e: Event) => {
+      const d = (e as CustomEvent).detail as { coalition: string; countryIdx: number; category: string; groupIdx: number; unitIdx: number; x: number; y: number };
+      const s = useMissionStore.getState();
+      const groups = extractAllGroups(s.miz!);
+      const entry = groups.find(g => g.coalition === d.coalition && g.countryIdx === d.countryIdx && g.category === d.category && g.groupIdx === d.groupIdx);
+      if (!entry) return;
+      const units = [...(entry.group.units ?? [])];
+      units[d.unitIdx] = { ...units[d.unitIdx], x: d.x, y: d.y };
+      const patch = d.unitIdx === 0 ? { ...entry.group, x: d.x, y: d.y, units } : { ...entry.group, units };
+      s.updateGroup(d.coalition, d.countryIdx, d.category, d.groupIdx, patch);
+    };
 
-    const groups = extractAllGroups(miz);
-    const zones = extractTriggerZones(miz);
+    const onMapClick = () => {
+      if (addModeRef.current) return; // géré par le click sur la carte ci-dessous
+      useMissionStore.getState().selectEntity(null);
+    };
 
-    let totalUnits = 0;
-    groups.forEach(e => { totalUnits += e.group.units?.length ?? 0; });
-    // flushSync pour que les setState locaux soient dans le cycle React
-    flushSync(() => {
+    el.addEventListener('dcs:select', onSelect);
+    el.addEventListener('dcs:move', onMove);
+    el.addEventListener('dcs:mapclick', onMapClick);
+    return () => {
+      el.removeEventListener('dcs:select', onSelect);
+      el.removeEventListener('dcs:move', onMove);
+      el.removeEventListener('dcs:mapclick', onMapClick);
+    };
+  }, []);
+
+  // ── Subscribe au store → passer au moteur ─────────────────────────
+  // Le moteur est appelé via requestAnimationFrame pour rester hors
+  // du cycle de render React
+  useEffect(() => {
+    const renderToEngine = () => {
+      const engine = engineRef.current;
+      if (!engine) return;
+      const { miz, selectedEntity } = useMissionStore.getState();
+
+      if (!miz) {
+        setHasMiz(false);
+        setStatGroups(0);
+        setStatUnits(0);
+        engine.render({ groups: [], selectedEntity: null, airports, showAirports, showZones, showRoutes, zones: [], addMode });
+        return;
+      }
+
+      const groups = extractAllGroups(miz);
+      const zones = extractTriggerZones(miz);
+      const totalUnits = groups.reduce((a, e) => a + (e.group.units?.length ?? 0), 0);
+
+      setHasMiz(true);
       setStatGroups(groups.length);
       setStatUnits(totalUnits);
+
+      const sel = selectedEntity?.type === 'group' ? selectedEntity : null;
+      engine.render({ groups, selectedEntity: sel, airports, showAirports, showZones, showRoutes, zones, addMode });
+    };
+
+    // Render initial (différé pour laisser le moteur s'initialiser)
+    const t = setTimeout(renderToEngine, 50);
+
+    // Subscribe aux changements du store
+    const unsub = useMissionStore.subscribe(() => {
+      requestAnimationFrame(renderToEngine);
     });
 
-    // Redessiner marqueurs + routes
-    markersLayerRef.current!.clearLayers();
-    routesLayerRef.current!.clearLayers();
-
-    groups.forEach(entry => {
-      const isSelected =
-        selectedEntity?.type === 'group' &&
-        selectedEntity.coalition === entry.coalition &&
-        selectedEntity.countryIdx === entry.countryIdx &&
-        selectedEntity.category === entry.category &&
-        selectedEntity.groupIdx === entry.groupIdx;
-
-      // Route
-      if (showRoutes) {
-        const wps = (entry.group.route?.points ?? [])
-          .filter(wp => wp.x != null && wp.y != null)
-          .map(wp => dcsToLatLng(wp.x, wp.y) as L.LatLngTuple);
-        if (wps.length > 1) {
-          L.polyline(wps, {
-            color: COAL_COLOR[entry.coalition] ?? '#888',
-            weight: isSelected ? 2.5 : 1,
-            opacity: isSelected ? 0.85 : 0.25,
-            dashArray: isSelected ? '8 4' : '3 6',
-          }).addTo(routesLayerRef.current!);
-        }
-      }
-
-      // Marqueurs — un par unité
-      (entry.group.units ?? []).forEach((unit, ui) => {
-        const isLeader = ui === 0;
-        const [lat, lon] = dcsToLatLng(unit.x ?? 0, unit.y ?? 0);
-        const icon = makeIcon(entry.coalition, entry.category, isSelected && isLeader, isLeader, unit.skill);
-        const marker = L.marker([lat, lon], {
-          icon,
-          draggable: true,
-          zIndexOffset: isSelected ? (isLeader ? 300 : 200) : (isLeader ? 10 : 0),
-        });
-
-        const color = COAL_COLOR[entry.coalition] ?? '#888';
-        marker.bindTooltip(`<div style="font-family:monospace;font-size:11px;line-height:1.5">
-          ${isLeader ? `<div style="font-weight:bold;color:${color}">${entry.group.name}</div>` : ''}
-          <div style="color:#cbd5e1">${unit.name ?? ''}</div>
-          <div style="color:#64748b">${unit.type ?? ''} · ${unit.skill ?? '—'} · ${Math.round(unit.alt ?? 0)}m</div>
-          ${isSelected && isLeader ? '<div style="color:#fbbf24;font-size:10px">✦ Sélectionné · glisser = déplacer</div>' : ''}
-        </div>`, { direction: 'top', offset: [0, -14], opacity: 0.97 });
-
-        // Handlers via flushSync pour rester dans le cycle React
-        marker.on('click', (e: L.LeafletMouseEvent) => {
-          L.DomEvent.stopPropagation(e);
-          callStore(() => useMissionStore.getState().selectEntity({
-            type: 'group',
-            coalition: entry.coalition,
-            countryIdx: entry.countryIdx,
-            category: entry.category,
-            groupIdx: entry.groupIdx,
-          }));
-        });
-
-        marker.on('dragend', () => {
-          const ll = marker.getLatLng();
-          const { x, y } = latLngToDcs(ll.lat, ll.lng);
-          const { group, coalition, countryIdx, category, groupIdx } = entry;
-          const units = [...(group.units ?? [])];
-          units[ui] = { ...units[ui], x, y };
-          const patch = ui === 0 ? { ...group, x, y, units } : { ...group, units };
-          callStore(() => useMissionStore.getState().updateGroup(coalition, countryIdx, category, groupIdx, patch));
-        });
-
-        marker.addTo(markersLayerRef.current!);
-      });
-    });
-
-    // Zones trigger
-    zonesLayerRef.current!.clearLayers();
-    if (showZones) {
-      zones.forEach(zone => {
-        if (!zone.x || !zone.y) return;
-        const [lat, lon] = dcsToLatLng(zone.x, zone.y);
-        const c = L.circle([lat, lon], {
-          radius: zone.radius ?? 1000,
-          color: '#f59e0b', fillColor: '#f59e0b', fillOpacity: 0.07, weight: 1.5, dashArray: '6 4',
-        });
-        c.bindTooltip(`<span style="font-size:10px;color:#fbbf24;font-family:monospace">${zone.name}</span>`,
-          { permanent: true, direction: 'center', opacity: 0.9 });
-        c.addTo(zonesLayerRef.current!);
-      });
-    }
-
-    // Aérodromes
-    airportsLayerRef.current!.clearLayers();
-    if (showAirports) {
-      airports.forEach(ap => {
-        const m = L.marker([ap.lat, ap.lon], { icon: makeAirportIcon() });
-        m.bindTooltip(`<div style="font-family:monospace;font-size:11px;line-height:1.5">
-          <div style="font-weight:bold;color:#94a3b8">${ap.name}</div>
-          <div style="color:#64748b">${ap.parkingCount} slots parking</div>
-        </div>`, { direction: 'top', offset: [0, -16], opacity: 0.97 });
-        m.addTo(airportsLayerRef.current!);
-      });
-    }
-
-    // FlyTo si sélection vient de changer
-    if (selectedEntity?.type === 'group') {
-      const entry = groups.find(g =>
-        g.coalition === selectedEntity.coalition &&
-        g.countryIdx === selectedEntity.countryIdx &&
-        g.category === selectedEntity.category &&
-        g.groupIdx === selectedEntity.groupIdx
-      );
-      if (entry) {
-        const x = entry.group.x ?? entry.group.units?.[0]?.x ?? 0;
-        const y = entry.group.y ?? entry.group.units?.[0]?.y ?? 0;
-        const [lat, lon] = dcsToLatLng(x, y);
-        const currentCenter = map.getCenter();
-        const dist = Math.abs(currentCenter.lat - lat) + Math.abs(currentCenter.lng - lon);
-        if (dist > 0.5) {
-          map.flyTo([lat, lon], Math.max(map.getZoom(), 9), { duration: 0.8 });
-        }
-      }
-    }
-  }
+    return () => { clearTimeout(t); unsub(); };
+  // Re-subscribe si les options d'affichage changent
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [airports, showAirports, showZones, showRoutes, addMode]);
 
   return (
     <div className="relative h-full w-full">
+      {/* Conteneur carte Leaflet */}
       <div ref={containerRef} className="h-full w-full" style={{ background: '#0d1117' }} />
 
       {/* Overlay contrôles */}
@@ -455,7 +309,7 @@ export default function MapView() {
       </div>
 
       {/* Bouton ajouter */}
-      {useMissionStore.getState().miz && (
+      {hasMiz && (
         <div className="absolute top-3 right-14 z-[500]">
           {!addMode ? (
             <button onClick={() => setAddMode(true)}
@@ -470,6 +324,23 @@ export default function MapView() {
             </div>
           )}
         </div>
+      )}
+
+      {/* Capture click en mode ajout — overlay transparent par-dessus la carte */}
+      {addMode && (
+        <div
+          className="absolute inset-0 z-[600] cursor-crosshair"
+          onClick={e => {
+            const engine = engineRef.current;
+            if (!engine) return;
+            const rect = containerRef.current!.getBoundingClientRect();
+            const coords = engine.containerPointToLatLng(e.clientX - rect.left, e.clientY - rect.top);
+            if (coords) {
+              setPendingAdd({ lat: coords.lat, lon: coords.lon });
+              setAddMode(false);
+            }
+          }}
+        />
       )}
 
       {/* Modal création */}
