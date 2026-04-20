@@ -191,7 +191,7 @@ export default function MapView() {
       window.dispatchEvent(new CustomEvent(name, { detail }));
     };
 
-    const engine = createMapEngine(emit);
+    const engine = createMapEngine(emit, import.meta.env.BASE_URL);
     engine.init(containerRef.current);
     engineRef.current = engine;
 

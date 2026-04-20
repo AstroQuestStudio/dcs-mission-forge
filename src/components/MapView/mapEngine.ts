@@ -2,20 +2,14 @@
  * mapEngine.ts — Moteur Leaflet complètement isolé de React.
  * Aucun import React ici. Communication avec React via CustomEvents DOM.
  *
- * Événements émis vers React :
- *   dcs:select  { coalition, countryIdx, category, groupIdx }
- *   dcs:move    { coalition, countryIdx, category, groupIdx, unitIdx, x, y }
- *   dcs:addrequest { lat, lon }
- *
- * Méthodes publiques appelées par React :
- *   init(container)  — crée la carte
- *   destroy()        — détruit la carte
- *   render(state)    — redessine tout (appelé quand le store change)
- *   flyTo(lat, lon)  — centre la carte
+ * CRITIQUE : safeEmit utilise setTimeout(0) pour sortir de la call stack
+ * Leaflet avant de dispatcher. Sans ça, Leaflet fire des events pendant
+ * _initEvents → Zustand notifie synchroniquement → React useCallback → #310.
  */
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { dcsToLatLng, latLngToDcs } from '../../utils/dcsCoords';
+import { getIconForUnit } from '../../utils/natoIcons';
 import type { GroupEntry } from '../../store/missionStore';
 import type { DCSUnit } from '../../types/dcs';
 
@@ -25,31 +19,46 @@ const COAL_COLOR: Record<string, string> = {
 const CAT_SYM: Record<string, string> = {
   plane: '✈', helicopter: '🚁', vehicle: '⬛', ship: '⚓', static: '▲',
 };
-const SKILL_ALPHA: Record<string, number> = {
-  Excellent: 1.0, High: 0.85, Good: 0.7, Average: 0.55, Random: 0.5, Player: 1.0, Client: 1.0,
-};
 
-function makeIcon(coalition: string, category: string, selected: boolean, isLeader: boolean, skill?: string) {
+function makeNatoIcon(
+  coalition: string,
+  category: string,
+  unitType: string,
+  selected: boolean,
+  isLeader: boolean,
+  baseUrl: string,
+): L.DivIcon {
+  const iconFile = getIconForUnit(unitType, category, coalition);
   const color = COAL_COLOR[coalition] ?? '#888';
-  const sym = CAT_SYM[category] ?? '•';
-  const alpha = SKILL_ALPHA[skill ?? 'Good'] ?? 0.7;
-  const size = selected ? (isLeader ? 38 : 30) : (isLeader ? 30 : 22);
+  const size = selected ? (isLeader ? 42 : 34) : (isLeader ? 34 : 26);
   const borderW = selected ? 3 : isLeader ? 2 : 1.5;
   const bc = selected ? '#fbbf24' : color;
-  const bg = selected ? '#0f172a' : `rgba(15,23,42,${0.7 + alpha * 0.3})`;
-  const shadow = selected ? '0 0 12px 3px rgba(251,191,36,.6)' : isLeader ? '0 2px 8px rgba(0,0,0,.6)' : '0 1px 4px rgba(0,0,0,.5)';
-  const fs = isLeader ? Math.round(size * 0.48) : Math.round(size * 0.52);
+  const shadow = selected
+    ? '0 0 14px 4px rgba(251,191,36,.7)'
+    : isLeader ? '0 2px 8px rgba(0,0,0,.7)' : '0 1px 4px rgba(0,0,0,.5)';
+  const sym = CAT_SYM[category] ?? '?';
+  const imgSize = size - 4;
+
   return L.divIcon({
-    html: `<div style="width:${size}px;height:${size}px;border-radius:${isLeader ? '50%' : '4px'};background:${bg};border:${borderW}px solid ${bc};display:flex;align-items:center;justify-content:center;font-size:${fs}px;box-shadow:${shadow};cursor:pointer;opacity:${alpha}">${sym}</div>`,
+    html: `<div style="width:${size}px;height:${size}px;border-radius:${isLeader ? '50%' : '6px'};background:#0f172a;border:${borderW}px solid ${bc};box-shadow:${shadow};overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;">
+      <img src="${baseUrl}data/nato-icons/${iconFile}" width="${imgSize}" height="${imgSize}"
+        style="object-fit:contain;display:block"
+        onerror="this.style.display='none';this.parentElement.style.fontSize='${Math.round(size * 0.5)}px';this.parentElement.style.color='#e2e8f0';this.parentElement.innerText='${sym}'"
+      />
+    </div>`,
     className: '',
     iconSize: [size, size],
     iconAnchor: [size / 2, size / 2],
   });
 }
 
-function makeAirportIcon() {
+function makeAirportIcon(baseUrl: string) {
   return L.divIcon({
-    html: `<div style="width:28px;height:28px;border-radius:6px;background:#0f172a;border:2px solid #334155;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 2px 6px rgba(0,0,0,.5)">✈</div>`,
+    html: `<div style="width:28px;height:28px;border-radius:6px;background:#0f172a;border:2px solid #334155;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.5);overflow:hidden;">
+      <img src="${baseUrl}data/nato-icons/airdrome_class_1.png" width="22" height="22" style="object-fit:contain"
+        onerror="this.style.display='none';this.parentElement.style.fontSize='14px';this.parentElement.innerText='✈'"
+      />
+    </div>`,
     className: '',
     iconSize: [28, 28],
     iconAnchor: [14, 14],
@@ -75,7 +84,16 @@ export interface MapEngine {
   containerPointToLatLng(x: number, y: number): { lat: number; lon: number } | null;
 }
 
-export function createMapEngine(emitEvent: (name: string, detail: unknown) => void): MapEngine {
+export function createMapEngine(
+  emitEvent: (name: string, detail: unknown) => void,
+  baseUrl: string = '/',
+): MapEngine {
+  // setTimeout(0) = nouveau macrotask JS = sorti de la call stack Leaflet
+  // Garantit que Zustand n'est jamais notifié depuis _initEvents ou initialize()
+  const safeEmit = (name: string, detail: unknown) => {
+    setTimeout(() => emitEvent(name, detail), 0);
+  };
+
   let map: L.Map | null = null;
   let markersLayer: L.LayerGroup | null = null;
   let routesLayer: L.LayerGroup | null = null;
@@ -104,8 +122,7 @@ export function createMapEngine(emitEvent: (name: string, detail: unknown) => vo
       airportsLayer = L.layerGroup().addTo(map);
 
       map.on('click', () => {
-        // Sera filtré par addMode côté React
-        emitEvent('dcs:mapclick', {});
+        safeEmit('dcs:mapclick', {});
       });
     },
 
@@ -149,7 +166,14 @@ export function createMapEngine(emitEvent: (name: string, detail: unknown) => vo
         (entry.group.units ?? []).forEach((unit: DCSUnit, ui: number) => {
           const isLeader = ui === 0;
           const [lat, lon] = dcsToLatLng(unit.x ?? 0, unit.y ?? 0);
-          const icon = makeIcon(entry.coalition, entry.category, isSelected && isLeader, isLeader, unit.skill);
+          const icon = makeNatoIcon(
+            entry.coalition,
+            entry.category,
+            unit.type ?? '',
+            isSelected && isLeader,
+            isLeader,
+            baseUrl,
+          );
           const marker = L.marker([lat, lon], {
             icon,
             draggable: true,
@@ -166,7 +190,7 @@ export function createMapEngine(emitEvent: (name: string, detail: unknown) => vo
 
           marker.on('click', (e) => {
             L.DomEvent.stopPropagation(e);
-            emitEvent('dcs:select', {
+            safeEmit('dcs:select', {
               coalition: entry.coalition,
               countryIdx: entry.countryIdx,
               category: entry.category,
@@ -177,7 +201,7 @@ export function createMapEngine(emitEvent: (name: string, detail: unknown) => vo
           marker.on('dragend', () => {
             const ll = marker.getLatLng();
             const { x, y } = latLngToDcs(ll.lat, ll.lng);
-            emitEvent('dcs:move', {
+            safeEmit('dcs:move', {
               coalition: entry.coalition,
               countryIdx: entry.countryIdx,
               category: entry.category,
@@ -206,7 +230,6 @@ export function createMapEngine(emitEvent: (name: string, detail: unknown) => vo
             const x = entry.group.x ?? entry.group.units?.[0]?.x ?? 0;
             const y = entry.group.y ?? entry.group.units?.[0]?.y ?? 0;
             const [lat, lon] = dcsToLatLng(x, y);
-            // Utiliser setTimeout pour ne pas interférer avec le render en cours
             setTimeout(() => { map?.flyTo([lat, lon], Math.max(map.getZoom(), 9), { duration: 0.8 }); }, 0);
           }
         }
@@ -234,7 +257,7 @@ export function createMapEngine(emitEvent: (name: string, detail: unknown) => vo
       airportsLayer.clearLayers();
       if (showAirports) {
         airports.forEach(ap => {
-          const m = L.marker([ap.lat, ap.lon], { icon: makeAirportIcon() });
+          const m = L.marker([ap.lat, ap.lon], { icon: makeAirportIcon(baseUrl) });
           m.bindTooltip(`<div style="font-family:monospace;font-size:11px;line-height:1.5">
             <div style="font-weight:bold;color:#94a3b8">${ap.name}</div>
             <div style="color:#64748b">${ap.parkingCount} slots parking</div>
