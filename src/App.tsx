@@ -9,15 +9,17 @@ import WeatherEditor from './components/WeatherEditor';
 import MistPanel from './components/MistPanel';
 import MissionSettings from './components/MissionSettings';
 import TriggerEditor from './components/TriggerEditor';
+import MissionGenerator from './components/MissionGenerator';
 import type { ActiveTab } from './store/missionStore';
 
 const TABS: { id: ActiveTab; label: string; icon: string; desc: string }[] = [
-  { id: 'map',      label: 'Carte',    icon: '🗺', desc: 'Vue carte interactive' },
-  { id: 'groups',   label: 'Groupes',  icon: '✈', desc: 'Groupes & unités' },
-  { id: 'triggers', label: 'Triggers', icon: '⚡', desc: 'Zones & règles trigger' },
-  { id: 'weather',  label: 'Météo',    icon: '🌤', desc: 'Conditions météo' },
-  { id: 'mist',     label: 'MIST',     icon: '🔧', desc: 'Scripts MIST no-code' },
-  { id: 'settings', label: 'Mission',  icon: '⚙', desc: 'Infos & paramètres' },
+  { id: 'map',       label: 'Carte',     icon: '🗺', desc: 'Vue carte interactive' },
+  { id: 'groups',    label: 'Groupes',   icon: '✈', desc: 'Groupes & unités' },
+  { id: 'triggers',  label: 'Triggers',  icon: '⚡', desc: 'Zones & règles trigger' },
+  { id: 'weather',   label: 'Météo',     icon: '🌤', desc: 'Conditions météo' },
+  { id: 'mist',      label: 'MIST',      icon: '🔧', desc: 'Scripts MIST no-code' },
+  { id: 'generator', label: 'Générateur',icon: '🎯', desc: 'Générateur de mission avancé' },
+  { id: 'settings',  label: 'Mission',   icon: '⚙', desc: 'Infos & paramètres' },
 ];
 
 const COAL_COLORS: Record<string, string> = {
@@ -194,7 +196,7 @@ export default function App() {
       )}
 
       {/* ── Écran d'accueil ── */}
-      {!miz && (
+      {!miz && activeTab !== 'generator' && (
         <div
           className="flex-1 flex items-center justify-center bg-slate-950"
           onDragOver={e => { e.preventDefault(); setIsDragOver(true); }}
@@ -206,12 +208,12 @@ export default function App() {
             <div className="text-center mb-8">
               <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl flex items-center justify-center text-4xl font-black text-white shadow-2xl mx-auto mb-5">F</div>
               <h1 className="text-3xl font-bold text-slate-100 mb-2">DCS Mission Forge</h1>
-              <p className="text-slate-400 text-sm">Éditeur de missions DCS World · Théâtre Caucase · Support MIST</p>
+              <p className="text-slate-400 text-sm">Éditeur de missions DCS World · Support MIST · Générateur intégré</p>
             </div>
 
             {/* Drop zone */}
             <div
-              className={`border-2 border-dashed rounded-2xl p-10 text-center transition-all cursor-pointer mb-6 ${
+              className={`border-2 border-dashed rounded-2xl p-10 text-center transition-all cursor-pointer mb-4 ${
                 isDragOver
                   ? 'border-blue-400 bg-blue-950/40 scale-[1.01]'
                   : 'border-slate-700 bg-slate-900/60 hover:border-slate-500 hover:bg-slate-900'
@@ -224,6 +226,21 @@ export default function App() {
               </div>
               <div className="text-slate-500 text-sm">ou cliquez pour parcourir</div>
             </div>
+
+            {/* Raccourci Générateur */}
+            <button
+              onClick={() => setActiveTab('generator')}
+              className="w-full mb-4 rounded-2xl border border-amber-700/40 bg-amber-950/20 hover:bg-amber-950/40 transition-all px-6 py-4 text-left group"
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-3xl">🎯</span>
+                <div>
+                  <div className="font-bold text-amber-300 group-hover:text-amber-200">Générateur de mission avancé</div>
+                  <div className="text-sm text-slate-500 mt-0.5">Configurez coalitions, époque, type de mission, météo, features — sans fichier .miz</div>
+                </div>
+                <span className="ml-auto text-amber-700 group-hover:text-amber-500 text-xl">→</span>
+              </div>
+            </button>
 
             {/* Features */}
             <div className="grid grid-cols-3 gap-3 text-center text-xs text-slate-400">
@@ -238,6 +255,29 @@ export default function App() {
                   <div className="text-slate-500">{f.desc}</div>
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Générateur standalone (sans miz) ── */}
+      {!miz && activeTab === 'generator' && (
+        <div className="flex-1 flex overflow-hidden">
+          <div className="w-80 bg-slate-900 border-r border-slate-700/60 flex flex-col overflow-hidden">
+            <MissionGenerator />
+          </div>
+          <div className="flex-1 flex items-center justify-center bg-slate-950">
+            <div className="text-center text-slate-600">
+              <div className="text-6xl mb-4">🎯</div>
+              <div className="text-lg font-bold text-slate-500 mb-2">Générateur de mission</div>
+              <div className="text-sm text-slate-600 max-w-sm">
+                Configurez votre mission dans le panneau de gauche puis exportez le briefing.
+                <br/><br/>
+                Pour éditer un fichier .miz existant,{' '}
+                <button onClick={() => { setActiveTab('map'); fileRef.current?.click(); }} className="text-blue-500 hover:text-blue-400 underline">
+                  ouvrez un fichier .miz
+                </button>.
+              </div>
             </div>
           </div>
         </div>
@@ -276,11 +316,12 @@ export default function App() {
                 </span>
               </div>
               <div className="flex-1 overflow-hidden">
-                {activeTab === 'groups'   && <GroupList />}
-                {activeTab === 'triggers' && <TriggerEditor />}
-                {activeTab === 'weather'  && <WeatherEditor />}
-                {activeTab === 'mist'     && <MistPanel />}
-                {activeTab === 'settings' && <MissionSettings />}
+                {activeTab === 'groups'    && <GroupList />}
+                {activeTab === 'triggers'  && <TriggerEditor />}
+                {activeTab === 'weather'   && <WeatherEditor />}
+                {activeTab === 'mist'      && <MistPanel />}
+                {activeTab === 'generator' && <MissionGenerator />}
+                {activeTab === 'settings'  && <MissionSettings />}
               </div>
             </aside>
           )}
