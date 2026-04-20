@@ -4,9 +4,7 @@ import { getUnitInfo } from '../../utils/unitDatabase';
 import type { DCSGroup, DCSUnit, DCSWaypoint, Skill } from '../../types/dcs';
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { dcsToLatLng, latLngToDcs } from '../../utils/dcsCoords';
-
-interface UnitDBEntry { type: string; name: string; nato?: string | null }
-type UnitsDB = Record<string, UnitDBEntry[]>;
+import UnitPicker from '../UnitPicker';
 
 const SKILL_COLOR: Record<string, string> = {
   Average: '#f87171', Good: '#fb923c', High: '#facc15',
@@ -29,6 +27,7 @@ function Label({ children }: { children: React.ReactNode }) {
 
 const INP = "w-full bg-slate-800 text-slate-100 text-xs px-2.5 py-1.5 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 transition-colors";
 const SEL = `${INP} cursor-pointer`;
+const LBL = "text-[10px] text-slate-500 uppercase tracking-wider block mb-1";
 
 function UnitCard({ unitType, coalition }: { unitType: string; coalition: string }) {
   const info = useMemo(() => getUnitInfo(unitType), [unitType]);
@@ -156,17 +155,8 @@ export default function UnitPanel() {
   const updateGroup = useMissionStore(s => s.updateGroup);
   const deleteGroup = useMissionStore(s => s.deleteGroup);
   const [activeUnit, setActiveUnit] = useState(0);
-  const [unitsDB, setUnitsDB] = useState<UnitsDB | null>(null);
-  const [unitSearch, setUnitSearch] = useState('');
   const [tab, setTab] = useState<'group' | 'unit' | 'waypoints'>('group');
-
-  // Tous les hooks AVANT tout return conditionnel
-  useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}data/units_db.json`)
-      .then(r => r.json())
-      .then(d => setUnitsDB(d as UnitsDB))
-      .catch(() => {});
-  }, []);
+  const [showPicker, setShowPicker] = useState(false);
 
   useEffect(() => { setActiveUnit(0); setTab('group'); }, [selectedEntity]);
 
@@ -201,15 +191,6 @@ export default function UnitPanel() {
     units[activeUnit] = { ...unit, ...updates };
     save({ units });
   }, [unit, group, activeUnit, save]);
-
-  const availableUnits = useMemo(() => {
-    const list = unitsDB?.[category] ?? [];
-    if (!unitSearch) return list.slice(0, 60);
-    const q = unitSearch.toLowerCase();
-    return list.filter(u =>
-      u.name?.toLowerCase().includes(q) || u.type?.toLowerCase().includes(q)
-    ).slice(0, 40);
-  }, [unitsDB, category, unitSearch]);
 
   // Early returns APRÈS tous les hooks
   if (!miz || !sel || !entry || !group) {
@@ -314,6 +295,28 @@ export default function UnitPanel() {
                 <input className={INP} value={group.name}
                   onChange={e => save({ name: e.target.value })} />
               </div>
+
+              {/* Fréquence radio */}
+              <div>
+                <label className={LBL}>Fréquence (MHz)</label>
+                <input
+                  type="number" step="0.025" min="100" max="400"
+                  className={INP}
+                  value={group.frequency ? (group.frequency / 1e6).toFixed(3) : ''}
+                  placeholder="ex: 251.000"
+                  onChange={e => save({ frequency: Math.round(parseFloat(e.target.value) * 1e6) })}
+                />
+              </div>
+              {/* Modulation */}
+              {group.frequency !== undefined && (
+                <div>
+                  <label className={LBL}>Modulation</label>
+                  <select className={SEL} value={group.modulation ?? 0} onChange={e => save({ modulation: parseInt(e.target.value) })}>
+                    <option value={0}>AM</option>
+                    <option value={1}>FM</option>
+                  </select>
+                </div>
+              )}
 
               <div>
                 <Label>Options</Label>
@@ -433,19 +436,30 @@ export default function UnitPanel() {
                   </div>
 
                   <div>
-                    <Label>Type d'unité</Label>
-                    <input className={`${INP} mb-1.5`} placeholder="🔍 Rechercher…"
-                      value={unitSearch} onChange={e => setUnitSearch(e.target.value)} />
-                    <select className={SEL} value={unit.type} size={5}
-                      onChange={e => { saveUnit({ type: e.target.value }); setUnitSearch(''); }}>
-                      {availableUnits.map(u => (
-                        <option key={u.type} value={u.type}>{u.name}</option>
-                      ))}
-                      {!availableUnits.find(u => u.type === unit.type) && (
-                        <option value={unit.type}>★ {unit.type} (actuel)</option>
-                      )}
-                    </select>
-                    <div className="text-[10px] text-slate-600 mt-1 font-mono">{unit.type}</div>
+                    <label className={LBL}>Type d'unité</label>
+                    {/* Bouton d'affichage du type actuel */}
+                    <button
+                      className="w-full flex items-center justify-between bg-slate-800 border border-slate-600 rounded px-2 py-1.5 text-xs text-left hover:border-amber-500 focus:outline-none focus:border-amber-500"
+                      onClick={() => setShowPicker(!showPicker)}
+                    >
+                      <span className="text-slate-200 truncate">{unit.type || 'Choisir une unité...'}</span>
+                      <span className="text-slate-500 ml-2">{showPicker ? '▲' : '▼'}</span>
+                    </button>
+
+                    {/* UnitPicker déroulable */}
+                    {showPicker && (
+                      <div className="mt-1">
+                        <UnitPicker
+                          category={category as 'plane' | 'helicopter' | 'vehicle' | 'ship' | 'static'}
+                          selected={unit.type}
+                          onSelect={(u) => {
+                            saveUnit({ type: u.type });
+                            setShowPicker(false);
+                          }}
+                          height="280px"
+                        />
+                      </div>
+                    )}
                   </div>
 
                   <div>

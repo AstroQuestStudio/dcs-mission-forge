@@ -4,6 +4,15 @@
 //           D:\games\DCS World\MissionEditor\data\MissionGenerator\FormatTemplates\airdromeHeading.lua
 // Parking spots : IDs DCS crossroad_index (Terrain.getStandList), valeurs communautaires vérifiées
 
+export interface ParkingSpot {
+  id: number;    // DCS crossroad_index (unit.parking dans .miz)
+  x: number;    // DCS world X (même repère que l'aérodrome)
+  z: number;    // DCS world Z
+  y: number;    // altitude MSL mètres
+  heli: boolean;   // helicoptère autorisé
+  plane: boolean;  // avion autorisé
+}
+
 export interface CaucasusAirfield {
   id: number;             // DCS internal airfield ID (airfieldN → N)
   name: string;           // Nom affiché dans DCS Mission Editor
@@ -21,7 +30,10 @@ export interface CaucasusAirfield {
   vor?: { freq: number; callsign: string; channel?: number };
   radioUHF: number;       // MHz (Radio.lua [UHF] / 1e6)
   radioVHF: number;       // MHz (Radio.lua [VHF_HI] / 1e6)
-  parkingIds: number[];   // IDs des spots de parking DCS (crossroad_index)
+  /** IDs uniquement (avant extraction DCS) — utiliser parkingSpots si disponible */
+  parkingIds: number[];
+  /** Coordonnées physiques complètes — peuplé après extract_parking_stands.lua + import_parking.py */
+  parkingSpots?: ParkingSpot[];
   hasFuel: boolean;
   region: 'west-coast' | 'georgia-west' | 'georgia-east' | 'north-russia' | 'north-east';
   notes?: string;
@@ -531,11 +543,30 @@ export function getAirfieldsNear(lat: number, lon: number, radiusKm: number): Ca
 
 /** Nombre total de spots de parking d'un aérodrome */
 export function getParkingCount(airfieldId: number): number {
-  return AIRFIELD_BY_ID[airfieldId]?.parkingIds.length ?? 0;
+  const af = AIRFIELD_BY_ID[airfieldId];
+  if (!af) return 0;
+  return af.parkingSpots ? af.parkingSpots.length : af.parkingIds.length;
 }
 
 /** Retourne les N premiers spots disponibles pour un groupe d'appareils */
 export function allocateParkingSpots(airfieldId: number, count: number): number[] {
-  const spots = AIRFIELD_BY_ID[airfieldId]?.parkingIds ?? [];
-  return spots.slice(0, Math.min(count, spots.length));
+  const af = AIRFIELD_BY_ID[airfieldId];
+  if (!af) return [];
+  const ids = af.parkingSpots ? af.parkingSpots.map(s => s.id) : af.parkingIds;
+  return ids.slice(0, Math.min(count, ids.length));
+}
+
+/** Retourne les coordonnées DCS world d'un spot (x,z) — pour affichage sur carte */
+export function getParkingSpotCoords(airfieldId: number, spotId: number): { x: number; z: number; y: number } | undefined {
+  const af = AIRFIELD_BY_ID[airfieldId];
+  return af?.parkingSpots?.find(s => s.id === spotId);
+}
+
+/** Retourne tous les spots d'un aérodrome filtrés par type */
+export function getParkingSpots(airfieldId: number, filter?: 'plane' | 'heli' | 'all'): ParkingSpot[] {
+  const af = AIRFIELD_BY_ID[airfieldId];
+  if (!af?.parkingSpots) return [];
+  if (!filter || filter === 'all') return af.parkingSpots;
+  if (filter === 'plane') return af.parkingSpots.filter(s => s.plane);
+  return af.parkingSpots.filter(s => s.heli);
 }

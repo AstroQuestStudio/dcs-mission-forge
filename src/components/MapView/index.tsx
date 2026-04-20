@@ -4,9 +4,11 @@ import { latLngToDcs } from '../../utils/dcsCoords';
 import { createMapEngine } from './mapEngine';
 import type { MapEngine } from './mapEngine';
 import type { DCSGroup, DCSUnit } from '../../types/dcs';
+import { CAUCASUS_AIRFIELDS } from '../../utils/caucasusAirfields';
+import UnitPicker from '../UnitPicker';
 
-interface Airport { id: number; name: string; lat: number; lon: number; parkingCount: number }
-interface UnitDBEntry { type: string; name: string }
+import type { ParkingSpot } from '../../utils/caucasusAirfields';
+interface Airport { id: number; name: string; lat: number; lon: number; parkingCount: number; parkingSpots?: ParkingSpot[] }
 const CAT_SYM: Record<string, string> = { plane: '✈', helicopter: '🚁', vehicle: '⬛', ship: '⚓', static: '▲' };
 
 // ── Modal ajout groupe ─────────────────────────────────────────────────────
@@ -21,24 +23,10 @@ function AddGroupModal({ lat, lon, onClose }: { lat: number; lon: number; onClos
   const [cat, setCat] = useState<CatType>('plane');
   const [name, setName] = useState('Nouveau Groupe');
   const [unitType, setUnitType] = useState('');
+  const [unitName, setUnitName] = useState('');
   const [skill, setSkill] = useState<(typeof SKILLS)[number]>('Good');
   const [count, setCount] = useState(1);
-  const [db, setDb] = useState<Record<string, UnitDBEntry[]> | null>(null);
-  const [search, setSearch] = useState('');
-
-  useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}data/units_db.json`)
-      .then(r => r.json()).then(d => setDb(d as Record<string, UnitDBEntry[]>)).catch(() => {});
-  }, []);
-
-  const unitList = useMemo(() => {
-    const list = db?.[cat] ?? [];
-    if (!search) return list.slice(0, 60);
-    const q = search.toLowerCase();
-    return list.filter(u => u.name?.toLowerCase().includes(q) || u.type?.toLowerCase().includes(q)).slice(0, 40);
-  }, [db, cat, search]);
-
-  useEffect(() => { setUnitType(db?.[cat]?.[0]?.type ?? ''); setSearch(''); }, [cat, db]);
+  const [showPicker, setShowPicker] = useState(false);
 
   const handleAdd = () => {
     const { x, y } = latLngToDcs(lat, lon);
@@ -100,13 +88,29 @@ function AddGroupModal({ lat, lon, onClose }: { lat: number; lon: number; onClos
           </div>
           <div>
             <label className="text-[10px] text-slate-500 uppercase tracking-wider block mb-1">Type d'unité</label>
-            <input className="w-full bg-slate-800 text-slate-400 px-2.5 py-1.5 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 mb-1.5"
-              placeholder="🔍 Rechercher…" value={search} onChange={e => setSearch(e.target.value)} />
-            <select className="w-full bg-slate-800 text-slate-100 px-2.5 py-1.5 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500"
-              size={6} value={unitType} onChange={e => setUnitType(e.target.value)}>
-              {unitList.map(u => <option key={u.type} value={u.type}>{u.name}</option>)}
-            </select>
-            <div className="text-[10px] text-slate-600 mt-1 font-mono">{unitType}</div>
+            {/* Bouton d'affichage du type actuel */}
+            <button
+              className="w-full flex items-center justify-between bg-slate-800 border border-slate-600 rounded px-2 py-1.5 text-xs text-left hover:border-amber-500 focus:outline-none focus:border-amber-500 mb-1"
+              onClick={() => setShowPicker(!showPicker)}
+            >
+              <span className="text-slate-200 truncate">{unitName || unitType || 'Choisir une unité...'}</span>
+              <span className="text-slate-500 ml-2">{showPicker ? '▲' : '▼'}</span>
+            </button>
+
+            {/* UnitPicker déroulable */}
+            {showPicker && (
+              <UnitPicker
+                category={cat}
+                selected={unitType}
+                onSelect={(u) => {
+                  setUnitType(u.type);
+                  setUnitName(u.name);
+                  setShowPicker(false);
+                }}
+                height="280px"
+              />
+            )}
+            {unitType && <div className="text-[10px] text-slate-600 mt-1 font-mono">{unitType}</div>}
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
@@ -154,8 +158,10 @@ export default function MapView() {
   const [showZones, setShowZones] = useState(true);
   const [showRoutes, setShowRoutes] = useState(true);
   const [showTopo, setShowTopo] = useState(false);
+  const [showThreatRings, setShowThreatRings] = useState(true);
   const [addMode, setAddMode] = useState(false);
   const [pendingAdd, setPendingAdd] = useState<{ lat: number; lon: number } | null>(null);
+  const [_mapZoom, setMapZoom] = useState(7);
 
   // Données dérivées (calculées dans le cycle React)
   const groups = useMemo(() => miz ? extractAllGroups(miz) : [], [miz]);
@@ -163,10 +169,34 @@ export default function MapView() {
   const totalUnits = useMemo(() => groups.reduce((a, e) => a + (e.group.units?.length ?? 0), 0), [groups]);
   const sel = selectedEntity?.type === 'group' ? selectedEntity : null;
 
-  // Charger aérodromes
+  // Aérodromes : fetch parking_caucasus.json et merge avec CAUCASUS_AIRFIELDS
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}data/airports_caucasus.json`)
-      .then(r => r.json()).then(d => setAirports(d as Airport[])).catch(() => {});
+    fetch(`${import.meta.env.BASE_URL}data/parking_caucasus.json`)
+      .then(r => r.json())
+      .then((data: Record<string, Array<{id: number; x: number; z: number; y: number; heli: boolean; plane: boolean}>>) => {
+        setAirports(CAUCASUS_AIRFIELDS.map(af => {
+          const spots = data[String(af.id)];
+          return {
+            id: af.id,
+            name: af.name,
+            lat: af.lat,
+            lon: af.lon,
+            parkingCount: spots ? spots.length : af.parkingIds.length,
+            parkingSpots: spots,
+          };
+        }));
+      })
+      .catch(() => {
+        // fallback sans spots
+        setAirports(CAUCASUS_AIRFIELDS.map(af => ({
+          id: af.id,
+          name: af.name,
+          lat: af.lat,
+          lon: af.lon,
+          parkingCount: af.parkingIds.length,
+          parkingSpots: undefined,
+        })));
+      });
   }, []);
 
   // Init moteur Leaflet (une seule fois)
@@ -205,20 +235,25 @@ export default function MapView() {
     };
     const onMapClick = () => { useMissionStore.getState().selectEntity(null); };
 
+    const onZoom = (e: Event) => {
+      setMapZoom((e as CustomEvent).detail.zoom);
+    };
     window.addEventListener('dcs:select', onSelect);
     window.addEventListener('dcs:move', onMove);
     window.addEventListener('dcs:mapclick', onMapClick);
+    window.addEventListener('dcs:zoom', onZoom);
     return () => {
       window.removeEventListener('dcs:select', onSelect);
       window.removeEventListener('dcs:move', onMove);
       window.removeEventListener('dcs:mapclick', onMapClick);
+      window.removeEventListener('dcs:zoom', onZoom);
     };
   }, []);
 
   // Passer les données au moteur après chaque render
   useEffect(() => {
-    engineRef.current?.render({ groups, selectedEntity: sel, airports, showAirports, showZones, showRoutes, showTopo, zones, addMode });
-  }, [groups, sel, airports, showAirports, showZones, showRoutes, showTopo, zones, addMode]);
+    engineRef.current?.render({ groups, selectedEntity: sel, airports, showAirports, showZones, showRoutes, showTopo, showThreatRings, zones, addMode });
+  }, [groups, sel, airports, showAirports, showZones, showRoutes, showTopo, showThreatRings, zones, addMode, _mapZoom]);
 
   return (
     <div className="relative h-full w-full">
@@ -240,6 +275,13 @@ export default function MapView() {
               <span>{item.label}</span>
             </button>
           ))}
+          <button
+            onClick={() => setShowThreatRings(v => !v)}
+            className={`px-2 py-0.5 rounded text-xs ${showThreatRings ? 'bg-red-900/80 text-red-300' : 'bg-slate-800/80 text-slate-400'}`}
+            title="Cercles portée SAM"
+          >
+            🎯 SAM
+          </button>
         </div>
 
         {groups.length > 0 && (

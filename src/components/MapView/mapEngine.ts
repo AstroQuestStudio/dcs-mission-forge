@@ -4,6 +4,8 @@ import { dcsToLatLng, latLngToDcs } from '../../utils/dcsCoords';
 import { makeUnitDivIcon, makeAirportDivIcon } from '../../utils/unitSilhouettes';
 import type { GroupEntry } from '../../store/missionStore';
 import type { DCSUnit } from '../../types/dcs';
+import type { ParkingSpot } from '../../utils/caucasusAirfields';
+import { getThreatRange } from '../../utils/threatRanges';
 
 const COAL_COLOR: Record<string, string> = {
   blue: '#3b82f6', red: '#ef4444', neutrals: '#94a3b8',
@@ -12,11 +14,12 @@ const COAL_COLOR: Record<string, string> = {
 export interface RenderState {
   groups: GroupEntry[];
   selectedEntity: { coalition: string; countryIdx: number; category: string; groupIdx: number } | null;
-  airports: { id: number; name: string; lat: number; lon: number; parkingCount: number }[];
+  airports: { id: number; name: string; lat: number; lon: number; parkingCount: number; parkingSpots?: ParkingSpot[] }[];
   showAirports: boolean;
   showZones: boolean;
   showRoutes: boolean;
   showTopo: boolean;
+  showThreatRings: boolean;
   zones: { x: number; y: number; radius?: number; name: string }[];
   addMode: boolean;
 }
@@ -49,6 +52,8 @@ export function createMapEngine(
   let osmLayer: L.TileLayer | null = null;
   let topoLayer: L.TileLayer | null = null;
   let currentTopo = false;
+  let parkingSlotsLayer: L.LayerGroup | null = null;
+  let threatLayer: L.LayerGroup | null = null;
 
   return {
     init(container: HTMLDivElement) {
@@ -77,17 +82,22 @@ export function createMapEngine(
       waypointsLayer = L.layerGroup().addTo(map);
       zonesLayer = L.layerGroup().addTo(map);
       airportsLayer = L.layerGroup().addTo(map);
+      parkingSlotsLayer = L.layerGroup().addTo(map);
+      threatLayer = L.layerGroup().addTo(map);
       markersLayer = L.layerGroup().addTo(map);
 
       map.on('click', () => {
         safeEmit('dcs:mapclick', {});
+      });
+      map.on('zoomend', () => {
+        safeEmit('dcs:zoom', { zoom: map!.getZoom() });
       });
     },
 
     destroy() {
       if (map) { map.remove(); map = null; }
       markersLayer = null; routesLayer = null; waypointsLayer = null;
-      zonesLayer = null; airportsLayer = null;
+      zonesLayer = null; airportsLayer = null; parkingSlotsLayer = null; threatLayer = null;
     },
 
     setTopo(enabled: boolean) {
@@ -99,11 +109,46 @@ export function createMapEngine(
     },
 
     render(state: RenderState) {
-      if (!map || !markersLayer || !routesLayer || !waypointsLayer || !zonesLayer || !airportsLayer) return;
+      if (!map || !markersLayer || !routesLayer || !waypointsLayer || !zonesLayer || !airportsLayer || !parkingSlotsLayer || !threatLayer) return;
 
-      const { groups, selectedEntity, airports, showAirports, showZones, showRoutes, showTopo, zones } = state;
+      const { groups, selectedEntity, airports, showAirports, showZones, showRoutes, showTopo, showThreatRings, zones } = state;
 
       this.setTopo(showTopo);
+
+      // ── Cercles de portée menace (SAM/radar) ──────────────
+      threatLayer!.clearLayers();
+      if (showThreatRings) {
+        groups.forEach(entry => {
+          (entry.group.units ?? []).forEach((unit: { type: string; x: number; y: number }) => {
+            const threat = getThreatRange(unit.type);
+            if (!threat) return;
+            const ll = dcsToLatLng(unit.x ?? 0, unit.y ?? 0) as L.LatLngTuple;
+            if (threat.engagement > 0) {
+              L.circle(ll, {
+                radius: threat.engagement,
+                color: '#ef4444',
+                weight: 1,
+                fillColor: '#ef4444',
+                fillOpacity: 0.05,
+                interactive: false,
+              }).bindTooltip(
+                `<span style="font-family:monospace;font-size:10px;color:#fca5a5">${threat.name} — ${(threat.engagement/1000).toFixed(0)}km</span>`,
+                { direction: 'top' }
+              ).addTo(threatLayer!);
+            }
+            if (threat.detection > 0) {
+              L.circle(ll, {
+                radius: threat.detection,
+                color: '#f97316',
+                weight: 1,
+                fillOpacity: 0,
+                dashArray: '8 6',
+                interactive: false,
+              }).addTo(threatLayer!);
+            }
+          });
+        });
+      }
 
       // ── Routes + waypoints ────────────────────────────────────────
       markersLayer.clearLayers();
@@ -249,14 +294,71 @@ export function createMapEngine(
 
       // ── Aérodromes ────────────────────────────────────────────────
       airportsLayer.clearLayers();
+      parkingSlotsLayer.clearLayers();
       if (showAirports) {
+        const zoom = map.getZoom();
         airports.forEach(ap => {
           const m = L.marker([ap.lat, ap.lon], { icon: L.divIcon(makeAirportDivIcon(baseUrl)) });
+          const spotsInfo = ap.parkingSpots
+            ? `${ap.parkingSpots.length} slots (coords DCS)`
+            : `${ap.parkingCount} slots`;
           m.bindTooltip(`<div style="background:#0f172a;border:1px solid #334155;border-radius:8px;padding:6px 10px;font-family:monospace;font-size:11px">
             <div style="font-weight:bold;color:#94a3b8">${ap.name}</div>
-            <div style="color:#475569">${ap.parkingCount} slots</div>
+            <div style="color:#475569">${spotsInfo}</div>
           </div>`, { direction: 'top', offset: [0, -16], opacity: 1, className: 'leaflet-tooltip-dark' });
           m.addTo(airportsLayer!);
+
+          // ── Parking slots (visibles selon zoom) ──────────────
+          if (ap.parkingSpots && ap.parkingSpots.length > 0) {
+            const showNumbers = zoom >= 15;
+            const showDots = zoom >= 13;
+
+            if (showDots) {
+              ap.parkingSpots.forEach(spot => {
+                const ll = dcsToLatLng(spot.x, spot.z) as L.LatLngTuple;
+                const color = spot.plane && spot.heli
+                  ? '#a78bfa'   // violet = mixte
+                  : spot.plane
+                  ? '#38bdf8'   // cyan = avion
+                  : '#4ade80';  // vert = hélico
+
+                let marker: L.Marker | L.CircleMarker;
+
+                if (showNumbers) {
+                  // Zoom 15+ → cercle avec numéro lisible
+                  const icon = L.divIcon({
+                    html: `<div style="background:${color};color:#000;font-size:8px;font-weight:900;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;border:1.5px solid #0f172a;line-height:1;box-shadow:0 1px 3px rgba(0,0,0,0.6)">${spot.id}</div>`,
+                    className: '',
+                    iconSize: [18, 18],
+                    iconAnchor: [9, 9],
+                  });
+                  marker = L.marker(ll, { icon, interactive: true });
+                } else {
+                  // Zoom 13-14 → petit dot coloré sans numéro
+                  marker = L.circleMarker(ll, {
+                    radius: 4,
+                    color: '#0f172a',
+                    weight: 1,
+                    fillColor: color,
+                    fillOpacity: 0.9,
+                    interactive: true,
+                  });
+                }
+
+                const typeLabel = spot.plane && spot.heli ? 'Mixte' : spot.plane ? 'Avion' : 'Hélico';
+                marker.bindTooltip(
+                  `<div style="font-family:monospace;font-size:10px;background:#0f172a;border:1px solid #334155;border-radius:4px;padding:3px 7px;white-space:nowrap">
+                    <b style="color:#e2e8f0">Slot #${spot.id}</b>
+                    <span style="color:#64748b;margin-left:5px">${typeLabel}</span>
+                    <br><span style="color:#475569">x=${spot.x.toFixed(0)} z=${spot.z.toFixed(0)} y=${spot.y.toFixed(0)}</span>
+                  </div>`,
+                  { direction: 'top', offset: [0, -8], opacity: 1 }
+                );
+
+                marker.addTo(parkingSlotsLayer!);
+              });
+            }
+          }
         });
       }
     },

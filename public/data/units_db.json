@@ -1,1 +1,5077 @@
-{"plane":[{"type":"A-10A","name":"A-10A","nato":null,"country":null},{"type":"A-10C","name":"A-10C","nato":null,"country":null},{"type":"A-10C_2","name":"A-10C II","nato":null,"country":null},{"type":"A-20G","name":"A-20G","nato":null,"country":null},{"type":"A-50","name":"A-50","nato":null,"country":null},{"type":"AJS37","name":"AJS37","nato":null,"country":null},{"type":"AV8BNA","name":"AV-8B N/A","nato":null,"country":null},{"type":"An-26B","name":"An-26B","nato":null,"country":null},{"type":"An-30M","name":"An-30M","nato":null,"country":null},{"type":"B-17G","name":"B-17G","nato":null,"country":null},{"type":"B-1B","name":"B-1B","nato":null,"country":null},{"type":"B-52H","name":"B-52H","nato":null,"country":null},{"type":"Bf-109K-4","name":"Bf 109 K-4","nato":null,"country":null},{"type":"C-101CC","name":"C-101CC","nato":null,"country":null},{"type":"C-101EB","name":"C-101EB","nato":null,"country":null},{"type":"C-130","name":"C-130","nato":null,"country":null},{"type":"C-130J-30","name":"C-130J-30","nato":null,"country":null},{"type":"C-17A","name":"C-17A","nato":null,"country":null},{"type":"C-47","name":"C-47","nato":null,"country":null},{"type":"Christen Eagle II","name":"Christen Eagle II","nato":null,"country":null},{"type":"E-2C","name":"E-2D","nato":null,"country":null},{"type":"E-3A","name":"E-3A","nato":null,"country":null},{"type":"F-117A","name":"F-117A","nato":null,"country":null},{"type":"F-14A","name":"F-14A","nato":null,"country":null},{"type":"F-14A-135-GR","name":"F-14A-135-GR","nato":null,"country":null},{"type":"F-14A-135-GR-Early","name":"F-14A-135-GR (Early)","nato":null,"country":null},{"type":"F-14B","name":"F-14B","nato":null,"country":null},{"type":"F-15C","name":"F-15C","nato":null,"country":null},{"type":"F-15E","name":"F-15E","nato":null,"country":null},{"type":"F-15ESE","name":"F-15E S4+","nato":null,"country":null},{"type":"F-16A","name":"F-16A","nato":null,"country":null},{"type":"F-16A MLU","name":"F-16A MLU","nato":null,"country":null},{"type":"F-16C bl.50","name":"F-16C bl.50","nato":null,"country":null},{"type":"F-16C bl.52d","name":"F-16C bl.52d","nato":null,"country":null},{"type":"F-16C_50","name":"F-16CM bl.50","nato":null,"country":null},{"type":"F-4E","name":"F-4E","nato":null,"country":null},{"type":"F-4E-45MC","name":"F-4E-45MC","nato":null,"country":null},{"type":"F-5E","name":"F-5E","nato":null,"country":null},{"type":"F-5E-3","name":"F-5E-3","nato":null,"country":null},{"type":"F-5E-3_FC","name":"F-5E FC","nato":null,"country":null},{"type":"F-86F Sabre","name":"F-86F","nato":null,"country":null},{"type":"F-86F_FC","name":"F-86F FC","nato":null,"country":null},{"type":"F/A-18A","name":"F/A-18A","nato":null,"country":null},{"type":"F/A-18C","name":"F/A-18C","nato":null,"country":null},{"type":"F4U-1D","name":"F4U-1D","nato":null,"country":null},{"type":"F4U-1D_CW","name":"F4U-1D Mk.IV","nato":null,"country":null},{"type":"FA-18C_hornet","name":"F/A-18C Lot 20","nato":null,"country":null},{"type":"FW-190A8","name":"Fw 190 A-8","nato":null,"country":null},{"type":"FW-190D9","name":"Fw 190 D-9","nato":null,"country":null},{"type":"Falcon_Gyrocopter","name":"Falcon Assault Gyrocopter","nato":null,"country":null},{"type":"H-6J","name":"H-6J","nato":null,"country":null},{"type":"Hawk","name":"Hawk","nato":null,"country":null},{"type":"I-16","name":"I-16","nato":null,"country":null},{"type":"IL-76MD","name":"IL-76MD","nato":null,"country":null},{"type":"IL-78M","name":"IL-78M","nato":null,"country":null},{"type":"J-11A","name":"J-11A","nato":null,"country":null},{"type":"JF-17","name":"JF-17","nato":null,"country":null},{"type":"Ju-88A4","name":"Ju 88 A-4","nato":null,"country":null},{"type":"KC-135","name":"KC-135","nato":null,"country":null},{"type":"KC130","name":"KC-130","nato":null,"country":null},{"type":"KC135MPRS","name":"KC-135MPRS","nato":null,"country":null},{"type":"KJ-2000","name":"KJ-2000","nato":null,"country":null},{"type":"L-39C","name":"L-39C","nato":null,"country":null},{"type":"L-39ZA","name":"L-39ZA","nato":null,"country":null},{"type":"M-2000C","name":"M-2000C","nato":null,"country":null},{"type":"MB-339A","name":"MB-339A","nato":null,"country":null},{"type":"MB-339APAN","name":"MB-339A/PAN","nato":null,"country":null},{"type":"MQ-9 Reaper","name":"MQ-9 Reaper","nato":null,"country":null},{"type":"MiG-15bis","name":"MiG-15bis","nato":null,"country":null},{"type":"MiG-15bis_FC","name":"MiG-15bis FC","nato":null,"country":null},{"type":"MiG-19P","name":"MiG-19P","nato":null,"country":null},{"type":"MiG-21Bis","name":"MiG-21Bis","nato":null,"country":null},{"type":"MiG-23MLD","name":"MiG-23MLD","nato":null,"country":null},{"type":"MiG-25PD","name":"MiG-25PD","nato":null,"country":null},{"type":"MiG-25RBT","name":"MiG-25RBT","nato":null,"country":null},{"type":"MiG-27K","name":"MiG-27K","nato":null,"country":null},{"type":"MiG-29 Fulcrum","name":"MiG-29A Fulcrum","nato":null,"country":null},{"type":"MiG-29A","name":"MiG-29A","nato":null,"country":null},{"type":"MiG-29G","name":"MiG-29G","nato":null,"country":null},{"type":"MiG-29S","name":"MiG-29S","nato":null,"country":null},{"type":"MiG-31","name":"MiG-31","nato":null,"country":null},{"type":"Mirage 2000-5","name":"Mirage 2000-5","nato":null,"country":null},{"type":"Mirage-F1AD","name":"Mirage F1AD","nato":null,"country":null},{"type":"Mirage-F1AZ","name":"Mirage F1AZ","nato":null,"country":null},{"type":"Mirage-F1B","name":"Mirage F1B","nato":null,"country":null},{"type":"Mirage-F1BD","name":"Mirage F1BD","nato":null,"country":null},{"type":"Mirage-F1BE","name":"Mirage F1BE","nato":null,"country":null},{"type":"Mirage-F1BQ","name":"Mirage F1BQ","nato":null,"country":null},{"type":"Mirage-F1C","name":"Mirage F1C","nato":null,"country":null},{"type":"Mirage-F1C-200","name":"Mirage F1C-200","nato":null,"country":null},{"type":"Mirage-F1CE","name":"Mirage F1CE","nato":null,"country":null},{"type":"Mirage-F1CG","name":"Mirage F1CG","nato":null,"country":null},{"type":"Mirage-F1CH","name":"Mirage F1CH","nato":null,"country":null},{"type":"Mirage-F1CJ","name":"Mirage F1CJ","nato":null,"country":null},{"type":"Mirage-F1CK","name":"Mirage F1CK","nato":null,"country":null},{"type":"Mirage-F1CR","name":"Mirage F1CR","nato":null,"country":null},{"type":"Mirage-F1CT","name":"Mirage F1CT","nato":null,"country":null},{"type":"Mirage-F1CZ","name":"Mirage F1CZ","nato":null,"country":null},{"type":"Mirage-F1DDA","name":"Mirage F1DDA","nato":null,"country":null},{"type":"Mirage-F1ED","name":"Mirage F1ED","nato":null,"country":null},{"type":"Mirage-F1EDA","name":"Mirage F1EDA","nato":null,"country":null},{"type":"Mirage-F1EE","name":"Mirage F1EE","nato":null,"country":null},{"type":"Mirage-F1EH","name":"Mirage F1EH","nato":null,"country":null},{"type":"Mirage-F1EQ","name":"Mirage F1EQ","nato":null,"country":null},{"type":"Mirage-F1JA","name":"Mirage F1JA","nato":null,"country":null},{"type":"Mirage-F1M-CE","name":"Mirage F1M (C.14 1-25/32-51)","nato":null,"country":null},{"type":"Mirage-F1M-EE","name":"Mirage F1M (C.14 52-73)","nato":null,"country":null},{"type":"MosquitoFBMkVI","name":"Mosquito FB Mk. VI","nato":null,"country":null},{"type":"P-47D-30","name":"P-47D-30","nato":null,"country":null},{"type":"P-47D-30bl1","name":"P-47D-30 (Early)","nato":null,"country":null},{"type":"P-47D-40","name":"P-47D-40","nato":null,"country":null},{"type":"P-51D","name":"P-51D-25-NA","nato":null,"country":null},{"type":"P-51D-30-NA","name":"P-51D-30-NA","nato":null,"country":null},{"type":"QF-4E","name":"QF-4E","nato":null,"country":null},{"type":"RQ-1A Predator","name":"MQ-1A Predator","nato":null,"country":null},{"type":"S-3B","name":"S-3B","nato":null,"country":null},{"type":"S-3B Tanker","name":"S-3B Tanker","nato":null,"country":null},{"type":"SpitfireLFMkIX","name":"Spitfire LF Mk. IX","nato":null,"country":null},{"type":"SpitfireLFMkIXCW","name":"Spitfire LF Mk. IX CW","nato":null,"country":null},{"type":"Su-17M4","name":"Su-17M4","nato":null,"country":null},{"type":"Su-24M","name":"Su-24M","nato":null,"country":null},{"type":"Su-24MR","name":"Su-24MR","nato":null,"country":null},{"type":"Su-25","name":"Su-25","nato":null,"country":null},{"type":"Su-25T","name":"Su-25T","nato":null,"country":null},{"type":"Su-25TM","name":"Su-25TM","nato":null,"country":null},{"type":"Su-27","name":"Su-27","nato":null,"country":null},{"type":"Su-30","name":"Su-30","nato":null,"country":null},{"type":"Su-33","name":"Su-33","nato":null,"country":null},{"type":"Su-34","name":"Su-34","nato":null,"country":null},{"type":"TF-51D","name":"TF-51D","nato":null,"country":null},{"type":"Tornado GR4","name":"Tornado GR4","nato":null,"country":null},{"type":"Tornado IDS","name":"Tornado IDS","nato":null,"country":null},{"type":"Tu-142","name":"Tu-142","nato":null,"country":null},{"type":"Tu-160","name":"Tu-160","nato":null,"country":null},{"type":"Tu-22M3","name":"Tu-22M3","nato":null,"country":null},{"type":"Tu-95MS","name":"Tu-95MS [CH]","nato":null,"country":null},{"type":"WingLoong-I","name":"WingLoong-I","nato":null,"country":null},{"type":"Yak-40","name":"Yak-40","nato":null,"country":null},{"type":"Yak-52","name":"Yak-52","nato":null,"country":null}],"helicopter":[{"type":"AH-1W","name":"AH-1W","nato":null,"country":null},{"type":"AH-64A","name":"AH-64A","nato":null,"country":null},{"type":"AH-64D","name":"AH-64D","nato":null,"country":null},{"type":"AH-64D_BLK_II","name":"AH-64D BLK.II","nato":null,"country":null},{"type":"CH-47D","name":"CH-47D","nato":null,"country":null},{"type":"CH-47Fbl1","name":"CH-47F","nato":null,"country":null},{"type":"CH-53E","name":"CH-53E","nato":null,"country":null},{"type":"Ka-27","name":"Ka-27","nato":null,"country":null},{"type":"Ka-50","name":"Ka-50","nato":null,"country":null},{"type":"Ka-50_3","name":"Ka-50 III","nato":null,"country":null},{"type":"Mi-24P","name":"Mi-24P","nato":null,"country":null},{"type":"Mi-24V","name":"Mi-24V","nato":null,"country":null},{"type":"Mi-26","name":"Mi-26","nato":null,"country":null},{"type":"Mi-28N","name":"Mi-28N [CH]","nato":null,"country":null},{"type":"Mi-8MT","name":"Mi-8MTV2","nato":null,"country":null},{"type":"OH-58D","name":"OH-58D","nato":null,"country":null},{"type":"OH58D","name":"OH-58D(R)","nato":null,"country":null},{"type":"SA342L","name":"SA342L","nato":null,"country":null},{"type":"SA342M","name":"SA342M","nato":null,"country":null},{"type":"SA342Minigun","name":"SA342Minigun","nato":null,"country":null},{"type":"SA342Mistral","name":"SA342Mistral","nato":null,"country":null},{"type":"SH-3W","name":"SH-3W","nato":null,"country":null},{"type":"SH-60B","name":"SH-60B","nato":null,"country":null},{"type":"UH-1H","name":"UH-1H","nato":null,"country":null},{"type":"UH-60A","name":"UH-60A","nato":null,"country":null}],"vehicle":[{"type":"1L13 EWR","name":"EWR 1L13","nato":null,"country":null},{"type":"2B11 mortar","name":"Mortar 2B11 120mm","nato":null,"country":null},{"type":"2S6 Tunguska","name":"SAM SA-19 Tunguska \"Grison\" ","nato":null,"country":null},{"type":"55G6 EWR","name":"EWR 55G6","nato":null,"country":null},{"type":"5p73 s-125 ln","name":"SAM SA-3 S-125 \"Goa\" LN","nato":null,"country":null},{"type":"AA8","name":"Firefighter Vehicle AA-7.2/60","nato":null,"country":null},{"type":"AAV7","name":"APC AAV-7 Amphibious","nato":null,"country":null},{"type":"ATMZ-5","name":"Refueler ATMZ-5","nato":null,"country":null},{"type":"ATZ-10","name":"Refueler ATZ-10","nato":null,"country":null},{"type":"ATZ-5","name":"Refueler ATZ-5","nato":null,"country":null},{"type":"ATZ-60_Maz","name":"Refueler ATZ-60 Tractor (MAZ-7410)","nato":null,"country":null},{"type":"Allies_Director","name":"Allies Rangefinder (DRT)","nato":null,"country":null},{"type":"B600_drivable","name":"M92 B600 drivable","nato":null,"country":null},{"type":"BMD-1","name":"IFV BMD-1","nato":null,"country":null},{"type":"BMP-1","name":"IFV BMP-1","nato":null,"country":null},{"type":"BMP-2","name":"IFV BMP-2","nato":null,"country":null},{"type":"BMP-3","name":"IFV BMP-3","nato":null,"country":null},{"type":"BRDM-2","name":"Scout BRDM-2","nato":null,"country":null},{"type":"BTR-80","name":"APC BTR-80","nato":null,"country":null},{"type":"BTR-82A","name":"IFV BTR-82A","nato":null,"country":null},{"type":"BTR_D","name":"APC BTR-RD","nato":null,"country":null},{"type":"Bedford_MWD","name":"Truck Bedford","nato":null,"country":null},{"type":"Blitz_36-6700A","name":"Truck Opel Blitz","nato":null,"country":null},{"type":"Boxcartrinity","name":"Flatcar","nato":null,"country":null},{"type":"Bunker","name":"Bunker 2","nato":null,"country":null},{"type":"CCKW_353","name":"Truck GMC \"Jimmy\" 6x6","nato":null,"country":null},{"type":"CHAP_9K720_Cluster","name":"SRBM 9K720 Iskander CM [CH]","nato":null,"country":null},{"type":"CHAP_9K720_HE","name":"SRBM 9K720 Iskander HE [CH]","nato":null,"country":null},{"type":"CHAP_BMPT","name":"IFV BMPT Terminator [CH]","nato":null,"country":null},{"type":"CHAP_FV101","name":"LT FV101 Scorpion [CH]","nato":null,"country":null},{"type":"CHAP_FV107","name":"Scout FV107 Scimitar [CH]","nato":null,"country":null},{"type":"CHAP_IRISTSLM_CP","name":"SAM IRIS-T SLM C2 [CH]","nato":null,"country":null},{"type":"CHAP_IRISTSLM_LN","name":"SAM IRIS-T SLM LN [CH]","nato":null,"country":null},{"type":"CHAP_IRISTSLM_STR","name":"SAM IRIS-T SLM STR [CH]","nato":null,"country":null},{"type":"CHAP_M1083","name":"Truck M1083 A1P2 MTV [CH]","nato":null,"country":null},{"type":"CHAP_M1130","name":"IFV M1130 Stryker CV [CH]","nato":null,"country":null},{"type":"CHAP_M142_ATACMS_M39A1","name":"MLRS M142 HIMARS ATACMS CM [CH]","nato":null,"country":null},{"type":"CHAP_M142_ATACMS_M48","name":"MLRS M142 HIMARS ATACMS HE [CH]","nato":null,"country":null},{"type":"CHAP_M142_GMLRS_M30","name":"MLRS M142 HIMARS GMLRS CM [CH]","nato":null,"country":null},{"type":"CHAP_M142_GMLRS_M31","name":"MLRS M142 HIMARS GMLRS HE [CH]","nato":null,"country":null},{"type":"CHAP_MATV","name":"APC MRAP M-ATV [CH]","nato":null,"country":null},{"type":"CHAP_PantsirS1","name":"SAM SA-22 Pantsir-S1 \"Greyhound\" [CH]","nato":null,"country":null},{"type":"CHAP_T64BV","name":"MBT T-64BV Type 2017 [CH]","nato":null,"country":null},{"type":"CHAP_T84OplotM","name":"MBT T-84 Oplot-M [CH]","nato":null,"country":null},{"type":"CHAP_T90M","name":"MBT T-90M [CH]","nato":null,"country":null},{"type":"CHAP_TOS1A","name":"MLRS TOS-1A Solntsepyok [CH]","nato":null,"country":null},{"type":"CHAP_TorM2","name":"SAM SA-15 Tor M2 \"Gauntlet\" [CH]","nato":null,"country":null},{"type":"Centaur_IV","name":"Tk Centaur IV CS","nato":null,"country":null},{"type":"Challenger2","name":"MBT Challenger II","nato":null,"country":null},{"type":"Chieftain_mk3","name":"MBT Chieftain Mk.3","nato":null,"country":null},{"type":"Churchill_VII","name":"Tk Churchill VII","nato":null,"country":null},{"type":"Coach a passenger","name":"Passenger Car","nato":null,"country":null},{"type":"Coach a platform","name":"Coach Platform","nato":null,"country":null},{"type":"Coach a tank blue","name":"Tank Car blue","nato":null,"country":null},{"type":"Coach a tank yellow","name":"Tank Car yellow","nato":null,"country":null},{"type":"Coach cargo","name":"Freight Van","nato":null,"country":null},{"type":"Coach cargo open","name":"Open Wagon","nato":null,"country":null},{"type":"Cobra","name":"Scout Cobra","nato":null,"country":null},{"type":"Cromwell_IV","name":"Tk Cromwell IV","nato":null,"country":null},{"type":"DRG_Class_86","name":"Loco DRG Class 86","nato":null,"country":null},{"type":"DR_50Ton_Flat_Wagon","name":"DR 50-ton flat wagon","nato":null,"country":null},{"type":"Daimler_AC","name":"Car Daimler Armored","nato":null,"country":null},{"type":"Dog Ear radar","name":"MCC-SR Sborka \"Dog Ear\" SR","nato":null,"country":null},{"type":"ES44AH","name":"Loco ES44AH","nato":null,"country":null},{"type":"Electric locomotive","name":"Loco VL80 Electric","nato":null,"country":null},{"type":"Elefant_SdKfz_184","name":"SPG Elefant TD","nato":null,"country":null},{"type":"FPS-117","name":"EWR AN/FPS-117 Radar","nato":null,"country":null},{"type":"FPS-117 Dome","name":"EWR AN/FPS-117 Radar (domed)","nato":null,"country":null},{"type":"FPS-117 ECS","name":"EWR AN/FPS-117 ECS","nato":null,"country":null},{"type":"Flakscheinwerfer_37","name":"SL Flakscheinwerfer 37","nato":null,"country":null},{"type":"FuMG-401","name":"EWR FuMG-401 Freya LZ","nato":null,"country":null},{"type":"FuSe-65","name":"EWR FuSe-65 Würzburg-Riese","nato":null,"country":null},{"type":"GAZ-3307","name":"Truck GAZ-3307","nato":null,"country":null},{"type":"GAZ-3308","name":"Truck GAZ-3308","nato":null,"country":null},{"type":"GAZ-66","name":"Truck GAZ-66","nato":null,"country":null},{"type":"GD-20","name":"GD-20 Lift Truck","nato":null,"country":null},{"type":"GPS_Spoofer_Blue","name":"GPS Spoofer NATO","nato":null,"country":null},{"type":"GPS_Spoofer_Red","name":"GPS Spoofer RF","nato":null,"country":null},{"type":"Gepard","name":"SPAAA Gepard","nato":null,"country":null},{"type":"German_covered_wagon_G10","name":"Wagon G10 (Germany)","nato":null,"country":null},{"type":"German_tank_wagon","name":"Tank Car (Germany)","nato":null,"country":null},{"type":"Grad-URAL","name":"MLRS BM-21 Grad 122mm","nato":null,"country":null},{"type":"Grad_FDDM","name":"Grad MRL FDDM (FC)","nato":null,"country":null},{"type":"HEMTT TFFT","name":"Firefighter HEMMT TFFT","nato":null,"country":null},{"type":"HEMTT_C-RAM_Phalanx","name":"LPWS C-RAM","nato":null,"country":null},{"type":"HL_B8M1","name":"MLRS HL with B8M1 80mm","nato":null,"country":null},{"type":"HL_DSHK","name":"Scout HL with DSHK 12.7mm","nato":null,"country":null},{"type":"HL_KORD","name":"Scout HL with KORD 12.7mm","nato":null,"country":null},{"type":"HL_ZU-23","name":"SPAAA HL with ZU-23","nato":null,"country":null},{"type":"HQ-7_LN_P","name":"HQ-7 SHORAD TELAR (Player)","nato":null,"country":null},{"type":"HQ-7_LN_SP","name":"HQ-7B SHORAD TELAR","nato":null,"country":null},{"type":"HQ-7_STR_SP","name":"HQ-7B SHORAD SR","nato":null,"country":null},{"type":"Hawk cwar","name":"SAM Hawk CWAR AN/MPQ-55","nato":null,"country":null},{"type":"Hawk ln","name":"SAM Hawk LN M192","nato":null,"country":null},{"type":"Hawk pcp","name":"SAM Hawk Platoon Command Post (PCP)","nato":null,"country":null},{"type":"Hawk sr","name":"SAM Hawk SR (AN/MPQ-50)","nato":null,"country":null},{"type":"Hawk tr","name":"SAM Hawk TR (AN/MPQ-46)","nato":null,"country":null},{"type":"Horch_901_typ_40_kfz_21","name":"LUV Horch 901 Staff Car","nato":null,"country":null},{"type":"Hummer","name":"LUV HMMWV Jeep","nato":null,"country":null},{"type":"IKARUS Bus","name":"Bus IKARUS-280","nato":null,"country":null},{"type":"Igla manpad INS","name":"MANPADS SA-18 Igla \"Grouse\" Ins","nato":null,"country":null},{"type":"Infantry AK","name":"Infantry AK-74 Rus ver1","nato":null,"country":null},{"type":"Infantry AK Ins","name":"Insurgent AKM","nato":null,"country":null},{"type":"Infantry AK ver2","name":"Infantry AK-74 Rus ver2","nato":null,"country":null},{"type":"Infantry AK ver3","name":"Infantry AK-74 Rus ver3","nato":null,"country":null},{"type":"JTAC","name":"JTAC","nato":null,"country":null},{"type":"JagdPz_IV","name":"SPG Jagdpanzer IV TD","nato":null,"country":null},{"type":"Jagdpanther_G1","name":"SPG Jagdpanther TD","nato":null,"country":null},{"type":"KAMAZ Truck","name":"Truck KAMAZ 43101","nato":null,"country":null},{"type":"KDO_Mod40","name":"AAA Kdo.G.40","nato":null,"country":null},{"type":"KS-19","name":"AAA KS-19 100mm","nato":null,"country":null},{"type":"KrAZ6322","name":"Truck KrAZ-6322 6x6","nato":null,"country":null},{"type":"Kub 1S91 str","name":"SAM SA-6 Kub \"Straight Flush\" STR","nato":null,"country":null},{"type":"Kub 2P25 ln","name":"SAM SA-6 Kub \"Gainful\" TEL","nato":null,"country":null},{"type":"Kubelwagen_82","name":"LUV Kubelwagen Jeep","nato":null,"country":null},{"type":"L118_Unit","name":"L118 Light Artillery Gun","nato":null,"country":null},{"type":"LARC-V","name":"Truck LARC-V","nato":null,"country":null},{"type":"LAV-25","name":"IFV LAV-25","nato":null,"country":null},{"type":"LAZ Bus","name":"Bus LAZ-695","nato":null,"country":null},{"type":"Land_Rover_101_FC","name":"Truck Land Rover 101 FC","nato":null,"country":null},{"type":"Land_Rover_109_S3","name":"LUV Land Rover 109","nato":null,"country":null},{"type":"LeFH_18-40-105","name":"FH LeFH-18 105mm","nato":null,"country":null},{"type":"Leclerc","name":"MBT Leclerc","nato":null,"country":null},{"type":"Leopard-2","name":"MBT Leopard-2A6M","nato":null,"country":null},{"type":"Leopard-2A5","name":"MBT Leopard-2A5","nato":null,"country":null},{"type":"Leopard1A3","name":"MBT Leopard 1A3","nato":null,"country":null},{"type":"LiAZ Bus","name":"Bus LiAZ-677","nato":null,"country":null},{"type":"Locomotive","name":"Loco CHME3T","nato":null,"country":null},{"type":"M 818","name":"Truck M939 Heavy","nato":null,"country":null},{"type":"M-1 Abrams","name":"MBT M1A2 Abrams","nato":null,"country":null},{"type":"M-109","name":"SPH M109 Paladin 155mm","nato":null,"country":null},{"type":"M-113","name":"APC M113","nato":null,"country":null},{"type":"M-2 Bradley","name":"IFV M2A2 Bradley","nato":null,"country":null},{"type":"M-60","name":"MBT M60A3 Patton","nato":null,"country":null},{"type":"M1043 HMMWV Armament","name":"Scout HMMWV","nato":null,"country":null},{"type":"M1045 HMMWV TOW","name":"ATGM HMMWV","nato":null,"country":null},{"type":"M1097 Avenger","name":"SAM Avenger (Stinger)","nato":null,"country":null},{"type":"M10_GMC","name":"SPG M10 GMC TD","nato":null,"country":null},{"type":"M1126 Stryker ICV","name":"IFV M1126 Stryker ICV","nato":null,"country":null},{"type":"M1128 Stryker MGS","name":"SPG Stryker MGS","nato":null,"country":null},{"type":"M1134 Stryker ATGM","name":"ATGM Stryker","nato":null,"country":null},{"type":"M12_GMC","name":"SPH M12 GMC 155mm","nato":null,"country":null},{"type":"M1A2C_SEP_V3","name":"MBT M1A2C SEP v3 Abrams","nato":null,"country":null},{"type":"M1_37mm","name":"AAA M1 37mm","nato":null,"country":null},{"type":"M2A1-105","name":"FH M2A1 105mm","nato":null,"country":null},{"type":"M2A1_halftrack","name":"APC M2A1 Halftrack","nato":null,"country":null},{"type":"M30_CC","name":"Ammo M30 Cargo Carrier","nato":null,"country":null},{"type":"M45_Quadmount","name":"AAA M45 Quadmount HB 12.7mm","nato":null,"country":null},{"type":"M48 Chaparral","name":"SAM Chaparral M48","nato":null,"country":null},{"type":"M4A4_Sherman_FF","name":"Tk M4A4 Sherman Firefly","nato":null,"country":null},{"type":"M4_Sherman","name":"Tk M4 Sherman","nato":null,"country":null},{"type":"M4_Tractor","name":"Tractor M4 High Speed","nato":null,"country":null},{"type":"M6 Linebacker","name":"SAM Linebacker - Bradley M6","nato":null,"country":null},{"type":"M8_Greyhound","name":"Scout M8 Greyhound AC","nato":null,"country":null},{"type":"M978 HEMTT Tanker","name":"Refueler M978 HEMTT","nato":null,"country":null},{"type":"MAZ-6303","name":"Truck MAZ-6303","nato":null,"country":null},{"type":"MCV-80","name":"IFV Warrior ","nato":null,"country":null},{"type":"MJ-1_drivable","name":"M92 MJ-1 drivable","nato":null,"country":null},{"type":"MLRS","name":"MLRS M270 227mm","nato":null,"country":null},{"type":"MLRS FDDM","name":"MRLS FDDM (FC)","nato":null,"country":null},{"type":"MTLB","name":"APC MTLB","nato":null,"country":null},{"type":"Marder","name":"IFV Marder","nato":null,"country":null},{"type":"Maschinensatz_33","name":"Maschinensatz 33 Gen","nato":null,"country":null},{"type":"MaxxPro_MRAP","name":"APC MRAP MaxxPro","nato":null,"country":null},{"type":"Merkava_Mk4","name":"MBT Merkava IV","nato":null,"country":null},{"type":"NASAMS_Command_Post","name":"SAM NASAMS C2","nato":null,"country":null},{"type":"NASAMS_LN_B","name":"SAM NASAMS LN AIM-120B","nato":null,"country":null},{"type":"NASAMS_LN_C","name":"SAM NASAMS LN AIM-120C","nato":null,"country":null},{"type":"NASAMS_Radar_MPQ64F1","name":"SAM NASAMS SR MPQ64F1","nato":null,"country":null},{"type":"Osa 9A33 ln","name":"SAM SA-8 Osa \"Gecko\" TEL","nato":null,"country":null},{"type":"P20_drivable","name":"M92 P20 drivable","nato":null,"country":null},{"type":"PL5EII Loadout","name":"Payload PL-5EII","nato":null,"country":null},{"type":"PL8 Loadout","name":"Payload PL-8","nato":null,"country":null},{"type":"PLZ05","name":"PLZ-05","nato":null,"country":null},{"type":"PT_76","name":"LT PT-76","nato":null,"country":null},{"type":"Pak40","name":"FH Pak 40 75mm","nato":null,"country":null},{"type":"Paratrooper AKS-74","name":"Paratrooper AKS","nato":null,"country":null},{"type":"Paratrooper RPG-16","name":"Paratrooper RPG-16","nato":null,"country":null},{"type":"Patriot AMG","name":"SAM Patriot CR (AMG AN/MRC-137)","nato":null,"country":null},{"type":"Patriot ECS","name":"SAM Patriot ECS","nato":null,"country":null},{"type":"Patriot EPP","name":"SAM Patriot EPP-III","nato":null,"country":null},{"type":"Patriot cp","name":"SAM Patriot C2 ICC","nato":null,"country":null},{"type":"Patriot ln","name":"SAM Patriot LN","nato":null,"country":null},{"type":"Patriot str","name":"SAM Patriot STR","nato":null,"country":null},{"type":"Predator GCS","name":"MCC Predator UAV CP & GCS","nato":null,"country":null},{"type":"Predator TrojanSpirit","name":"MCC-COMM Predator UAV CL","nato":null,"country":null},{"type":"Pz_IV_H","name":"Tk PzIV H","nato":null,"country":null},{"type":"Pz_V_Panther_G","name":"Tk Panther G (Pz V)","nato":null,"country":null},{"type":"QF_37_AA","name":"AAA QF 3.7\"","nato":null,"country":null},{"type":"RD_75","name":"SAM SA-2 S-75 RD-75 Amazonka RF","nato":null,"country":null},{"type":"RLS_19J6","name":"SAM SA-5 S-200 ST-68U \"Tin Shield\" SR","nato":null,"country":null},{"type":"RPC_5N62V","name":"SAM SA-5 S-200 \"Square Pair\" TR","nato":null,"country":null},{"type":"Roland ADS","name":"SAM Roland ADS","nato":null,"country":null},{"type":"Roland Radar","name":"SAM Roland EWR","nato":null,"country":null},{"type":"S-200_Launcher","name":"SAM SA-5 S-200 \"Gammon\" LN","nato":null,"country":null},{"type":"S-300PS 40B6M tr","name":"SAM SA-10 S-300 \"Grumble\" Flap Lid-A TR","nato":null,"country":null},{"type":"S-300PS 40B6MD sr","name":"SAM SA-10 S-300 \"Grumble\" Clam Shell SR","nato":null,"country":null},{"type":"S-300PS 40B6MD sr_19J6","name":"SAM SA-10 S-300 \"Grumble\" Tin Shield SR","nato":null,"country":null},{"type":"S-300PS 54K6 cp","name":"SAM SA-10 S-300 \"Grumble\" C2","nato":null,"country":null},{"type":"S-300PS 5H63C 30H6_tr","name":"SAM SA-10 S-300 \"Grumble\" Flap Lid-B TR","nato":null,"country":null},{"type":"S-300PS 5P85C ln","name":"SAM SA-10 S-300 \"Grumble\" TEL C","nato":null,"country":null},{"type":"S-300PS 5P85D ln","name":"SAM SA-10 S-300 \"Grumble\" TEL D","nato":null,"country":null},{"type":"S-300PS 64H6E sr","name":"SAM SA-10 S-300 \"Grumble\" Big Bird SR","nato":null,"country":null},{"type":"S-60_Type59_Artillery","name":"AAA S-60 57mm","nato":null,"country":null},{"type":"SA-11 Buk CC 9S470M1","name":"SAM SA-11 Buk \"Gadfly\" C2 ","nato":null,"country":null},{"type":"SA-11 Buk LN 9A310M1","name":"SAM SA-11 Buk \"Gadfly\" Fire Dome TEL","nato":null,"country":null},{"type":"SA-11 Buk SR 9S18M1","name":"SAM SA-11 Buk \"Gadfly\" Snow Drift SR","nato":null,"country":null},{"type":"SA-18 Igla comm","name":"MANPADS SA-18 Igla \"Grouse\" C2","nato":null,"country":null},{"type":"SA-18 Igla manpad","name":"MANPADS SA-18 Igla \"Grouse\"","nato":null,"country":null},{"type":"SA-18 Igla-S comm","name":"MANPADS SA-18 Igla-S \"Grouse\" C2","nato":null,"country":null},{"type":"SA-18 Igla-S manpad","name":"MANPADS SA-18 Igla-S \"Grouse\"","nato":null,"country":null},{"type":"SAU 2-C9","name":"SPM 2S9 Nona 120mm M","nato":null,"country":null},{"type":"SAU Akatsia","name":"SPH 2S3 Akatsia 152mm","nato":null,"country":null},{"type":"SAU Gvozdika","name":"SPH 2S1 Gvozdika 122mm","nato":null,"country":null},{"type":"SAU Msta","name":"SPH 2S19 Msta 152mm","nato":null,"country":null},{"type":"SD10 Loadout","name":"Payload SD-10","nato":null,"country":null},{"type":"SKP-11","name":"Truck SKP-11 Mobile ATC","nato":null,"country":null},{"type":"SK_C_28_naval_gun","name":"Gun 15cm SK C/28 Naval in Bunker","nato":null,"country":null},{"type":"SNR_75V","name":"SAM SA-2 S-75 \"Fan Song\" TR","nato":null,"country":null},{"type":"SON_9","name":"AAA Fire Can SON-9","nato":null,"country":null},{"type":"S_75M_Volhov","name":"SAM SA-2 S-75 \"Guideline\" LN","nato":null,"country":null},{"type":"S_75_ZIL","name":"S-75 Tractor (ZIL-131)","nato":null,"country":null},{"type":"Sandbox","name":"Bunker 1","nato":null,"country":null},{"type":"Scud_B","name":"SSM SS-1C Scud-B","nato":null,"country":null},{"type":"Sd_Kfz_2","name":"LUV Kettenrad","nato":null,"country":null},{"type":"Sd_Kfz_234_2_Puma","name":"Scout Puma AC","nato":null,"country":null},{"type":"Sd_Kfz_251","name":"APC Sd.Kfz.251 Halftrack","nato":null,"country":null},{"type":"Sd_Kfz_7","name":"Tractor Sd.Kfz.7 Art'y Tractor","nato":null,"country":null},{"type":"Silkworm_SR","name":"AShM Silkworm SR","nato":null,"country":null},{"type":"Smerch","name":"MLRS 9A52 Smerch CM 300mm","nato":null,"country":null},{"type":"Smerch_HE","name":"MLRS 9A52 Smerch HE 300mm","nato":null,"country":null},{"type":"Soldier AK","name":"Infantry AK-74","nato":null,"country":null},{"type":"Soldier M249","name":"Infantry M249","nato":null,"country":null},{"type":"Soldier M4","name":"Infantry M4","nato":null,"country":null},{"type":"Soldier M4 GRG","name":"Infantry M4 Georgia","nato":null,"country":null},{"type":"Soldier RPG","name":"Infantry RPG","nato":null,"country":null},{"type":"Soldier stinger","name":"MANPADS Stinger","nato":null,"country":null},{"type":"SpGH_Dana","name":"SPH Dana vz77 152mm","nato":null,"country":null},{"type":"Stinger comm","name":"MANPADS Stinger C2","nato":null,"country":null},{"type":"Stinger comm dsr","name":"MANPADS Stinger C2 Desert","nato":null,"country":null},{"type":"Strela-1 9P31","name":"SAM SA-9 Strela 1 \"Gaskin\" TEL","nato":null,"country":null},{"type":"Strela-10M3","name":"SAM SA-13 Strela 10M3 \"Gopher\" TEL","nato":null,"country":null},{"type":"Stug_III","name":"SPG StuG III G AG","nato":null,"country":null},{"type":"Stug_IV","name":"SPG StuG IV AG","nato":null,"country":null},{"type":"SturmPzIV","name":"SPG Brummbaer AG","nato":null,"country":null},{"type":"Suidae","name":"Suidae","nato":null,"country":null},{"type":"T-55","name":"MBT T-55","nato":null,"country":null},{"type":"T-72B","name":"MBT T-72B","nato":null,"country":null},{"type":"T-72B3","name":"MBT T-72B3","nato":null,"country":null},{"type":"T-80UD","name":"MBT T-80U","nato":null,"country":null},{"type":"T-90","name":"MBT T-90A [CH]","nato":null,"country":null},{"type":"T155_Firtina","name":"SPH T155 Firtina 155mm","nato":null,"country":null},{"type":"TACAN_beacon","name":"Beacon TACAN Portable TTS 3030","nato":null,"country":null},{"type":"TPZ","name":"APC TPz Fuchs ","nato":null,"country":null},{"type":"TYPE-59","name":"MT Type 59","nato":null,"country":null},{"type":"TZ-22_KrAZ","name":"Refueler TZ-22 Tractor (KrAZ-258B1)","nato":null,"country":null},{"type":"Tankcartrinity","name":"Tank Cartrinity","nato":null,"country":null},{"type":"Tetrarch","name":"Tk Tetrach","nato":null,"country":null},{"type":"Tiger_I","name":"Tk Tiger 1","nato":null,"country":null},{"type":"Tiger_II_H","name":"Tk Tiger II","nato":null,"country":null},{"type":"Tigr_233036","name":"LUV Tigr","nato":null,"country":null},{"type":"Tor 9A331","name":"SAM SA-15 Tor \"Gauntlet\"","nato":null,"country":null},{"type":"Trolley bus","name":"ZIU-9 Trolley","nato":null,"country":null},{"type":"TugHarlan_drivable","name":"M92 Tug Harlan drivable","nato":null,"country":null},{"type":"Type_3_80mm_AA","name":"AAA 80mm Type 3 Flak","nato":null,"country":null},{"type":"Type_88_75mm_AA","name":"AAA 75mm Type 88 Flak","nato":null,"country":null},{"type":"Type_89_I_Go","name":"Tk Type 89 I Go","nato":null,"country":null},{"type":"Type_94_25mm_AA_Truck","name":"AAA 25mm x 2 Type 94 Truck","nato":null,"country":null},{"type":"Type_94_Truck","name":"Truck Type 94","nato":null,"country":null},{"type":"Type_96_25mm_AA","name":"AAA 25mm x 2 Type 96","nato":null,"country":null},{"type":"Type_98_Ke_Ni","name":"Tk Type 98 Ke Ni","nato":null,"country":null},{"type":"Type_98_So_Da","name":"APC Type 98 So Da","nato":null,"country":null},{"type":"UAZ-469","name":"LUV UAZ-469 Jeep","nato":null,"country":null},{"type":"Uragan_BM-27","name":"MLRS 9K57 Uragan BM-27 220mm","nato":null,"country":null},{"type":"Ural ATsP-6","name":"Firefighter Ural ATsP-6","nato":null,"country":null},{"type":"Ural-375","name":"Truck Ural-4320","nato":null,"country":null},{"type":"Ural-375 PBU","name":"Truck Ural-4320 MCC","nato":null,"country":null},{"type":"Ural-375 ZU-23","name":"AAA ZU-23 on Ural-4320","nato":null,"country":null},{"type":"Ural-375 ZU-23 Insurgent","name":"AAA ZU-23 on Ural-4320 Insurgent","nato":null,"country":null},{"type":"Ural-4320 APA-5D","name":"GPU APA-5D on Ural 4320","nato":null,"country":null},{"type":"Ural-4320-31","name":"Truck Ural-4320-31 Arm'd","nato":null,"country":null},{"type":"Ural-4320T","name":"Truck Ural-4320T","nato":null,"country":null},{"type":"VAB_Mephisto","name":"ATGM VAB Mephisto","nato":null,"country":null},{"type":"VAZ Car","name":"Car VAZ-2109","nato":null,"country":null},{"type":"Vulcan","name":"SPAAA Vulcan M163","nato":null,"country":null},{"type":"Wellcarnsc","name":"Well Car","nato":null,"country":null},{"type":"Wespe124","name":"SPH Sd.Kfz.124 Wespe 105mm","nato":null,"country":null},{"type":"Willys_MB","name":"Car Willys Jeep","nato":null,"country":null},{"type":"ZBD04A","name":"ZBD-04A","nato":null,"country":null},{"type":"ZIL-131 KUNG","name":"Truck ZIL-131 (C2)","nato":null,"country":null},{"type":"ZIL-135","name":"Truck ZIL-135","nato":null,"country":null},{"type":"ZIL-4331","name":"Truck ZIL-4331","nato":null,"country":null},{"type":"ZSU-23-4 Shilka","name":"SPAAA ZSU-23-4 Shilka \"Gun Dish\"","nato":null,"country":null},{"type":"ZSU_57_2","name":"SPAAA ZSU-57-2","nato":null,"country":null},{"type":"ZTZ96B","name":"ZTZ-96B","nato":null,"country":null},{"type":"ZU-23 Closed Insurgent","name":"AAA ZU-23 Insurgent Closed Emplacement","nato":null,"country":null},{"type":"ZU-23 Emplacement","name":"AAA ZU-23 Emplacement","nato":null,"country":null},{"type":"ZU-23 Emplacement Closed","name":"AAA ZU-23 Closed Emplacement","nato":null,"country":null},{"type":"ZU-23 Insurgent","name":"AAA ZU-23 Insurgent Emplacement","nato":null,"country":null},{"type":"ZiL-131 APA-80","name":"GPU APA-80 on ZIL-131","nato":null,"country":null},{"type":"bofors40","name":"AAA Bofors 40mm","nato":null,"country":null},{"type":"fire_control","name":"Bunker with Fire Control Center","nato":null,"country":null},{"type":"flak18","name":"AAA 8,8cm Flak 18","nato":null,"country":null},{"type":"flak30","name":"AAA Flak 38 20mm","nato":null,"country":null},{"type":"flak36","name":"AAA 8,8cm Flak 36","nato":null,"country":null},{"type":"flak37","name":"AAA 8,8cm Flak 37","nato":null,"country":null},{"type":"flak38","name":"AAA Flak-Vierling 38 Quad 20mm","nato":null,"country":null},{"type":"flak41","name":"AAA 8,8cm Flak 41","nato":null,"country":null},{"type":"gaz-66_civil","name":"Truck GAZ-66 civil","nato":null,"country":null},{"type":"generator_5i57","name":"Diesel Power Station 5I57A","nato":null,"country":null},{"type":"house1arm","name":"Barracks armed","nato":null,"country":null},{"type":"house2arm","name":"Watch tower armed","nato":null,"country":null},{"type":"houseA_arm","name":"Building armed","nato":null,"country":null},{"type":"hy_launcher","name":"AShM SS-N-2 Silkworm","nato":null,"country":null},{"type":"kamaz_tent_civil","name":"Truck KAMAZ-43101 civil","nato":null,"country":null},{"type":"leopard-2A4","name":"MBT Leopard-2A4","nato":null,"country":null},{"type":"leopard-2A4_trs","name":"MBT Leopard-2A4 Trs","nato":null,"country":null},{"type":"outpost","name":"Outpost","nato":null,"country":null},{"type":"outpost_road","name":"Road outpost","nato":null,"country":null},{"type":"outpost_road_l","name":"Road outpost_L","nato":null,"country":null},{"type":"outpost_road_r","name":"Road outpost-R","nato":null,"country":null},{"type":"p-19 s-125 sr","name":"SAM SA-2/3/5 P19 \"Flat Face\" SR ","nato":null,"country":null},{"type":"prmg_gp_beacon","name":"PRMG Glidepath car","nato":null,"country":null},{"type":"prmg_loc_beacon","name":"PRMG Localizer car","nato":null,"country":null},{"type":"r11_volvo_drivable","name":"M92 R11 Volvo drivable","nato":null,"country":null},{"type":"rapier_fsa_blindfire_radar","name":"SAM Rapier Blindfire TR","nato":null,"country":null},{"type":"rapier_fsa_launcher","name":"SAM Rapier LN","nato":null,"country":null},{"type":"rapier_fsa_optical_tracker_unit","name":"SAM Rapier Tracker","nato":null,"country":null},{"type":"rsbn_beacon","name":"RSBN car","nato":null,"country":null},{"type":"snr s-125 tr","name":"SAM SA-3 S-125 \"Low Blow\" TR","nato":null,"country":null},{"type":"soldier_mauser98","name":"Infantry Mauser 98","nato":null,"country":null},{"type":"soldier_wwii_br_01","name":"Infantry SMLE No.4 Mk-1","nato":null,"country":null},{"type":"soldier_wwii_us","name":"Infantry M1 Garand","nato":null,"country":null},{"type":"tacr2a","name":"Firefighter RAF Rescue","nato":null,"country":null},{"type":"tt_B8M1","name":"MLRS LC with B8M1 80mm","nato":null,"country":null},{"type":"tt_DSHK","name":"Scout LC with DSHK 12.7mm","nato":null,"country":null},{"type":"tt_KORD","name":"Scout LC with KORD 12.7mm","nato":null,"country":null},{"type":"tt_ZU-23","name":"SPAAA LC with ZU-23","nato":null,"country":null},{"type":"ural_4230_civil_b","name":"Truck Ural-4320 civil","nato":null,"country":null},{"type":"ural_4230_civil_t","name":"Truck Ural-4320T civil","nato":null,"country":null},{"type":"ural_atz5_civil","name":"Refueler ATZ-5 civil","nato":null,"country":null},{"type":"v1_launcher","name":"V-1 Launch Ramp","nato":null,"country":null},{"type":"zil-131_civil","name":"Truck ZiL-131 civil","nato":null,"country":null}],"ship":[{"type":"ALBATROS","name":"Corvette 1124.4 Grisha","nato":null,"country":null},{"type":"BDK-775","name":"LS Ropucha","nato":null,"country":null},{"type":"CHAP_Project22160","name":"Patrol Ship 22160 Vasily Bykov [CH]","nato":null,"country":null},{"type":"CHAP_Project22160_TorM2KM","name":"Patrol ship 22160 Vasily Bykov with Tor M2KM [CH]","nato":null,"country":null},{"type":"CVN_71","name":"CVN-71 Theodore Roosevelt","nato":null,"country":null},{"type":"CVN_72","name":"CVN-72 Abraham Lincoln","nato":null,"country":null},{"type":"CVN_73","name":"CVN-73 George Washington","nato":null,"country":null},{"type":"CVN_75","name":"CVN-75 Harry S. Truman","nato":null,"country":null},{"type":"CV_1143_5","name":"CV 1143.5 Admiral Kuznetsov(2017)","nato":null,"country":null},{"type":"CastleClass_01","name":"Castle Class","nato":null,"country":null},{"type":"Dry-cargo ship-1","name":"Bulker Yakushev","nato":null,"country":null},{"type":"Dry-cargo ship-2","name":"Cargo Ivanov","nato":null,"country":null},{"type":"ELNYA","name":"Tanker Elnya 160","nato":null,"country":null},{"type":"Essex","name":"Essex Class Carrier 1944","nato":null,"country":null},{"type":"Forrestal","name":"CV-59 Forrestal","nato":null,"country":null},{"type":"HandyWind","name":"Bulker Handy Wind","nato":null,"country":null},{"type":"HarborTug","name":"Harbor Tug","nato":null,"country":null},{"type":"Higgins_boat","name":"Boat LCVP Higgins","nato":null,"country":null},{"type":"IMPROVED_KILO","name":"SSK 636 Improved Kilo","nato":null,"country":null},{"type":"KILO","name":"SSK 877V Kilo","nato":null,"country":null},{"type":"KUZNECOW","name":"CV 1143.5 Admiral Kuznetsov","nato":null,"country":null},{"type":"LHA_Tarawa","name":"LHA-1 Tarawa","nato":null,"country":null},{"type":"LST_Mk2","name":"LST Mk.II","nato":null,"country":null},{"type":"La_Combattante_II","name":"FAC La Combattante IIa","nato":null,"country":null},{"type":"MOLNIYA","name":"Corvette 1241.1 Molniya","nato":null,"country":null},{"type":"MOSCOW","name":"Cruiser 1164 Moskva","nato":null,"country":null},{"type":"NEUSTRASH","name":"Frigate 11540 Neustrashimy","nato":null,"country":null},{"type":"PERRY","name":"FFG Oliver Hazard Perry","nato":null,"country":null},{"type":"PIOTR","name":"Battlecruiser 1144.2 Pyotr Velikiy","nato":null,"country":null},{"type":"REZKY","name":"Frigate 1135M Rezky","nato":null,"country":null},{"type":"SOM","name":"SSK 641B Tango","nato":null,"country":null},{"type":"Schnellboot_type_S130","name":"Boat Schnellboot type S130","nato":null,"country":null},{"type":"Seawise_Giant","name":"Tanker Seawise Giant","nato":null,"country":null},{"type":"Ship_Tilde_Supply","name":"Supply Ship MV Tilde","nato":null,"country":null},{"type":"Stennis","name":"CVN-74 John C. Stennis","nato":null,"country":null},{"type":"TICONDEROG","name":"CG Ticonderoga","nato":null,"country":null},{"type":"Type_052B","name":"Type 052B Destroyer","nato":null,"country":null},{"type":"Type_052C","name":"Type 052C Destroyer","nato":null,"country":null},{"type":"Type_054A","name":"Type 054A Frigate","nato":null,"country":null},{"type":"Type_071","name":"Type 071 Amphibious Transport Dock","nato":null,"country":null},{"type":"Type_093","name":"Type 093 Attack Submarine","nato":null,"country":null},{"type":"USS_Arleigh_Burke_IIa","name":"DDG Arleigh Burke IIa","nato":null,"country":null},{"type":"USS_Samuel_Chase","name":"LS Samuel Chase","nato":null,"country":null},{"type":"Uboat_VIIC","name":"U-boat VIIC U-flak","nato":null,"country":null},{"type":"VINSON","name":"CVN-70 Carl Vinson","nato":null,"country":null},{"type":"ZWEZDNY","name":"Boat Zvezdny type","nato":null,"country":null},{"type":"ara_vdm","name":"ARA Veinticinco de Mayo","nato":null,"country":null},{"type":"atconveyor","name":"SS Atlantic Conveyor","nato":null,"country":null},{"type":"hms_invincible","name":"HMS Invincible (R05)","nato":null,"country":null},{"type":"leander-gun-achilles","name":"HMS Achilles (F12)","nato":null,"country":null},{"type":"leander-gun-andromeda","name":"HMS Andromeda (F57)","nato":null,"country":null},{"type":"leander-gun-ariadne","name":"HMS Ariadne (F72)","nato":null,"country":null},{"type":"leander-gun-condell","name":"CNS Almirante Condell (PFG-06)","nato":null,"country":null},{"type":"leander-gun-lynch","name":"CNS Almirante Lynch (PFG-07)","nato":null,"country":null},{"type":"santafe","name":"ARA Santa Fe S-21","nato":null,"country":null},{"type":"speedboat","name":"Boat Armed Hi-speed","nato":null,"country":null}]}
+{
+  "plane": [
+    {
+      "type": "A-10A",
+      "name": "A-10A",
+      "subcategory": "attacker",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "coldwar",
+      "role": "Avion d'attaque au sol"
+    },
+    {
+      "type": "A-10C",
+      "name": "A-10C",
+      "subcategory": "attacker",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Avion d'attaque au sol"
+    },
+    {
+      "type": "A-10C_2",
+      "name": "A-10C II",
+      "subcategory": "attacker",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Avion d'attaque au sol II"
+    },
+    {
+      "type": "A-20G",
+      "name": "A-20G",
+      "subcategory": "bomber",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "ww2",
+      "role": "Bombardier léger WWII"
+    },
+    {
+      "type": "A-50",
+      "name": "A-50",
+      "subcategory": "awacs",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "AWACS russe"
+    },
+    {
+      "type": "AJS37",
+      "name": "AJS37",
+      "subcategory": "attacker",
+      "coalition": "blue",
+      "country": "Sweden",
+      "era": "coldwar",
+      "role": "Attaque/Reconnaissance"
+    },
+    {
+      "type": "AV8BNA",
+      "name": "AV-8B N/A",
+      "subcategory": "attacker",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Attaque VTOL"
+    },
+    {
+      "type": "An-26B",
+      "name": "An-26B",
+      "subcategory": "transport",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "coldwar",
+      "role": "Transport tactique"
+    },
+    {
+      "type": "An-30M",
+      "name": "An-30M",
+      "subcategory": "attacker",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "coldwar",
+      "role": "Reconnaissance/Cartographie"
+    },
+    {
+      "type": "B-17G",
+      "name": "B-17G",
+      "subcategory": "bomber",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "ww2",
+      "role": "Forteresse volante WWII"
+    },
+    {
+      "type": "B-1B",
+      "name": "B-1B",
+      "subcategory": "bomber",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Bombardier supersonique"
+    },
+    {
+      "type": "B-52H",
+      "name": "B-52H",
+      "subcategory": "bomber",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Bombardier stratégique"
+    },
+    {
+      "type": "Bf-109K-4",
+      "name": "Bf 109 K-4",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "C-101CC",
+      "name": "C-101CC",
+      "subcategory": "trainer",
+      "coalition": "blue",
+      "country": "Spain",
+      "era": "modern",
+      "role": "Avion d'entraînement"
+    },
+    {
+      "type": "C-101EB",
+      "name": "C-101EB",
+      "subcategory": "trainer",
+      "coalition": "blue",
+      "country": "Spain",
+      "era": "modern",
+      "role": "Avion d'entraînement"
+    },
+    {
+      "type": "C-130",
+      "name": "C-130",
+      "subcategory": "transport",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Transport tactique"
+    },
+    {
+      "type": "C-130J-30",
+      "name": "C-130J-30",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "C-17A",
+      "name": "C-17A",
+      "subcategory": "transport",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Transport stratégique"
+    },
+    {
+      "type": "C-47",
+      "name": "C-47",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Christen Eagle II",
+      "name": "Christen Eagle II",
+      "subcategory": "trainer",
+      "coalition": "both",
+      "country": "USA",
+      "era": "modern",
+      "role": "Acrobatie"
+    },
+    {
+      "type": "E-2C",
+      "name": "E-2D",
+      "subcategory": "awacs",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "AWACS embarqué"
+    },
+    {
+      "type": "E-3A",
+      "name": "E-3A",
+      "subcategory": "awacs",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "AWACS"
+    },
+    {
+      "type": "F-117A",
+      "name": "F-117A",
+      "subcategory": "bomber",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Bombardier furtif"
+    },
+    {
+      "type": "F-14A",
+      "name": "F-14A",
+      "subcategory": "fighter",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "coldwar",
+      "role": "Chasseur embarqué"
+    },
+    {
+      "type": "F-14A-135-GR",
+      "name": "F-14A-135-GR",
+      "subcategory": "fighter",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "coldwar",
+      "role": "Chasseur embarqué"
+    },
+    {
+      "type": "F-14A-135-GR-Early",
+      "name": "F-14A-135-GR (Early)",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "F-14B",
+      "name": "F-14B",
+      "subcategory": "fighter",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Chasseur embarqué"
+    },
+    {
+      "type": "F-15C",
+      "name": "F-15C",
+      "subcategory": "fighter",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Chasseur air-air"
+    },
+    {
+      "type": "F-15E",
+      "name": "F-15E",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "F-15ESE",
+      "name": "F-15E S4+",
+      "subcategory": "attacker",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Chasseur-bombardier"
+    },
+    {
+      "type": "F-16A",
+      "name": "F-16A",
+      "subcategory": "fighter",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "coldwar",
+      "role": "Chasseur"
+    },
+    {
+      "type": "F-16A MLU",
+      "name": "F-16A MLU",
+      "subcategory": "fighter",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Chasseur"
+    },
+    {
+      "type": "F-16C bl.50",
+      "name": "F-16C bl.50",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "F-16C bl.52d",
+      "name": "F-16C bl.52d",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "F-16C_50",
+      "name": "F-16CM bl.50",
+      "subcategory": "fighter",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Chasseur multirôle"
+    },
+    {
+      "type": "F-4E",
+      "name": "F-4E",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "F-4E-45MC",
+      "name": "F-4E-45MC",
+      "subcategory": "fighter",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "coldwar",
+      "role": "Chasseur"
+    },
+    {
+      "type": "F-5E",
+      "name": "F-5E",
+      "subcategory": "fighter",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "coldwar",
+      "role": "Chasseur léger"
+    },
+    {
+      "type": "F-5E-3",
+      "name": "F-5E-3",
+      "subcategory": "fighter",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "coldwar",
+      "role": "Chasseur léger"
+    },
+    {
+      "type": "F-5E-3_FC",
+      "name": "F-5E FC",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "F-86F Sabre",
+      "name": "F-86F",
+      "subcategory": "fighter",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "ww2",
+      "role": "Chasseur à réaction"
+    },
+    {
+      "type": "F-86F_FC",
+      "name": "F-86F FC",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "F/A-18A",
+      "name": "F/A-18A",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "F/A-18C",
+      "name": "F/A-18C",
+      "subcategory": "fighter",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Chasseur embarqué"
+    },
+    {
+      "type": "F4U-1D",
+      "name": "F4U-1D",
+      "subcategory": "fighter",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "ww2",
+      "role": "Corsair embarqué WWII"
+    },
+    {
+      "type": "F4U-1D_CW",
+      "name": "F4U-1D Mk.IV",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "FA-18C_hornet",
+      "name": "F/A-18C Lot 20",
+      "subcategory": "fighter",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Chasseur embarqué"
+    },
+    {
+      "type": "FW-190A8",
+      "name": "Fw 190 A-8",
+      "subcategory": "fighter",
+      "coalition": "red",
+      "country": "Germany",
+      "era": "ww2",
+      "role": "Chasseur WWII"
+    },
+    {
+      "type": "FW-190D9",
+      "name": "Fw 190 D-9",
+      "subcategory": "fighter",
+      "coalition": "red",
+      "country": "Germany",
+      "era": "ww2",
+      "role": "Chasseur WWII"
+    },
+    {
+      "type": "Falcon_Gyrocopter",
+      "name": "Falcon Assault Gyrocopter",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "H-6J",
+      "name": "H-6J",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Hawk",
+      "name": "Hawk",
+      "subcategory": "trainer",
+      "coalition": "blue",
+      "country": "UK",
+      "era": "modern",
+      "role": "Avion d'entraînement"
+    },
+    {
+      "type": "I-16",
+      "name": "I-16",
+      "subcategory": "fighter",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "ww2",
+      "role": "Chasseur WWII soviétique"
+    },
+    {
+      "type": "IL-76MD",
+      "name": "IL-76MD",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "IL-78M",
+      "name": "IL-78M",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "J-11A",
+      "name": "J-11A",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "JF-17",
+      "name": "JF-17",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Ju-88A4",
+      "name": "Ju 88 A-4",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "KC-135",
+      "name": "KC-135",
+      "subcategory": "tanker",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Ravitailleur"
+    },
+    {
+      "type": "KC130",
+      "name": "KC-130",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "KC135MPRS",
+      "name": "KC-135MPRS",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "KJ-2000",
+      "name": "KJ-2000",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "L-39C",
+      "name": "L-39C",
+      "subcategory": "trainer",
+      "coalition": "both",
+      "country": "Czechoslovakia",
+      "era": "coldwar",
+      "role": "Avion d'entraînement"
+    },
+    {
+      "type": "L-39ZA",
+      "name": "L-39ZA",
+      "subcategory": "trainer",
+      "coalition": "both",
+      "country": "Czechoslovakia",
+      "era": "coldwar",
+      "role": "Avion d'entraînement/Attaque"
+    },
+    {
+      "type": "M-2000C",
+      "name": "M-2000C",
+      "subcategory": "fighter",
+      "coalition": "blue",
+      "country": "France",
+      "era": "modern",
+      "role": "Chasseur multirôle"
+    },
+    {
+      "type": "MB-339A",
+      "name": "MB-339A",
+      "subcategory": "trainer",
+      "coalition": "blue",
+      "country": "Italy",
+      "era": "modern",
+      "role": "Avion d'entraînement"
+    },
+    {
+      "type": "MB-339APAN",
+      "name": "MB-339A/PAN",
+      "subcategory": "trainer",
+      "coalition": "blue",
+      "country": "Italy",
+      "era": "modern",
+      "role": "Avion d'entraînement"
+    },
+    {
+      "type": "MQ-9 Reaper",
+      "name": "MQ-9 Reaper",
+      "subcategory": "uav",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Drone MALE"
+    },
+    {
+      "type": "MiG-15bis",
+      "name": "MiG-15bis",
+      "subcategory": "fighter",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "coldwar",
+      "role": "Chasseur à réaction"
+    },
+    {
+      "type": "MiG-15bis_FC",
+      "name": "MiG-15bis FC",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "MiG-19P",
+      "name": "MiG-19P",
+      "subcategory": "fighter",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "coldwar",
+      "role": "Chasseur supersonique"
+    },
+    {
+      "type": "MiG-21Bis",
+      "name": "MiG-21Bis",
+      "subcategory": "fighter",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "coldwar",
+      "role": "Chasseur"
+    },
+    {
+      "type": "MiG-23MLD",
+      "name": "MiG-23MLD",
+      "subcategory": "fighter",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "coldwar",
+      "role": "Chasseur"
+    },
+    {
+      "type": "MiG-25PD",
+      "name": "MiG-25PD",
+      "subcategory": "fighter",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "coldwar",
+      "role": "Intercepteur"
+    },
+    {
+      "type": "MiG-25RBT",
+      "name": "MiG-25RBT",
+      "subcategory": "attacker",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "coldwar",
+      "role": "Reconnaissance"
+    },
+    {
+      "type": "MiG-27K",
+      "name": "MiG-27K",
+      "subcategory": "attacker",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "coldwar",
+      "role": "Bombardier"
+    },
+    {
+      "type": "MiG-29 Fulcrum",
+      "name": "MiG-29A Fulcrum",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "MiG-29A",
+      "name": "MiG-29A",
+      "subcategory": "fighter",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Chasseur"
+    },
+    {
+      "type": "MiG-29G",
+      "name": "MiG-29G",
+      "subcategory": "fighter",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Chasseur (export)"
+    },
+    {
+      "type": "MiG-29S",
+      "name": "MiG-29S",
+      "subcategory": "fighter",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Chasseur S"
+    },
+    {
+      "type": "MiG-31",
+      "name": "MiG-31",
+      "subcategory": "fighter",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Intercepteur"
+    },
+    {
+      "type": "Mirage 2000-5",
+      "name": "Mirage 2000-5",
+      "subcategory": "fighter",
+      "coalition": "blue",
+      "country": "France",
+      "era": "modern",
+      "role": "Chasseur"
+    },
+    {
+      "type": "Mirage-F1AD",
+      "name": "Mirage F1AD",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Mirage-F1AZ",
+      "name": "Mirage F1AZ",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Mirage-F1B",
+      "name": "Mirage F1B",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Mirage-F1BD",
+      "name": "Mirage F1BD",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Mirage-F1BE",
+      "name": "Mirage F1BE",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Mirage-F1BQ",
+      "name": "Mirage F1BQ",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Mirage-F1C",
+      "name": "Mirage F1C",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Mirage-F1C-200",
+      "name": "Mirage F1C-200",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Mirage-F1CE",
+      "name": "Mirage F1CE",
+      "subcategory": "fighter",
+      "coalition": "blue",
+      "country": "France",
+      "era": "coldwar",
+      "role": "Chasseur"
+    },
+    {
+      "type": "Mirage-F1CG",
+      "name": "Mirage F1CG",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Mirage-F1CH",
+      "name": "Mirage F1CH",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Mirage-F1CJ",
+      "name": "Mirage F1CJ",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Mirage-F1CK",
+      "name": "Mirage F1CK",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Mirage-F1CR",
+      "name": "Mirage F1CR",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Mirage-F1CT",
+      "name": "Mirage F1CT",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Mirage-F1CZ",
+      "name": "Mirage F1CZ",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Mirage-F1DDA",
+      "name": "Mirage F1DDA",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Mirage-F1ED",
+      "name": "Mirage F1ED",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Mirage-F1EDA",
+      "name": "Mirage F1EDA",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Mirage-F1EE",
+      "name": "Mirage F1EE",
+      "subcategory": "fighter",
+      "coalition": "blue",
+      "country": "France",
+      "era": "coldwar",
+      "role": "Chasseur"
+    },
+    {
+      "type": "Mirage-F1EH",
+      "name": "Mirage F1EH",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Mirage-F1EQ",
+      "name": "Mirage F1EQ",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Mirage-F1JA",
+      "name": "Mirage F1JA",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Mirage-F1M-CE",
+      "name": "Mirage F1M (C.14 1-25/32-51)",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Mirage-F1M-EE",
+      "name": "Mirage F1M (C.14 52-73)",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "MosquitoFBMkVI",
+      "name": "Mosquito FB Mk. VI",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "P-47D-30",
+      "name": "P-47D-30",
+      "subcategory": "fighter",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "ww2",
+      "role": "Chasseur-bombardier WWII"
+    },
+    {
+      "type": "P-47D-30bl1",
+      "name": "P-47D-30 (Early)",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "P-47D-40",
+      "name": "P-47D-40",
+      "subcategory": "fighter",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "ww2",
+      "role": "Chasseur-bombardier WWII"
+    },
+    {
+      "type": "P-51D",
+      "name": "P-51D-25-NA",
+      "subcategory": "fighter",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "ww2",
+      "role": "Chasseur WWII"
+    },
+    {
+      "type": "P-51D-30-NA",
+      "name": "P-51D-30-NA",
+      "subcategory": "fighter",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "ww2",
+      "role": "Chasseur WWII"
+    },
+    {
+      "type": "QF-4E",
+      "name": "QF-4E",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "RQ-1A Predator",
+      "name": "MQ-1A Predator",
+      "subcategory": "uav",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Drone reconnaissance"
+    },
+    {
+      "type": "S-3B",
+      "name": "S-3B",
+      "subcategory": "tanker",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "coldwar",
+      "role": "Ravitailleur/ASM embarqué"
+    },
+    {
+      "type": "S-3B Tanker",
+      "name": "S-3B Tanker",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "SpitfireLFMkIX",
+      "name": "Spitfire LF Mk. IX",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "SpitfireLFMkIXCW",
+      "name": "Spitfire LF Mk. IX CW",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Su-17M4",
+      "name": "Su-17M4",
+      "subcategory": "attacker",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "coldwar",
+      "role": "Bombardier"
+    },
+    {
+      "type": "Su-24M",
+      "name": "Su-24M",
+      "subcategory": "bomber",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Bombardier"
+    },
+    {
+      "type": "Su-24MR",
+      "name": "Su-24MR",
+      "subcategory": "attacker",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Reconnaissance"
+    },
+    {
+      "type": "Su-25",
+      "name": "Su-25",
+      "subcategory": "attacker",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Avion d'attaque"
+    },
+    {
+      "type": "Su-25T",
+      "name": "Su-25T",
+      "subcategory": "attacker",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Avion d'attaque T"
+    },
+    {
+      "type": "Su-25TM",
+      "name": "Su-25TM",
+      "subcategory": "attacker",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Avion d'attaque TM"
+    },
+    {
+      "type": "Su-27",
+      "name": "Su-27",
+      "subcategory": "fighter",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Chasseur air-air"
+    },
+    {
+      "type": "Su-30",
+      "name": "Su-30",
+      "subcategory": "fighter",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Chasseur multirôle"
+    },
+    {
+      "type": "Su-33",
+      "name": "Su-33",
+      "subcategory": "fighter",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Chasseur embarqué"
+    },
+    {
+      "type": "Su-34",
+      "name": "Su-34",
+      "subcategory": "bomber",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Bombardier"
+    },
+    {
+      "type": "TF-51D",
+      "name": "TF-51D",
+      "subcategory": "trainer",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "ww2",
+      "role": "Avion d'entraînement"
+    },
+    {
+      "type": "Tornado GR4",
+      "name": "Tornado GR4",
+      "subcategory": "attacker",
+      "coalition": "blue",
+      "country": "UK",
+      "era": "modern",
+      "role": "Attaque au sol"
+    },
+    {
+      "type": "Tornado IDS",
+      "name": "Tornado IDS",
+      "subcategory": "attacker",
+      "coalition": "blue",
+      "country": "Germany",
+      "era": "coldwar",
+      "role": "Bombardier"
+    },
+    {
+      "type": "Tu-142",
+      "name": "Tu-142",
+      "subcategory": "bomber",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Patrouille maritime"
+    },
+    {
+      "type": "Tu-160",
+      "name": "Tu-160",
+      "subcategory": "bomber",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Bombardier supersonique"
+    },
+    {
+      "type": "Tu-22M3",
+      "name": "Tu-22M3",
+      "subcategory": "bomber",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Bombardier stratégique"
+    },
+    {
+      "type": "Tu-95MS",
+      "name": "Tu-95MS [CH]",
+      "subcategory": "bomber",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Bombardier stratégique"
+    },
+    {
+      "type": "WingLoong-I",
+      "name": "WingLoong-I",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Yak-40",
+      "name": "Yak-40",
+      "subcategory": "transport",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "coldwar",
+      "role": "Transport léger"
+    },
+    {
+      "type": "Yak-52",
+      "name": "Yak-52",
+      "subcategory": "trainer",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "coldwar",
+      "role": "Avion d'entraînement"
+    }
+  ],
+  "helicopter": [
+    {
+      "type": "AH-1W",
+      "name": "AH-1W",
+      "subcategory": "attack",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Cobra"
+    },
+    {
+      "type": "AH-64A",
+      "name": "AH-64A",
+      "subcategory": "attack",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Hélicoptère d'attaque"
+    },
+    {
+      "type": "AH-64D",
+      "name": "AH-64D",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "AH-64D_BLK_II",
+      "name": "AH-64D BLK.II",
+      "subcategory": "attack",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Apache Longbow"
+    },
+    {
+      "type": "CH-47D",
+      "name": "CH-47D",
+      "subcategory": "transport",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Chinook"
+    },
+    {
+      "type": "CH-47Fbl1",
+      "name": "CH-47F",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CH-53E",
+      "name": "CH-53E",
+      "subcategory": "transport",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Super Stallion"
+    },
+    {
+      "type": "Ka-27",
+      "name": "Ka-27",
+      "subcategory": "transport",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Helix"
+    },
+    {
+      "type": "Ka-50",
+      "name": "Ka-50",
+      "subcategory": "attack",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Hélicoptère d'attaque"
+    },
+    {
+      "type": "Ka-50_3",
+      "name": "Ka-50 III",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Mi-24P",
+      "name": "Mi-24P",
+      "subcategory": "attack",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Hind P"
+    },
+    {
+      "type": "Mi-24V",
+      "name": "Mi-24V",
+      "subcategory": "attack",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Hind V"
+    },
+    {
+      "type": "Mi-26",
+      "name": "Mi-26",
+      "subcategory": "transport",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Halo — gros porteur"
+    },
+    {
+      "type": "Mi-28N",
+      "name": "Mi-28N [CH]",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Mi-8MT",
+      "name": "Mi-8MTV2",
+      "subcategory": "transport",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Mi-8 Hip"
+    },
+    {
+      "type": "OH-58D",
+      "name": "OH-58D",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "OH58D",
+      "name": "OH-58D(R)",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "SA342L",
+      "name": "SA342L",
+      "subcategory": "transport",
+      "coalition": "blue",
+      "country": "France",
+      "era": "modern",
+      "role": "Gazelle"
+    },
+    {
+      "type": "SA342M",
+      "name": "SA342M",
+      "subcategory": "attack",
+      "coalition": "blue",
+      "country": "France",
+      "era": "modern",
+      "role": "Gazelle HOT"
+    },
+    {
+      "type": "SA342Minigun",
+      "name": "SA342Minigun",
+      "subcategory": "attack",
+      "coalition": "blue",
+      "country": "France",
+      "era": "modern",
+      "role": "Gazelle Minigun"
+    },
+    {
+      "type": "SA342Mistral",
+      "name": "SA342Mistral",
+      "subcategory": "attack",
+      "coalition": "blue",
+      "country": "France",
+      "era": "modern",
+      "role": "Gazelle Mistral"
+    },
+    {
+      "type": "SH-3W",
+      "name": "SH-3W",
+      "subcategory": "transport",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "coldwar",
+      "role": "Sea King"
+    },
+    {
+      "type": "SH-60B",
+      "name": "SH-60B",
+      "subcategory": "transport",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Seahawk"
+    },
+    {
+      "type": "UH-1H",
+      "name": "UH-1H",
+      "subcategory": "transport",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "coldwar",
+      "role": "Huey"
+    },
+    {
+      "type": "UH-60A",
+      "name": "UH-60A",
+      "subcategory": "transport",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Black Hawk"
+    }
+  ],
+  "vehicle": [
+    {
+      "type": "1L13 EWR",
+      "name": "EWR 1L13",
+      "subcategory": "radar",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Radar EWR 1L13"
+    },
+    {
+      "type": "2B11 mortar",
+      "name": "Mortar 2B11 120mm",
+      "subcategory": "artillery",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Mortier 120mm"
+    },
+    {
+      "type": "2S6 Tunguska",
+      "name": "SAM SA-19 Tunguska \"Grison\" ",
+      "subcategory": "aa",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "AA Tunguska"
+    },
+    {
+      "type": "55G6 EWR",
+      "name": "EWR 55G6",
+      "subcategory": "radar",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "coldwar",
+      "role": "Radar EWR 55G6"
+    },
+    {
+      "type": "5p73 s-125 ln",
+      "name": "SAM SA-3 S-125 \"Goa\" LN",
+      "subcategory": "sam",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "coldwar",
+      "role": "SA-3 Goa LN"
+    },
+    {
+      "type": "AA8",
+      "name": "Firefighter Vehicle AA-7.2/60",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "AAV7",
+      "name": "APC AAV-7 Amphibious",
+      "subcategory": "ifv",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Assault Amphibian"
+    },
+    {
+      "type": "ATMZ-5",
+      "name": "Refueler ATMZ-5",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "ATZ-10",
+      "name": "Refueler ATZ-10",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "ATZ-5",
+      "name": "Refueler ATZ-5",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "ATZ-60_Maz",
+      "name": "Refueler ATZ-60 Tractor (MAZ-7410)",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Allies_Director",
+      "name": "Allies Rangefinder (DRT)",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "B600_drivable",
+      "name": "M92 B600 drivable",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "BMD-1",
+      "name": "IFV BMD-1",
+      "subcategory": "ifv",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "coldwar",
+      "role": "VCI aéroporté BMD-1"
+    },
+    {
+      "type": "BMP-1",
+      "name": "IFV BMP-1",
+      "subcategory": "ifv",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "coldwar",
+      "role": "VCI BMP-1"
+    },
+    {
+      "type": "BMP-2",
+      "name": "IFV BMP-2",
+      "subcategory": "ifv",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "VCI BMP-2"
+    },
+    {
+      "type": "BMP-3",
+      "name": "IFV BMP-3",
+      "subcategory": "ifv",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "VCI BMP-3"
+    },
+    {
+      "type": "BRDM-2",
+      "name": "Scout BRDM-2",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "BTR-80",
+      "name": "APC BTR-80",
+      "subcategory": "apc",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "APC BTR-80"
+    },
+    {
+      "type": "BTR-82A",
+      "name": "IFV BTR-82A",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "BTR_D",
+      "name": "APC BTR-RD",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Bedford_MWD",
+      "name": "Truck Bedford",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Blitz_36-6700A",
+      "name": "Truck Opel Blitz",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Boxcartrinity",
+      "name": "Flatcar",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Bunker",
+      "name": "Bunker 2",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CCKW_353",
+      "name": "Truck GMC \"Jimmy\" 6x6",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CHAP_9K720_Cluster",
+      "name": "SRBM 9K720 Iskander CM [CH]",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CHAP_9K720_HE",
+      "name": "SRBM 9K720 Iskander HE [CH]",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CHAP_BMPT",
+      "name": "IFV BMPT Terminator [CH]",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CHAP_FV101",
+      "name": "LT FV101 Scorpion [CH]",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CHAP_FV107",
+      "name": "Scout FV107 Scimitar [CH]",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CHAP_IRISTSLM_CP",
+      "name": "SAM IRIS-T SLM C2 [CH]",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CHAP_IRISTSLM_LN",
+      "name": "SAM IRIS-T SLM LN [CH]",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CHAP_IRISTSLM_STR",
+      "name": "SAM IRIS-T SLM STR [CH]",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CHAP_M1083",
+      "name": "Truck M1083 A1P2 MTV [CH]",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CHAP_M1130",
+      "name": "IFV M1130 Stryker CV [CH]",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CHAP_M142_ATACMS_M39A1",
+      "name": "MLRS M142 HIMARS ATACMS CM [CH]",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CHAP_M142_ATACMS_M48",
+      "name": "MLRS M142 HIMARS ATACMS HE [CH]",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CHAP_M142_GMLRS_M30",
+      "name": "MLRS M142 HIMARS GMLRS CM [CH]",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CHAP_M142_GMLRS_M31",
+      "name": "MLRS M142 HIMARS GMLRS HE [CH]",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CHAP_MATV",
+      "name": "APC MRAP M-ATV [CH]",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CHAP_PantsirS1",
+      "name": "SAM SA-22 Pantsir-S1 \"Greyhound\" [CH]",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CHAP_T64BV",
+      "name": "MBT T-64BV Type 2017 [CH]",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CHAP_T84OplotM",
+      "name": "MBT T-84 Oplot-M [CH]",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CHAP_T90M",
+      "name": "MBT T-90M [CH]",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CHAP_TOS1A",
+      "name": "MLRS TOS-1A Solntsepyok [CH]",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CHAP_TorM2",
+      "name": "SAM SA-15 Tor M2 \"Gauntlet\" [CH]",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Centaur_IV",
+      "name": "Tk Centaur IV CS",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Challenger2",
+      "name": "MBT Challenger II",
+      "subcategory": "tank",
+      "coalition": "blue",
+      "country": "UK",
+      "era": "modern",
+      "role": "Challenger 2"
+    },
+    {
+      "type": "Chieftain_mk3",
+      "name": "MBT Chieftain Mk.3",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Churchill_VII",
+      "name": "Tk Churchill VII",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Coach a passenger",
+      "name": "Passenger Car",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Coach a platform",
+      "name": "Coach Platform",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Coach a tank blue",
+      "name": "Tank Car blue",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Coach a tank yellow",
+      "name": "Tank Car yellow",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Coach cargo",
+      "name": "Freight Van",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Coach cargo open",
+      "name": "Open Wagon",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Cobra",
+      "name": "Scout Cobra",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Cromwell_IV",
+      "name": "Tk Cromwell IV",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "DRG_Class_86",
+      "name": "Loco DRG Class 86",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "DR_50Ton_Flat_Wagon",
+      "name": "DR 50-ton flat wagon",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Daimler_AC",
+      "name": "Car Daimler Armored",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Dog Ear radar",
+      "name": "MCC-SR Sborka \"Dog Ear\" SR",
+      "subcategory": "radar",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "coldwar",
+      "role": "Radar Dog Ear"
+    },
+    {
+      "type": "ES44AH",
+      "name": "Loco ES44AH",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Electric locomotive",
+      "name": "Loco VL80 Electric",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Elefant_SdKfz_184",
+      "name": "SPG Elefant TD",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "FPS-117",
+      "name": "EWR AN/FPS-117 Radar",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "FPS-117 Dome",
+      "name": "EWR AN/FPS-117 Radar (domed)",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "FPS-117 ECS",
+      "name": "EWR AN/FPS-117 ECS",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Flakscheinwerfer_37",
+      "name": "SL Flakscheinwerfer 37",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "FuMG-401",
+      "name": "EWR FuMG-401 Freya LZ",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "FuSe-65",
+      "name": "EWR FuSe-65 Würzburg-Riese",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "GAZ-3307",
+      "name": "Truck GAZ-3307",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "GAZ-3308",
+      "name": "Truck GAZ-3308",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "GAZ-66",
+      "name": "Truck GAZ-66",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "GD-20",
+      "name": "GD-20 Lift Truck",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "GPS_Spoofer_Blue",
+      "name": "GPS Spoofer NATO",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "GPS_Spoofer_Red",
+      "name": "GPS Spoofer RF",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Gepard",
+      "name": "SPAAA Gepard",
+      "subcategory": "aa",
+      "coalition": "blue",
+      "country": "Germany",
+      "era": "modern",
+      "role": "AA Gepard"
+    },
+    {
+      "type": "German_covered_wagon_G10",
+      "name": "Wagon G10 (Germany)",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "German_tank_wagon",
+      "name": "Tank Car (Germany)",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Grad-URAL",
+      "name": "MLRS BM-21 Grad 122mm",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Grad_FDDM",
+      "name": "Grad MRL FDDM (FC)",
+      "subcategory": "radar",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Radar Grad"
+    },
+    {
+      "type": "HEMTT TFFT",
+      "name": "Firefighter HEMMT TFFT",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "HEMTT_C-RAM_Phalanx",
+      "name": "LPWS C-RAM",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "HL_B8M1",
+      "name": "MLRS HL with B8M1 80mm",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "HL_DSHK",
+      "name": "Scout HL with DSHK 12.7mm",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "HL_KORD",
+      "name": "Scout HL with KORD 12.7mm",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "HL_ZU-23",
+      "name": "SPAAA HL with ZU-23",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "HQ-7_LN_P",
+      "name": "HQ-7 SHORAD TELAR (Player)",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "HQ-7_LN_SP",
+      "name": "HQ-7B SHORAD TELAR",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "HQ-7_STR_SP",
+      "name": "HQ-7B SHORAD SR",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Hawk cwar",
+      "name": "SAM Hawk CWAR AN/MPQ-55",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Hawk ln",
+      "name": "SAM Hawk LN M192",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Hawk pcp",
+      "name": "SAM Hawk Platoon Command Post (PCP)",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Hawk sr",
+      "name": "SAM Hawk SR (AN/MPQ-50)",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Hawk tr",
+      "name": "SAM Hawk TR (AN/MPQ-46)",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Horch_901_typ_40_kfz_21",
+      "name": "LUV Horch 901 Staff Car",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Hummer",
+      "name": "LUV HMMWV Jeep",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "IKARUS Bus",
+      "name": "Bus IKARUS-280",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Igla manpad INS",
+      "name": "MANPADS SA-18 Igla \"Grouse\" Ins",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Infantry AK",
+      "name": "Infantry AK-74 Rus ver1",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Infantry AK Ins",
+      "name": "Insurgent AKM",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Infantry AK ver2",
+      "name": "Infantry AK-74 Rus ver2",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Infantry AK ver3",
+      "name": "Infantry AK-74 Rus ver3",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "JTAC",
+      "name": "JTAC",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "JagdPz_IV",
+      "name": "SPG Jagdpanzer IV TD",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Jagdpanther_G1",
+      "name": "SPG Jagdpanther TD",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "KAMAZ Truck",
+      "name": "Truck KAMAZ 43101",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "KDO_Mod40",
+      "name": "AAA Kdo.G.40",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "KS-19",
+      "name": "AAA KS-19 100mm",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "KrAZ6322",
+      "name": "Truck KrAZ-6322 6x6",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Kub 1S91 str",
+      "name": "SAM SA-6 Kub \"Straight Flush\" STR",
+      "subcategory": "radar",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "coldwar",
+      "role": "Radar Kub"
+    },
+    {
+      "type": "Kub 2P25 ln",
+      "name": "SAM SA-6 Kub \"Gainful\" TEL",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Kubelwagen_82",
+      "name": "LUV Kubelwagen Jeep",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "L118_Unit",
+      "name": "L118 Light Artillery Gun",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "LARC-V",
+      "name": "Truck LARC-V",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "LAV-25",
+      "name": "IFV LAV-25",
+      "subcategory": "ifv",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "LAV-25"
+    },
+    {
+      "type": "LAZ Bus",
+      "name": "Bus LAZ-695",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Land_Rover_101_FC",
+      "name": "Truck Land Rover 101 FC",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Land_Rover_109_S3",
+      "name": "LUV Land Rover 109",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "LeFH_18-40-105",
+      "name": "FH LeFH-18 105mm",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Leclerc",
+      "name": "MBT Leclerc",
+      "subcategory": "tank",
+      "coalition": "blue",
+      "country": "France",
+      "era": "modern",
+      "role": "Char Leclerc"
+    },
+    {
+      "type": "Leopard-2",
+      "name": "MBT Leopard-2A6M",
+      "subcategory": "tank",
+      "coalition": "blue",
+      "country": "Germany",
+      "era": "modern",
+      "role": "Léopard 2"
+    },
+    {
+      "type": "Leopard-2A5",
+      "name": "MBT Leopard-2A5",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Leopard1A3",
+      "name": "MBT Leopard 1A3",
+      "subcategory": "tank",
+      "coalition": "blue",
+      "country": "Germany",
+      "era": "coldwar",
+      "role": "Léopard 1A3"
+    },
+    {
+      "type": "LiAZ Bus",
+      "name": "Bus LiAZ-677",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Locomotive",
+      "name": "Loco CHME3T",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "M 818",
+      "name": "Truck M939 Heavy",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "M-1 Abrams",
+      "name": "MBT M1A2 Abrams",
+      "subcategory": "tank",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Char de combat principal"
+    },
+    {
+      "type": "M-109",
+      "name": "SPH M109 Paladin 155mm",
+      "subcategory": "artillery",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Howitzer M109"
+    },
+    {
+      "type": "M-113",
+      "name": "APC M113",
+      "subcategory": "apc",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "coldwar",
+      "role": "APC M113"
+    },
+    {
+      "type": "M-2 Bradley",
+      "name": "IFV M2A2 Bradley",
+      "subcategory": "ifv",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "VCI Bradley"
+    },
+    {
+      "type": "M-60",
+      "name": "MBT M60A3 Patton",
+      "subcategory": "tank",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "coldwar",
+      "role": "Char M60"
+    },
+    {
+      "type": "M1043 HMMWV Armament",
+      "name": "Scout HMMWV",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "M1045 HMMWV TOW",
+      "name": "ATGM HMMWV",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "M1097 Avenger",
+      "name": "SAM Avenger (Stinger)",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "M10_GMC",
+      "name": "SPG M10 GMC TD",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "M1126 Stryker ICV",
+      "name": "IFV M1126 Stryker ICV",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "M1128 Stryker MGS",
+      "name": "SPG Stryker MGS",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "M1134 Stryker ATGM",
+      "name": "ATGM Stryker",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "M12_GMC",
+      "name": "SPH M12 GMC 155mm",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "M1A2C_SEP_V3",
+      "name": "MBT M1A2C SEP v3 Abrams",
+      "subcategory": "tank",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Char M1A2C SEP V3"
+    },
+    {
+      "type": "M1_37mm",
+      "name": "AAA M1 37mm",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "M2A1-105",
+      "name": "FH M2A1 105mm",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "M2A1_halftrack",
+      "name": "APC M2A1 Halftrack",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "M30_CC",
+      "name": "Ammo M30 Cargo Carrier",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "M45_Quadmount",
+      "name": "AAA M45 Quadmount HB 12.7mm",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "M48 Chaparral",
+      "name": "SAM Chaparral M48",
+      "subcategory": "sam",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "coldwar",
+      "role": "SAM Chaparral"
+    },
+    {
+      "type": "M4A4_Sherman_FF",
+      "name": "Tk M4A4 Sherman Firefly",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "M4_Sherman",
+      "name": "Tk M4 Sherman",
+      "subcategory": "tank",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "ww2",
+      "role": "Sherman WWII"
+    },
+    {
+      "type": "M4_Tractor",
+      "name": "Tractor M4 High Speed",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "M6 Linebacker",
+      "name": "SAM Linebacker - Bradley M6",
+      "subcategory": "aa",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "AA Linebacker"
+    },
+    {
+      "type": "M8_Greyhound",
+      "name": "Scout M8 Greyhound AC",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "M978 HEMTT Tanker",
+      "name": "Refueler M978 HEMTT",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "MAZ-6303",
+      "name": "Truck MAZ-6303",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "MCV-80",
+      "name": "IFV Warrior ",
+      "subcategory": "ifv",
+      "coalition": "blue",
+      "country": "UK",
+      "era": "modern",
+      "role": "Warrior"
+    },
+    {
+      "type": "MJ-1_drivable",
+      "name": "M92 MJ-1 drivable",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "MLRS",
+      "name": "MLRS M270 227mm",
+      "subcategory": "artillery",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "MLRS"
+    },
+    {
+      "type": "MLRS FDDM",
+      "name": "MRLS FDDM (FC)",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "MTLB",
+      "name": "APC MTLB",
+      "subcategory": "apc",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "coldwar",
+      "role": "MTLB"
+    },
+    {
+      "type": "Marder",
+      "name": "IFV Marder",
+      "subcategory": "ifv",
+      "coalition": "blue",
+      "country": "Germany",
+      "era": "coldwar",
+      "role": "Marder"
+    },
+    {
+      "type": "Maschinensatz_33",
+      "name": "Maschinensatz 33 Gen",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "MaxxPro_MRAP",
+      "name": "APC MRAP MaxxPro",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Merkava_Mk4",
+      "name": "MBT Merkava IV",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "NASAMS_Command_Post",
+      "name": "SAM NASAMS C2",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "NASAMS_LN_B",
+      "name": "SAM NASAMS LN AIM-120B",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "NASAMS_LN_C",
+      "name": "SAM NASAMS LN AIM-120C",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "NASAMS_Radar_MPQ64F1",
+      "name": "SAM NASAMS SR MPQ64F1",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Osa 9A33 ln",
+      "name": "SAM SA-8 Osa \"Gecko\" TEL",
+      "subcategory": "sam",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "coldwar",
+      "role": "SA-8 Gecko"
+    },
+    {
+      "type": "P20_drivable",
+      "name": "M92 P20 drivable",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "PL5EII Loadout",
+      "name": "Payload PL-5EII",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "PL8 Loadout",
+      "name": "Payload PL-8",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "PLZ05",
+      "name": "PLZ-05",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "PT_76",
+      "name": "LT PT-76",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Pak40",
+      "name": "FH Pak 40 75mm",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Paratrooper AKS-74",
+      "name": "Paratrooper AKS",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Paratrooper RPG-16",
+      "name": "Paratrooper RPG-16",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Patriot AMG",
+      "name": "SAM Patriot CR (AMG AN/MRC-137)",
+      "subcategory": "sam",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Patriot AMG"
+    },
+    {
+      "type": "Patriot ECS",
+      "name": "SAM Patriot ECS",
+      "subcategory": "sam",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Patriot ECS"
+    },
+    {
+      "type": "Patriot EPP",
+      "name": "SAM Patriot EPP-III",
+      "subcategory": "sam",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Patriot EPP"
+    },
+    {
+      "type": "Patriot cp",
+      "name": "SAM Patriot C2 ICC",
+      "subcategory": "sam",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Patriot Poste commande"
+    },
+    {
+      "type": "Patriot ln",
+      "name": "SAM Patriot LN",
+      "subcategory": "sam",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Patriot Lanceur"
+    },
+    {
+      "type": "Patriot str",
+      "name": "SAM Patriot STR",
+      "subcategory": "sam",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "modern",
+      "role": "Patriot Radar"
+    },
+    {
+      "type": "Predator GCS",
+      "name": "MCC Predator UAV CP & GCS",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Predator TrojanSpirit",
+      "name": "MCC-COMM Predator UAV CL",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Pz_IV_H",
+      "name": "Tk PzIV H",
+      "subcategory": "tank",
+      "coalition": "red",
+      "country": "Germany",
+      "era": "ww2",
+      "role": "Panzer IV WWII"
+    },
+    {
+      "type": "Pz_V_Panther_G",
+      "name": "Tk Panther G (Pz V)",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "QF_37_AA",
+      "name": "AAA QF 3.7\"",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "RD_75",
+      "name": "SAM SA-2 S-75 RD-75 Amazonka RF",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "RLS_19J6",
+      "name": "SAM SA-5 S-200 ST-68U \"Tin Shield\" SR",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "RPC_5N62V",
+      "name": "SAM SA-5 S-200 \"Square Pair\" TR",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Roland ADS",
+      "name": "SAM Roland ADS",
+      "subcategory": "sam",
+      "coalition": "blue",
+      "country": "Germany",
+      "era": "modern",
+      "role": "Roland SAM"
+    },
+    {
+      "type": "Roland Radar",
+      "name": "SAM Roland EWR",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "S-200_Launcher",
+      "name": "SAM SA-5 S-200 \"Gammon\" LN",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "S-300PS 40B6M tr",
+      "name": "SAM SA-10 S-300 \"Grumble\" Flap Lid-A TR",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "S-300PS 40B6MD sr",
+      "name": "SAM SA-10 S-300 \"Grumble\" Clam Shell SR",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "S-300PS 40B6MD sr_19J6",
+      "name": "SAM SA-10 S-300 \"Grumble\" Tin Shield SR",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "S-300PS 54K6 cp",
+      "name": "SAM SA-10 S-300 \"Grumble\" C2",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "S-300PS 5H63C 30H6_tr",
+      "name": "SAM SA-10 S-300 \"Grumble\" Flap Lid-B TR",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "S-300PS 5P85C ln",
+      "name": "SAM SA-10 S-300 \"Grumble\" TEL C",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "S-300PS 5P85D ln",
+      "name": "SAM SA-10 S-300 \"Grumble\" TEL D",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "S-300PS 64H6E sr",
+      "name": "SAM SA-10 S-300 \"Grumble\" Big Bird SR",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "S-60_Type59_Artillery",
+      "name": "AAA S-60 57mm",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "SA-11 Buk CC 9S470M1",
+      "name": "SAM SA-11 Buk \"Gadfly\" C2 ",
+      "subcategory": "sam",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "SA-11 Buk CC"
+    },
+    {
+      "type": "SA-11 Buk LN 9A310M1",
+      "name": "SAM SA-11 Buk \"Gadfly\" Fire Dome TEL",
+      "subcategory": "sam",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "SA-11 Buk LN"
+    },
+    {
+      "type": "SA-11 Buk SR 9S18M1",
+      "name": "SAM SA-11 Buk \"Gadfly\" Snow Drift SR",
+      "subcategory": "radar",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "SA-11 Buk SR"
+    },
+    {
+      "type": "SA-18 Igla comm",
+      "name": "MANPADS SA-18 Igla \"Grouse\" C2",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "SA-18 Igla manpad",
+      "name": "MANPADS SA-18 Igla \"Grouse\"",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "SA-18 Igla-S comm",
+      "name": "MANPADS SA-18 Igla-S \"Grouse\" C2",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "SA-18 Igla-S manpad",
+      "name": "MANPADS SA-18 Igla-S \"Grouse\"",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "SAU 2-C9",
+      "name": "SPM 2S9 Nona 120mm M",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "SAU Akatsia",
+      "name": "SPH 2S3 Akatsia 152mm",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "SAU Gvozdika",
+      "name": "SPH 2S1 Gvozdika 122mm",
+      "subcategory": "artillery",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "2S1 Gvozdika"
+    },
+    {
+      "type": "SAU Msta",
+      "name": "SPH 2S19 Msta 152mm",
+      "subcategory": "artillery",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "2S19 Msta-S"
+    },
+    {
+      "type": "SD10 Loadout",
+      "name": "Payload SD-10",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "SKP-11",
+      "name": "Truck SKP-11 Mobile ATC",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "SK_C_28_naval_gun",
+      "name": "Gun 15cm SK C/28 Naval in Bunker",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "SNR_75V",
+      "name": "SAM SA-2 S-75 \"Fan Song\" TR",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "SON_9",
+      "name": "AAA Fire Can SON-9",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "S_75M_Volhov",
+      "name": "SAM SA-2 S-75 \"Guideline\" LN",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "S_75_ZIL",
+      "name": "S-75 Tractor (ZIL-131)",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Sandbox",
+      "name": "Bunker 1",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Scud_B",
+      "name": "SSM SS-1C Scud-B",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Sd_Kfz_2",
+      "name": "LUV Kettenrad",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Sd_Kfz_234_2_Puma",
+      "name": "Scout Puma AC",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Sd_Kfz_251",
+      "name": "APC Sd.Kfz.251 Halftrack",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Sd_Kfz_7",
+      "name": "Tractor Sd.Kfz.7 Art'y Tractor",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Silkworm_SR",
+      "name": "AShM Silkworm SR",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Smerch",
+      "name": "MLRS 9A52 Smerch CM 300mm",
+      "subcategory": "artillery",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "BM-30 Smerch MLRS"
+    },
+    {
+      "type": "Smerch_HE",
+      "name": "MLRS 9A52 Smerch HE 300mm",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Soldier AK",
+      "name": "Infantry AK-74",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Soldier M249",
+      "name": "Infantry M249",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Soldier M4",
+      "name": "Infantry M4",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Soldier M4 GRG",
+      "name": "Infantry M4 Georgia",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Soldier RPG",
+      "name": "Infantry RPG",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Soldier stinger",
+      "name": "MANPADS Stinger",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "SpGH_Dana",
+      "name": "SPH Dana vz77 152mm",
+      "subcategory": "artillery",
+      "coalition": "red",
+      "country": "Czechoslovakia",
+      "era": "coldwar",
+      "role": "Dana 152mm"
+    },
+    {
+      "type": "Stinger comm",
+      "name": "MANPADS Stinger C2",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Stinger comm dsr",
+      "name": "MANPADS Stinger C2 Desert",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Strela-1 9P31",
+      "name": "SAM SA-9 Strela 1 \"Gaskin\" TEL",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Strela-10M3",
+      "name": "SAM SA-13 Strela 10M3 \"Gopher\" TEL",
+      "subcategory": "sam",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "SA-13 Gopher"
+    },
+    {
+      "type": "Stug_III",
+      "name": "SPG StuG III G AG",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Stug_IV",
+      "name": "SPG StuG IV AG",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "SturmPzIV",
+      "name": "SPG Brummbaer AG",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Suidae",
+      "name": "Suidae",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "T-55",
+      "name": "MBT T-55",
+      "subcategory": "tank",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "coldwar",
+      "role": "Char T-55"
+    },
+    {
+      "type": "T-72B",
+      "name": "MBT T-72B",
+      "subcategory": "tank",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Char T-72"
+    },
+    {
+      "type": "T-72B3",
+      "name": "MBT T-72B3",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "T-80UD",
+      "name": "MBT T-80U",
+      "subcategory": "tank",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Char T-80"
+    },
+    {
+      "type": "T-90",
+      "name": "MBT T-90A [CH]",
+      "subcategory": "tank",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "modern",
+      "role": "Char T-90"
+    },
+    {
+      "type": "T155_Firtina",
+      "name": "SPH T155 Firtina 155mm",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "TACAN_beacon",
+      "name": "Beacon TACAN Portable TTS 3030",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "TPZ",
+      "name": "APC TPz Fuchs ",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "TYPE-59",
+      "name": "MT Type 59",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "TZ-22_KrAZ",
+      "name": "Refueler TZ-22 Tractor (KrAZ-258B1)",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Tankcartrinity",
+      "name": "Tank Cartrinity",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Tetrarch",
+      "name": "Tk Tetrach",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Tiger_I",
+      "name": "Tk Tiger 1",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Tiger_II_H",
+      "name": "Tk Tiger II",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Tigr_233036",
+      "name": "LUV Tigr",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Tor 9A331",
+      "name": "SAM SA-15 Tor \"Gauntlet\"",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Trolley bus",
+      "name": "ZIU-9 Trolley",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "TugHarlan_drivable",
+      "name": "M92 Tug Harlan drivable",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Type_3_80mm_AA",
+      "name": "AAA 80mm Type 3 Flak",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Type_88_75mm_AA",
+      "name": "AAA 75mm Type 88 Flak",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Type_89_I_Go",
+      "name": "Tk Type 89 I Go",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Type_94_25mm_AA_Truck",
+      "name": "AAA 25mm x 2 Type 94 Truck",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Type_94_Truck",
+      "name": "Truck Type 94",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Type_96_25mm_AA",
+      "name": "AAA 25mm x 2 Type 96",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Type_98_Ke_Ni",
+      "name": "Tk Type 98 Ke Ni",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Type_98_So_Da",
+      "name": "APC Type 98 So Da",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "UAZ-469",
+      "name": "LUV UAZ-469 Jeep",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Uragan_BM-27",
+      "name": "MLRS 9K57 Uragan BM-27 220mm",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Ural ATsP-6",
+      "name": "Firefighter Ural ATsP-6",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Ural-375",
+      "name": "Truck Ural-4320",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Ural-375 PBU",
+      "name": "Truck Ural-4320 MCC",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Ural-375 ZU-23",
+      "name": "AAA ZU-23 on Ural-4320",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Ural-375 ZU-23 Insurgent",
+      "name": "AAA ZU-23 on Ural-4320 Insurgent",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Ural-4320 APA-5D",
+      "name": "GPU APA-5D on Ural 4320",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Ural-4320-31",
+      "name": "Truck Ural-4320-31 Arm'd",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Ural-4320T",
+      "name": "Truck Ural-4320T",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "VAB_Mephisto",
+      "name": "ATGM VAB Mephisto",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "VAZ Car",
+      "name": "Car VAZ-2109",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Vulcan",
+      "name": "SPAAA Vulcan M163",
+      "subcategory": "aa",
+      "coalition": "blue",
+      "country": "USA",
+      "era": "coldwar",
+      "role": "AA Vulcan M163"
+    },
+    {
+      "type": "Wellcarnsc",
+      "name": "Well Car",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Wespe124",
+      "name": "SPH Sd.Kfz.124 Wespe 105mm",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Willys_MB",
+      "name": "Car Willys Jeep",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "ZBD04A",
+      "name": "ZBD-04A",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "ZIL-131 KUNG",
+      "name": "Truck ZIL-131 (C2)",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "ZIL-135",
+      "name": "Truck ZIL-135",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "ZIL-4331",
+      "name": "Truck ZIL-4331",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "ZSU-23-4 Shilka",
+      "name": "SPAAA ZSU-23-4 Shilka \"Gun Dish\"",
+      "subcategory": "aa",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "coldwar",
+      "role": "AA Shilka"
+    },
+    {
+      "type": "ZSU_57_2",
+      "name": "SPAAA ZSU-57-2",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "ZTZ96B",
+      "name": "ZTZ-96B",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "ZU-23 Closed Insurgent",
+      "name": "AAA ZU-23 Insurgent Closed Emplacement",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "ZU-23 Emplacement",
+      "name": "AAA ZU-23 Emplacement",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "ZU-23 Emplacement Closed",
+      "name": "AAA ZU-23 Closed Emplacement",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "ZU-23 Insurgent",
+      "name": "AAA ZU-23 Insurgent Emplacement",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "ZiL-131 APA-80",
+      "name": "GPU APA-80 on ZIL-131",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "bofors40",
+      "name": "AAA Bofors 40mm",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "fire_control",
+      "name": "Bunker with Fire Control Center",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "flak18",
+      "name": "AAA 8,8cm Flak 18",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "flak30",
+      "name": "AAA Flak 38 20mm",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "flak36",
+      "name": "AAA 8,8cm Flak 36",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "flak37",
+      "name": "AAA 8,8cm Flak 37",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "flak38",
+      "name": "AAA Flak-Vierling 38 Quad 20mm",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "flak41",
+      "name": "AAA 8,8cm Flak 41",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "gaz-66_civil",
+      "name": "Truck GAZ-66 civil",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "generator_5i57",
+      "name": "Diesel Power Station 5I57A",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "house1arm",
+      "name": "Barracks armed",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "house2arm",
+      "name": "Watch tower armed",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "houseA_arm",
+      "name": "Building armed",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "hy_launcher",
+      "name": "AShM SS-N-2 Silkworm",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "kamaz_tent_civil",
+      "name": "Truck KAMAZ-43101 civil",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "leopard-2A4",
+      "name": "MBT Leopard-2A4",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "leopard-2A4_trs",
+      "name": "MBT Leopard-2A4 Trs",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "outpost",
+      "name": "Outpost",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "outpost_road",
+      "name": "Road outpost",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "outpost_road_l",
+      "name": "Road outpost_L",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "outpost_road_r",
+      "name": "Road outpost-R",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "p-19 s-125 sr",
+      "name": "SAM SA-2/3/5 P19 \"Flat Face\" SR ",
+      "subcategory": "radar",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "coldwar",
+      "role": "Radar P-19"
+    },
+    {
+      "type": "prmg_gp_beacon",
+      "name": "PRMG Glidepath car",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "prmg_loc_beacon",
+      "name": "PRMG Localizer car",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "r11_volvo_drivable",
+      "name": "M92 R11 Volvo drivable",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "rapier_fsa_blindfire_radar",
+      "name": "SAM Rapier Blindfire TR",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "rapier_fsa_launcher",
+      "name": "SAM Rapier LN",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "rapier_fsa_optical_tracker_unit",
+      "name": "SAM Rapier Tracker",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "rsbn_beacon",
+      "name": "RSBN car",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "snr s-125 tr",
+      "name": "SAM SA-3 S-125 \"Low Blow\" TR",
+      "subcategory": "radar",
+      "coalition": "red",
+      "country": "Russia",
+      "era": "coldwar",
+      "role": "Radar SNR"
+    },
+    {
+      "type": "soldier_mauser98",
+      "name": "Infantry Mauser 98",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "soldier_wwii_br_01",
+      "name": "Infantry SMLE No.4 Mk-1",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "soldier_wwii_us",
+      "name": "Infantry M1 Garand",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "tacr2a",
+      "name": "Firefighter RAF Rescue",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "tt_B8M1",
+      "name": "MLRS LC with B8M1 80mm",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "tt_DSHK",
+      "name": "Scout LC with DSHK 12.7mm",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "tt_KORD",
+      "name": "Scout LC with KORD 12.7mm",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "tt_ZU-23",
+      "name": "SPAAA LC with ZU-23",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "ural_4230_civil_b",
+      "name": "Truck Ural-4320 civil",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "ural_4230_civil_t",
+      "name": "Truck Ural-4320T civil",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "ural_atz5_civil",
+      "name": "Refueler ATZ-5 civil",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "v1_launcher",
+      "name": "V-1 Launch Ramp",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "zil-131_civil",
+      "name": "Truck ZiL-131 civil",
+      "subcategory": "supply",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    }
+  ],
+  "ship": [
+    {
+      "type": "ALBATROS",
+      "name": "Corvette 1124.4 Grisha",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "BDK-775",
+      "name": "LS Ropucha",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CHAP_Project22160",
+      "name": "Patrol Ship 22160 Vasily Bykov [CH]",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CHAP_Project22160_TorM2KM",
+      "name": "Patrol ship 22160 Vasily Bykov with Tor M2KM [CH]",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CVN_71",
+      "name": "CVN-71 Theodore Roosevelt",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CVN_72",
+      "name": "CVN-72 Abraham Lincoln",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CVN_73",
+      "name": "CVN-73 George Washington",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CVN_75",
+      "name": "CVN-75 Harry S. Truman",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CV_1143_5",
+      "name": "CV 1143.5 Admiral Kuznetsov(2017)",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "CastleClass_01",
+      "name": "Castle Class",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Dry-cargo ship-1",
+      "name": "Bulker Yakushev",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Dry-cargo ship-2",
+      "name": "Cargo Ivanov",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "ELNYA",
+      "name": "Tanker Elnya 160",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Essex",
+      "name": "Essex Class Carrier 1944",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Forrestal",
+      "name": "CV-59 Forrestal",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "HandyWind",
+      "name": "Bulker Handy Wind",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "HarborTug",
+      "name": "Harbor Tug",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Higgins_boat",
+      "name": "Boat LCVP Higgins",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "IMPROVED_KILO",
+      "name": "SSK 636 Improved Kilo",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "KILO",
+      "name": "SSK 877V Kilo",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "KUZNECOW",
+      "name": "CV 1143.5 Admiral Kuznetsov",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "LHA_Tarawa",
+      "name": "LHA-1 Tarawa",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "LST_Mk2",
+      "name": "LST Mk.II",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "La_Combattante_II",
+      "name": "FAC La Combattante IIa",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "MOLNIYA",
+      "name": "Corvette 1241.1 Molniya",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "MOSCOW",
+      "name": "Cruiser 1164 Moskva",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "NEUSTRASH",
+      "name": "Frigate 11540 Neustrashimy",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "PERRY",
+      "name": "FFG Oliver Hazard Perry",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "PIOTR",
+      "name": "Battlecruiser 1144.2 Pyotr Velikiy",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "REZKY",
+      "name": "Frigate 1135M Rezky",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "SOM",
+      "name": "SSK 641B Tango",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Schnellboot_type_S130",
+      "name": "Boat Schnellboot type S130",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Seawise_Giant",
+      "name": "Tanker Seawise Giant",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Ship_Tilde_Supply",
+      "name": "Supply Ship MV Tilde",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Stennis",
+      "name": "CVN-74 John C. Stennis",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "TICONDEROG",
+      "name": "CG Ticonderoga",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Type_052B",
+      "name": "Type 052B Destroyer",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Type_052C",
+      "name": "Type 052C Destroyer",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Type_054A",
+      "name": "Type 054A Frigate",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Type_071",
+      "name": "Type 071 Amphibious Transport Dock",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Type_093",
+      "name": "Type 093 Attack Submarine",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "USS_Arleigh_Burke_IIa",
+      "name": "DDG Arleigh Burke IIa",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "USS_Samuel_Chase",
+      "name": "LS Samuel Chase",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "Uboat_VIIC",
+      "name": "U-boat VIIC U-flak",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "VINSON",
+      "name": "CVN-70 Carl Vinson",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "ZWEZDNY",
+      "name": "Boat Zvezdny type",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "ara_vdm",
+      "name": "ARA Veinticinco de Mayo",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "atconveyor",
+      "name": "SS Atlantic Conveyor",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "hms_invincible",
+      "name": "HMS Invincible (R05)",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "leander-gun-achilles",
+      "name": "HMS Achilles (F12)",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "leander-gun-andromeda",
+      "name": "HMS Andromeda (F57)",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "leander-gun-ariadne",
+      "name": "HMS Ariadne (F72)",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "leander-gun-condell",
+      "name": "CNS Almirante Condell (PFG-06)",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "leander-gun-lynch",
+      "name": "CNS Almirante Lynch (PFG-07)",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "santafe",
+      "name": "ARA Santa Fe S-21",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    },
+    {
+      "type": "speedboat",
+      "name": "Boat Armed Hi-speed",
+      "subcategory": "other",
+      "coalition": "both",
+      "country": "Unknown",
+      "era": "modern",
+      "role": ""
+    }
+  ]
+}
