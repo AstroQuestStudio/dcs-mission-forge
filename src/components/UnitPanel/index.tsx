@@ -19,14 +19,17 @@ function Label({ children }: { children: React.ReactNode }) {
 const INP = "w-full bg-slate-800 text-slate-100 text-xs px-2.5 py-1.5 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 transition-colors";
 const SEL = `${INP} cursor-pointer`;
 
-
 export default function UnitPanel() {
-  const { miz, selectedEntity, updateGroup, deleteGroup } = useMissionStore();
+  const miz = useMissionStore(s => s.miz);
+  const selectedEntity = useMissionStore(s => s.selectedEntity);
+  const updateGroup = useMissionStore(s => s.updateGroup);
+  const deleteGroup = useMissionStore(s => s.deleteGroup);
   const [activeUnit, setActiveUnit] = useState(0);
   const [unitsDB, setUnitsDB] = useState<UnitsDB | null>(null);
   const [unitSearch, setUnitSearch] = useState('');
   const [tab, setTab] = useState<'group' | 'unit' | 'waypoints'>('group');
 
+  // Tous les hooks AVANT tout return conditionnel
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}data/units_db.json`)
       .then(r => r.json())
@@ -36,7 +39,50 @@ export default function UnitPanel() {
 
   useEffect(() => { setActiveUnit(0); setTab('group'); }, [selectedEntity]);
 
-  if (!miz || !selectedEntity || selectedEntity.type !== 'group') {
+  const sel = selectedEntity?.type === 'group' ? selectedEntity : null;
+
+  const allGroups = useMemo(() => miz ? extractAllGroups(miz) : [], [miz]);
+
+  const entry = useMemo(() => sel
+    ? allGroups.find(e =>
+        e.coalition === sel.coalition &&
+        e.countryIdx === sel.countryIdx &&
+        e.category === sel.category &&
+        e.groupIdx === sel.groupIdx
+      )
+    : undefined,
+  [allGroups, sel]);
+
+  const group = entry?.group;
+  const coalition = entry?.coalition ?? 'blue';
+  const countryIdx = entry?.countryIdx ?? 0;
+  const category = entry?.category ?? 'plane';
+  const groupIdx = entry?.groupIdx ?? 0;
+  const unit = group?.units[activeUnit] as DCSUnit | undefined;
+
+  const save = useCallback((updates: Partial<DCSGroup>) => {
+    if (!group) return;
+    updateGroup(coalition, countryIdx, category, groupIdx, { ...group, ...updates });
+  }, [updateGroup, coalition, countryIdx, category, groupIdx, group]);
+
+  const saveUnit = useCallback((updates: Partial<DCSUnit>) => {
+    if (!unit || !group) return;
+    const units = [...group.units];
+    units[activeUnit] = { ...unit, ...updates };
+    save({ units });
+  }, [unit, group, activeUnit, save]);
+
+  const availableUnits = useMemo(() => {
+    const list = unitsDB?.[category] ?? [];
+    if (!unitSearch) return list.slice(0, 60);
+    const q = unitSearch.toLowerCase();
+    return list.filter(u =>
+      u.name?.toLowerCase().includes(q) || u.type?.toLowerCase().includes(q)
+    ).slice(0, 40);
+  }, [unitsDB, category, unitSearch]);
+
+  // Early returns APRÈS tous les hooks
+  if (!miz || !sel || !entry || !group) {
     return (
       <div className="flex flex-col items-center justify-center h-full gap-4 p-6 text-center">
         <div className="w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center text-3xl">✦</div>
@@ -49,30 +95,6 @@ export default function UnitPanel() {
       </div>
     );
   }
-
-  const allGroups = extractAllGroups(miz);
-  const entry = allGroups.find(e =>
-    e.coalition === selectedEntity.coalition &&
-    e.countryIdx === selectedEntity.countryIdx &&
-    e.category === selectedEntity.category &&
-    e.groupIdx === selectedEntity.groupIdx
-  );
-  if (!entry) return null;
-
-  const { group, coalition, countryIdx, category, groupIdx } = entry;
-  const unit = group.units[activeUnit] as DCSUnit | undefined;
-
-  const save = useCallback((updates: Partial<DCSGroup>) =>
-    updateGroup(coalition, countryIdx, category, groupIdx, { ...group, ...updates }),
-    [updateGroup, coalition, countryIdx, category, groupIdx, group]
-  );
-
-  const saveUnit = useCallback((updates: Partial<DCSUnit>) => {
-    if (!unit) return;
-    const units = [...group.units];
-    units[activeUnit] = { ...unit, ...updates };
-    save({ units });
-  }, [unit, group, activeUnit, save]);
 
   const saveWaypoint = (i: number, updates: Partial<DCSWaypoint>) => {
     const pts = [...(group.route?.points ?? [])];
@@ -100,15 +122,6 @@ export default function UnitPanel() {
     pts.splice(i, 1);
     save({ route: { ...group.route, points: pts } });
   };
-
-  const availableUnits = useMemo(() => {
-    const list = unitsDB?.[category] ?? [];
-    if (!unitSearch) return list.slice(0, 60);
-    const q = unitSearch.toLowerCase();
-    return list.filter(u =>
-      u.name?.toLowerCase().includes(q) || u.type?.toLowerCase().includes(q)
-    ).slice(0, 40);
-  }, [unitsDB, category, unitSearch]);
 
   const gx = group.x ?? group.units?.[0]?.x ?? 0;
   const gy = group.y ?? group.units?.[0]?.y ?? 0;
@@ -198,7 +211,6 @@ export default function UnitPanel() {
               </div>
             </div>
 
-            {/* Position manuelle */}
             <div>
               <Label>Position (lat / lon)</Label>
               <div className="grid grid-cols-2 gap-1.5">
@@ -233,7 +245,6 @@ export default function UnitPanel() {
         {/* ── Tab Unité ── */}
         {tab === 'unit' && (
           <div>
-            {/* Sélecteur unité */}
             <div className="flex gap-1 px-2 py-2 flex-wrap bg-slate-900/50 border-b border-slate-800">
               {group.units.map((_u, i) => (
                 <button key={i} onClick={() => setActiveUnit(i)}

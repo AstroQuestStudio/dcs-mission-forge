@@ -1,7 +1,8 @@
 import { useMissionStore } from '../../store/missionStore';
 
 export default function MissionSettings() {
-  const { miz, updateMissionMeta } = useMissionStore();
+  const miz = useMissionStore(s => s.miz);
+  const updateMissionMeta = useMissionStore(s => s.updateMissionMeta);
 
   if (!miz) return (
     <div className="flex-1 flex items-center justify-center text-slate-500 text-sm">

@@ -15,19 +15,17 @@ const CAT_LABELS: Record<string, string> = {
 };
 
 export default function GroupList() {
-  const { miz, selectedEntity, selectEntity, setActiveTab, deleteGroup } = useMissionStore();
+  const miz = useMissionStore(s => s.miz);
+  const selectedEntity = useMissionStore(s => s.selectedEntity);
+  const selectEntity = useMissionStore(s => s.selectEntity);
+  const setActiveTab = useMissionStore(s => s.setActiveTab);
+  const deleteGroup = useMissionStore(s => s.deleteGroup);
   const [search, setSearch] = useState('');
   const [filterCat, setFilterCat] = useState<string>('all');
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
 
-  if (!miz) return (
-    <div className="flex-1 flex flex-col items-center justify-center text-slate-500 text-sm gap-2 p-8 text-center">
-      <span className="text-3xl">✈</span>
-      <span>Chargez une mission<br />pour voir les groupes</span>
-    </div>
-  );
-
-  const allGroups = useMemo(() => extractAllGroups(miz), [miz]);
+  // Tous les hooks AVANT tout return conditionnel
+  const allGroups = useMemo(() => miz ? extractAllGroups(miz) : [], [miz]);
 
   const filtered = useMemo(() => allGroups.filter(e => {
     const q = search.toLowerCase();
@@ -47,8 +45,14 @@ export default function GroupList() {
     return g;
   }, [filtered]);
 
-  const toggle = (coal: string) => setCollapsed(c => ({ ...c, [coal]: !c[coal] }));
+  if (!miz) return (
+    <div className="flex-1 flex flex-col items-center justify-center text-slate-500 text-sm gap-2 p-8 text-center">
+      <span className="text-3xl">✈</span>
+      <span>Chargez une mission<br />pour voir les groupes</span>
+    </div>
+  );
 
+  const toggle = (coal: string) => setCollapsed(c => ({ ...c, [coal]: !c[coal] }));
   const categories = ['all', 'plane', 'helicopter', 'vehicle', 'ship', 'static'];
 
   return (
@@ -88,7 +92,6 @@ export default function GroupList() {
 
           return (
             <div key={coal}>
-              {/* Header coalition */}
               <button
                 onClick={() => toggle(coal)}
                 className={`w-full flex items-center justify-between px-3 py-1.5 sticky top-0 z-10 ${meta.bg} border-b border-slate-700/40 transition-colors hover:brightness-110`}
@@ -102,7 +105,6 @@ export default function GroupList() {
                 </span>
               </button>
 
-              {/* Groupes */}
               {!isCollapsed && entries.map((entry, i) => {
                 const isSelected =
                   selectedEntity?.type === 'group' &&
@@ -130,12 +132,9 @@ export default function GroupList() {
                         : 'hover:bg-slate-800/60'
                     }`}
                   >
-                    {/* Icône catégorie */}
                     <span className="text-base w-5 text-center flex-shrink-0 opacity-70">
                       {CAT_ICONS[entry.category] ?? '•'}
                     </span>
-
-                    {/* Infos */}
                     <div className="min-w-0 flex-1">
                       <div className="text-xs text-slate-200 truncate font-medium">{entry.group.name}</div>
                       <div className="text-[10px] text-slate-500 truncate">
@@ -143,8 +142,6 @@ export default function GroupList() {
                         {entry.group.units[0] && ` · ${entry.group.units[0].type}`}
                       </div>
                     </div>
-
-                    {/* Badges */}
                     <div className="flex items-center gap-1 flex-shrink-0">
                       {entry.group.lateActivation && (
                         <span title="Activation tardive" className="text-[10px] text-amber-500">⏱</span>

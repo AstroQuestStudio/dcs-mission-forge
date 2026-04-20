@@ -1,7 +1,7 @@
 import { useMissionStore, extractTriggerZones } from '../../store/missionStore';
 
 export default function TriggerEditor() {
-  const { miz } = useMissionStore();
+  const miz = useMissionStore(s => s.miz);
 
   if (!miz) return (
     <div className="flex-1 flex items-center justify-center text-slate-500 text-sm">

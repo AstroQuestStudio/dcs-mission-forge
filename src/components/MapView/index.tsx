@@ -1,14 +1,4 @@
-/**
- * MapView — Zéro hook Zustand dans ce composant.
- *
- * React 19 + Zustand 5 : useSyncExternalStore plante avec useCallback (#310)
- * lors des updates concurrentes en Firefox.
- *
- * Solution : MapView subscribe au store via subscribe() (vanilla, pas de hook)
- * et force un re-render via useReducer quand le store change.
- * Le moteur Leaflet reste complètement isolé, communique via CustomEvents.
- */
-import { useEffect, useRef, useReducer, useMemo, useState } from 'react';
+import { useEffect, useRef, useMemo, useState } from 'react';
 import { useMissionStore, extractAllGroups, extractTriggerZones } from '../../store/missionStore';
 import { latLngToDcs } from '../../utils/dcsCoords';
 import { createMapEngine } from './mapEngine';
@@ -154,9 +144,9 @@ export default function MapView() {
   const containerRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<MapEngine | null>(null);
 
-  // useReducer au lieu de useMissionStore hook — évite useSyncExternalStore
-  // qui plante avec React 19 + Zustand 5 en Firefox (#310)
-  const [, forceRender] = useReducer((n: number) => n + 1, 0);
+  // React 18 + Zustand 4 : hooks normaux, zéro problème #310
+  const miz = useMissionStore(s => s.miz);
+  const selectedEntity = useMissionStore(s => s.selectedEntity);
 
   // État local UI
   const [airports, setAirports] = useState<Airport[]>([]);
@@ -165,17 +155,6 @@ export default function MapView() {
   const [showRoutes, setShowRoutes] = useState(true);
   const [addMode, setAddMode] = useState(false);
   const [pendingAdd, setPendingAdd] = useState<{ lat: number; lon: number } | null>(null);
-
-  // S'abonner au store Zustand via subscribe() vanilla (zéro hook Zustand)
-  // subscribe() appelle forceRender() qui est un dispatch React normal — safe
-  useEffect(() => {
-    return useMissionStore.subscribe(() => forceRender());
-  }, []);
-
-  // Lire l'état courant directement (pas de hook, lecture synchrone)
-  const storeState = useMissionStore.getState();
-  const miz = storeState.miz;
-  const selectedEntity = storeState.selectedEntity;
 
   // Données dérivées (calculées dans le cycle React)
   const groups = useMemo(() => miz ? extractAllGroups(miz) : [], [miz]);
@@ -194,7 +173,7 @@ export default function MapView() {
     if (!containerRef.current) return;
     const emit = (name: string, detail: unknown) =>
       window.dispatchEvent(new CustomEvent(name, { detail }));
-    const engine = createMapEngine(emit, import.meta.env.BASE_URL);
+    const engine = createMapEngine(emit);
     engine.init(containerRef.current);
     engineRef.current = engine;
     return () => { engine.destroy(); engineRef.current = null; };

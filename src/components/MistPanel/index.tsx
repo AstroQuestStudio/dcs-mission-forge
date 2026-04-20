@@ -4,7 +4,9 @@ import type { MistAutoRespawn, MistConfig, MistZoneRespawn } from '../../types/d
 import { useState } from 'react';
 
 export default function MistPanel() {
-  const { miz, mistConfig, setMistConfig } = useMissionStore();
+  const miz = useMissionStore(s => s.miz);
+  const mistConfig = useMissionStore(s => s.mistConfig);
+  const setMistConfig = useMissionStore(s => s.setMistConfig);
   const [selectedPreset, setSelectedPreset] = useState<string | null>(null);
   const [presetGroup, setPresetGroup] = useState('');
   const [presetDelay, setPresetDelay] = useState(300);

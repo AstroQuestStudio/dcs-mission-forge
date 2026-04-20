@@ -1,4 +1,5 @@
-import { createWithEqualityFn } from 'zustand/traditional';
+import { create } from 'zustand';
+import { temporal } from 'zundo';
 import type { MizFile, DCSGroup, DCSUnit, DCSCountry, DCSTriggerZone, MistConfig } from '../types/dcs';
 
 export type ActiveTab = 'map' | 'groups' | 'triggers' | 'weather' | 'mist' | 'settings' | 'warehouses';
@@ -31,80 +32,87 @@ const DEFAULT_MIST: MistConfig = {
   zoneRespawns: [],
 };
 
-export const useMissionStore = createWithEqualityFn<MissionStore>((set, get) => ({
-  miz: null,
-  selectedEntity: null,
-  activeTab: 'map',
-  mistConfig: DEFAULT_MIST,
-  isDirty: false,
+export const useMissionStore = create<MissionStore>()(
+  temporal(
+    (set, get) => ({
+      miz: null,
+      selectedEntity: null,
+      activeTab: 'map',
+      mistConfig: DEFAULT_MIST,
+      isDirty: false,
 
-  loadMiz: (miz) => set({ miz, isDirty: false, selectedEntity: null }),
-  clearMiz: () => set({ miz: null, isDirty: false, selectedEntity: null }),
-  selectEntity: (entity) => set({ selectedEntity: entity }),
-  setActiveTab: (tab) => set({ activeTab: tab }),
-  setMistConfig: (config) => set({ mistConfig: config }),
+      loadMiz: (miz) => set({ miz, isDirty: false, selectedEntity: null }),
+      clearMiz: () => set({ miz: null, isDirty: false, selectedEntity: null }),
+      selectEntity: (entity) => set({ selectedEntity: entity }),
+      setActiveTab: (tab) => set({ activeTab: tab }),
+      setMistConfig: (config) => set({ mistConfig: config }),
 
-  updateGroup: (coalition, countryIdx, category, groupIdx, group) => {
-    const miz = get().miz;
-    if (!miz) return;
-    const countries = (miz.mission.coalition as Record<string, { country: unknown[] }>)[coalition]?.country;
-    if (!countries) return;
-    const country = countries[countryIdx] as unknown as Record<string, { group: DCSGroup[] }>;
-    if (country?.[category]) {
-      country[category].group[groupIdx] = group;
+      updateGroup: (coalition, countryIdx, category, groupIdx, group) => {
+        const miz = get().miz;
+        if (!miz) return;
+        const countries = (miz.mission.coalition as Record<string, { country: unknown[] }>)[coalition]?.country;
+        if (!countries) return;
+        const country = countries[countryIdx] as unknown as Record<string, { group: DCSGroup[] }>;
+        if (country?.[category]) {
+          country[category].group[groupIdx] = group;
+        }
+        set({ miz: { ...miz }, isDirty: true });
+      },
+
+      updateUnit: (coalition, countryIdx, category, groupIdx, unitIdx, unit) => {
+        const miz = get().miz;
+        if (!miz) return;
+        const countries = (miz.mission.coalition as Record<string, { country: unknown[] }>)[coalition]?.country;
+        if (!countries) return;
+        const country = countries[countryIdx] as unknown as Record<string, { group: DCSGroup[] }>;
+        if (country?.[category]) {
+          country[category].group[groupIdx].units[unitIdx] = unit;
+        }
+        set({ miz: { ...miz }, isDirty: true });
+      },
+
+      addGroup: (coalition, countryIdx, category, group) => {
+        const miz = get().miz;
+        if (!miz) return;
+        const countries = (miz.mission.coalition as Record<string, { country: unknown[] }>)[coalition]?.country;
+        if (!countries) return;
+        const country = countries[countryIdx] as unknown as Record<string, { group: DCSGroup[] }>;
+        if (!country[category]) country[category] = { group: [] };
+        country[category].group.push(group);
+        set({ miz: { ...miz }, isDirty: true });
+      },
+
+      deleteGroup: (coalition, countryIdx, category, groupIdx) => {
+        const miz = get().miz;
+        if (!miz) return;
+        const countries = (miz.mission.coalition as Record<string, { country: unknown[] }>)[coalition]?.country;
+        if (!countries) return;
+        const country = countries[countryIdx] as unknown as Record<string, { group: DCSGroup[] }>;
+        if (country?.[category]) {
+          country[category].group.splice(groupIdx, 1);
+        }
+        set({ miz: { ...miz }, isDirty: true });
+      },
+
+      updateWeather: (weather) => {
+        const miz = get().miz;
+        if (!miz) return;
+        set({ miz: { ...miz, mission: { ...miz.mission, weather } }, isDirty: true });
+      },
+
+      updateMissionMeta: (meta) => {
+        const miz = get().miz;
+        if (!miz) return;
+        set({ miz: { ...miz, mission: { ...miz.mission, ...meta } }, isDirty: true });
+      },
+    }),
+    {
+      partialize: (state) => ({ miz: state.miz }),
+      limit: 50,
     }
-    set({ miz: { ...miz }, isDirty: true });
-  },
+  )
+);
 
-  updateUnit: (coalition, countryIdx, category, groupIdx, unitIdx, unit) => {
-    const miz = get().miz;
-    if (!miz) return;
-    const countries = (miz.mission.coalition as Record<string, { country: unknown[] }>)[coalition]?.country;
-    if (!countries) return;
-    const country = countries[countryIdx] as unknown as Record<string, { group: DCSGroup[] }>;
-    if (country?.[category]) {
-      country[category].group[groupIdx].units[unitIdx] = unit;
-    }
-    set({ miz: { ...miz }, isDirty: true });
-  },
-
-  addGroup: (coalition, countryIdx, category, group) => {
-    const miz = get().miz;
-    if (!miz) return;
-    const countries = (miz.mission.coalition as Record<string, { country: unknown[] }>)[coalition]?.country;
-    if (!countries) return;
-    const country = countries[countryIdx] as unknown as Record<string, { group: DCSGroup[] }>;
-    if (!country[category]) country[category] = { group: [] };
-    country[category].group.push(group);
-    set({ miz: { ...miz }, isDirty: true });
-  },
-
-  deleteGroup: (coalition, countryIdx, category, groupIdx) => {
-    const miz = get().miz;
-    if (!miz) return;
-    const countries = (miz.mission.coalition as Record<string, { country: unknown[] }>)[coalition]?.country;
-    if (!countries) return;
-    const country = countries[countryIdx] as unknown as Record<string, { group: DCSGroup[] }>;
-    if (country?.[category]) {
-      country[category].group.splice(groupIdx, 1);
-    }
-    set({ miz: { ...miz }, isDirty: true });
-  },
-
-  updateWeather: (weather) => {
-    const miz = get().miz;
-    if (!miz) return;
-    set({ miz: { ...miz, mission: { ...miz.mission, weather } }, isDirty: true });
-  },
-
-  updateMissionMeta: (meta) => {
-    const miz = get().miz;
-    if (!miz) return;
-    set({ miz: { ...miz, mission: { ...miz.mission, ...meta } }, isDirty: true });
-  },
-}));
-
-/** Extraire tous les groupes de la mission avec leur contexte */
 export interface GroupEntry {
   group: DCSGroup;
   coalition: 'blue' | 'red' | 'neutrals';
@@ -114,7 +122,6 @@ export interface GroupEntry {
   groupIdx: number;
 }
 
-/** Normalise un objet Lua (clés "1","2",...) ou array JS en array JS */
 function toArray<T>(val: unknown): T[] {
   if (!val) return [];
   if (Array.isArray(val)) return val as T[];
@@ -144,9 +151,7 @@ export function extractAllGroups(miz: MizFile): GroupEntry[] {
         for (let gi = 0; gi < groups.length; gi++) {
           const group = groups[gi];
           if (!group || !group.units) continue;
-          // Normaliser les units en array
           group.units = toArray<DCSUnit>(group.units);
-          // Normaliser les waypoints
           if (group.route?.points) {
             group.route.points = toArray(group.route.points);
           }

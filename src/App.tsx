@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from 'react';
+import { useRef, useState, useCallback, useEffect } from 'react';
 import { useMissionStore } from './store/missionStore';
 import { parseMiz, buildMiz, downloadBlob } from './utils/mizParser';
 import { generateMistLua } from './utils/mistGenerator';
@@ -38,6 +38,22 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
+
+  // Undo/Redo via zundo temporal store
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (!(e.ctrlKey || e.metaKey)) return;
+      if (e.key === 'z' && !e.shiftKey) {
+        e.preventDefault();
+        useMissionStore.temporal.getState().undo();
+      } else if (e.key === 'y' || (e.key === 'z' && e.shiftKey)) {
+        e.preventDefault();
+        useMissionStore.temporal.getState().redo();
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, []);
 
   const handleFile = useCallback(async (file: File) => {
     if (!file.name.endsWith('.miz')) {

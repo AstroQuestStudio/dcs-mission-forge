@@ -30,7 +30,8 @@ const CLOUD_PRESETS = [
 ];
 
 export default function WeatherEditor() {
-  const { miz, updateWeather } = useMissionStore();
+  const miz = useMissionStore(s => s.miz);
+  const updateWeather = useMissionStore(s => s.updateWeather);
 
   if (!miz) return (
     <div className="flex-1 flex items-center justify-center text-slate-500 text-sm">
