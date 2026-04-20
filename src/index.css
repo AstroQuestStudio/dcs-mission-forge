@@ -5,6 +5,12 @@
   box-sizing: border-box;
 }
 
+@keyframes pulse-ring {
+  0%   { transform: scale(0.92); opacity: 0.9; }
+  50%  { transform: scale(1.08); opacity: 0.5; }
+  100% { transform: scale(0.92); opacity: 0.9; }
+}
+
 html, body, #root {
   margin: 0;
   padding: 0;

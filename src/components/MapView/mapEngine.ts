@@ -32,6 +32,7 @@ export interface MapEngine {
 
 export function createMapEngine(
   emitEvent: (name: string, detail: unknown) => void,
+  baseUrl: string = '/',
 ): MapEngine {
   const safeEmit = (name: string, detail: unknown) => {
     setTimeout(() => emitEvent(name, detail), 0);
@@ -158,6 +159,8 @@ export function createMapEngine(
             entry.coalition,
             isSelected && isLeader,
             isLeader,
+            unit.heading,
+            baseUrl,
           ));
 
           const marker = L.marker([lat, lon], {
@@ -248,7 +251,7 @@ export function createMapEngine(
       airportsLayer.clearLayers();
       if (showAirports) {
         airports.forEach(ap => {
-          const m = L.marker([ap.lat, ap.lon], { icon: L.divIcon(makeAirportDivIcon()) });
+          const m = L.marker([ap.lat, ap.lon], { icon: L.divIcon(makeAirportDivIcon(baseUrl)) });
           m.bindTooltip(`<div style="background:#0f172a;border:1px solid #334155;border-radius:8px;padding:6px 10px;font-family:monospace;font-size:11px">
             <div style="font-weight:bold;color:#94a3b8">${ap.name}</div>
             <div style="color:#475569">${ap.parkingCount} slots</div>
