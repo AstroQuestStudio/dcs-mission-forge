@@ -1,5 +1,6 @@
 import { useMissionStore, extractAllGroups } from '../../store/missionStore';
 import { SKILLS } from '../../utils/dcsUnits';
+import { getUnitInfo } from '../../utils/unitDatabase';
 import type { DCSGroup, DCSUnit, DCSWaypoint, Skill } from '../../types/dcs';
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { dcsToLatLng, latLngToDcs } from '../../utils/dcsCoords';
@@ -12,12 +13,142 @@ const SKILL_COLOR: Record<string, string> = {
   Excellent: '#4ade80', Random: '#94a3b8', Player: '#60a5fa', Client: '#c084fc',
 };
 
+const COAL_COLOR: Record<string, string> = {
+  blue: 'bg-blue-900/60 text-blue-300 border-blue-700',
+  red: 'bg-red-900/60 text-red-300 border-red-700',
+  neutrals: 'bg-slate-800 text-slate-300 border-slate-700',
+};
+
+const COAL_ACCENT: Record<string, string> = {
+  blue: '#3b82f6', red: '#ef4444', neutrals: '#94a3b8',
+};
+
 function Label({ children }: { children: React.ReactNode }) {
   return <label className="text-[10px] text-slate-500 uppercase tracking-wider block mb-1">{children}</label>;
 }
 
 const INP = "w-full bg-slate-800 text-slate-100 text-xs px-2.5 py-1.5 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 transition-colors";
 const SEL = `${INP} cursor-pointer`;
+
+function UnitCard({ unitType, coalition }: { unitType: string; coalition: string }) {
+  const info = useMemo(() => getUnitInfo(unitType), [unitType]);
+  const [imgError, setImgError] = useState(false);
+  const accent = COAL_ACCENT[coalition] ?? '#94a3b8';
+
+  if (!info && !unitType) return null;
+
+  const displayName = info?.displayName ?? unitType;
+  const hasImage = info?.imageUrl && !imgError;
+
+  return (
+    <div className="mx-3 mt-3 rounded-xl overflow-hidden border border-slate-700/60 bg-slate-800/50">
+      {/* Image */}
+      {hasImage && (
+        <div className="relative w-full h-32 bg-slate-900 overflow-hidden">
+          <img
+            src={info!.imageUrl}
+            alt={displayName}
+            className="w-full h-full object-cover"
+            style={{ filter: 'brightness(0.9) contrast(1.05)' }}
+            onError={() => setImgError(true)}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
+          <div className="absolute bottom-2 left-3 right-3">
+            <div className="text-sm font-bold text-white drop-shadow-lg">{displayName}</div>
+            {info?.role && (
+              <div className="text-[10px] text-slate-300 drop-shadow">{info.role}</div>
+            )}
+          </div>
+          <div
+            className="absolute top-2 right-2 text-[9px] font-bold px-1.5 py-0.5 rounded"
+            style={{ background: accent + '33', color: accent, border: `1px solid ${accent}55` }}
+          >
+            {info?.origin ?? ''}
+          </div>
+        </div>
+      )}
+
+      {/* No image fallback */}
+      {!hasImage && (
+        <div className="px-3 pt-3 pb-1">
+          <div className="text-sm font-bold text-slate-100">{displayName}</div>
+          {info?.role && <div className="text-[10px] text-slate-400 mt-0.5">{info.role}</div>}
+        </div>
+      )}
+
+      {/* Specs */}
+      {info && (
+        <div className="px-3 pb-3 pt-2 grid grid-cols-3 gap-2">
+          {info.maxSpeed && (
+            <div className="text-center">
+              <div className="text-[9px] text-slate-600 uppercase tracking-wider">Vmax</div>
+              <div className="text-[11px] text-slate-300 font-mono mt-0.5">{info.maxSpeed}</div>
+            </div>
+          )}
+          {info.maxAlt && (
+            <div className="text-center">
+              <div className="text-[9px] text-slate-600 uppercase tracking-wider">Plafond</div>
+              <div className="text-[11px] text-slate-300 font-mono mt-0.5">{info.maxAlt}</div>
+            </div>
+          )}
+          {info.crew !== undefined && (
+            <div className="text-center">
+              <div className="text-[9px] text-slate-600 uppercase tracking-wider">Équipage</div>
+              <div className="text-[11px] text-slate-300 font-mono mt-0.5">{info.crew}</div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {info?.description && (
+        <div className="px-3 pb-3 text-[10px] text-slate-500 leading-relaxed border-t border-slate-700/40 pt-2">
+          {info.description}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function LoadoutPanel({ unitType, coalition }: { unitType: string; coalition: string }) {
+  const info = useMemo(() => getUnitInfo(unitType), [unitType]);
+  const [expanded, setExpanded] = useState<number | null>(null);
+  const accent = COAL_ACCENT[coalition] ?? '#94a3b8';
+
+  if (!info?.loadouts?.length) return null;
+
+  return (
+    <div className="mx-3 mt-3">
+      <div className="text-[10px] text-slate-500 uppercase tracking-wider mb-2">Loadouts de référence</div>
+      <div className="space-y-1.5">
+        {info.loadouts.map((lo, i) => (
+          <div key={i} className="rounded-lg border border-slate-700/60 bg-slate-800/40 overflow-hidden">
+            <button
+              className="w-full flex items-center justify-between px-3 py-2 text-left"
+              onClick={() => setExpanded(expanded === i ? null : i)}
+            >
+              <div>
+                <div className="text-xs text-slate-200">{lo.name}</div>
+                <div className="text-[10px] mt-0.5" style={{ color: accent }}>{lo.role}</div>
+              </div>
+              <div className="text-slate-600 text-xs">{expanded === i ? '▲' : '▼'}</div>
+            </button>
+            {expanded === i && (
+              <div className="border-t border-slate-700/40 px-3 pb-2.5 pt-2 space-y-1">
+                {lo.pylons.map((p, j) => (
+                  <div key={j} className="flex items-center gap-2">
+                    <span className="text-[9px] text-slate-600 font-mono w-12">S{p.station}</span>
+                    <span className="text-[10px] text-slate-300 flex-1">{p.weapon}</span>
+                    <span className="text-[9px] text-slate-500">×{p.count}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function UnitPanel() {
   const miz = useMissionStore(s => s.miz);
@@ -40,7 +171,6 @@ export default function UnitPanel() {
   useEffect(() => { setActiveUnit(0); setTab('group'); }, [selectedEntity]);
 
   const sel = selectedEntity?.type === 'group' ? selectedEntity : null;
-
   const allGroups = useMemo(() => miz ? extractAllGroups(miz) : [], [miz]);
 
   const entry = useMemo(() => sel
@@ -127,12 +257,6 @@ export default function UnitPanel() {
   const gy = group.y ?? group.units?.[0]?.y ?? 0;
   const [lat, lon] = dcsToLatLng(gx, gy);
 
-  const COAL_COLOR: Record<string, string> = {
-    blue: 'bg-blue-900/60 text-blue-300 border-blue-800',
-    red: 'bg-red-900/60 text-red-300 border-red-800',
-    neutrals: 'bg-slate-800 text-slate-300 border-slate-700',
-  };
-
   return (
     <div className="flex flex-col h-full text-xs overflow-hidden">
       {/* ── Header ── */}
@@ -183,62 +307,72 @@ export default function UnitPanel() {
 
         {/* ── Tab Groupe ── */}
         {tab === 'group' && (
-          <div className="p-3 space-y-3">
-            <div>
-              <Label>Nom du groupe</Label>
-              <input className={INP} value={group.name}
-                onChange={e => save({ name: e.target.value })} />
-            </div>
+          <div className="pb-4">
+            <div className="p-3 space-y-3">
+              <div>
+                <Label>Nom du groupe</Label>
+                <input className={INP} value={group.name}
+                  onChange={e => save({ name: e.target.value })} />
+              </div>
 
-            <div>
-              <Label>Options</Label>
-              <div className="space-y-1.5">
-                {[
-                  { key: 'lateActivation', label: '⏱ Activation tardive', color: 'accent-amber-500' },
-                  { key: 'uncontrolled',   label: '🚫 Incontrôlé',         color: 'accent-slate-400' },
-                  { key: 'hidden',         label: '👁 Caché sur carte',     color: 'accent-purple-500' },
-                ].map(opt => (
-                  <label key={opt.key} className="flex items-center gap-2 cursor-pointer text-slate-400 hover:text-slate-200 transition-colors">
-                    <input
-                      type="checkbox"
-                      className={opt.color}
-                      checked={!!(group as unknown as Record<string, unknown>)[opt.key]}
-                      onChange={e => save({ [opt.key]: e.target.checked } as Partial<DCSGroup>)}
-                    />
-                    {opt.label}
-                  </label>
-                ))}
+              <div>
+                <Label>Options</Label>
+                <div className="space-y-1.5">
+                  {[
+                    { key: 'lateActivation', label: '⏱ Activation tardive', color: 'accent-amber-500' },
+                    { key: 'uncontrolled',   label: '🚫 Incontrôlé',         color: 'accent-slate-400' },
+                    { key: 'hidden',         label: '👁 Caché sur carte',     color: 'accent-purple-500' },
+                  ].map(opt => (
+                    <label key={opt.key} className="flex items-center gap-2 cursor-pointer text-slate-400 hover:text-slate-200 transition-colors">
+                      <input
+                        type="checkbox"
+                        className={opt.color}
+                        checked={!!(group as unknown as Record<string, unknown>)[opt.key]}
+                        onChange={e => save({ [opt.key]: e.target.checked } as Partial<DCSGroup>)}
+                      />
+                      {opt.label}
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <Label>Position (lat / lon)</Label>
+                <div className="grid grid-cols-2 gap-1.5">
+                  <input
+                    type="number" step="0.0001"
+                    className={INP}
+                    value={lat.toFixed(4)}
+                    onChange={e => {
+                      const newLat = parseFloat(e.target.value);
+                      if (isNaN(newLat)) return;
+                      const { x, y } = latLngToDcs(newLat, lon);
+                      save({ x, y, units: group.units.map(u => ({ ...u, x, y })) });
+                    }}
+                  />
+                  <input
+                    type="number" step="0.0001"
+                    className={INP}
+                    value={lon.toFixed(4)}
+                    onChange={e => {
+                      const newLon = parseFloat(e.target.value);
+                      if (isNaN(newLon)) return;
+                      const { x, y } = latLngToDcs(lat, newLon);
+                      save({ x, y, units: group.units.map(u => ({ ...u, x, y })) });
+                    }}
+                  />
+                </div>
+                <div className="text-[10px] text-slate-600 mt-1">Ou glissez le marqueur sur la carte</div>
               </div>
             </div>
 
-            <div>
-              <Label>Position (lat / lon)</Label>
-              <div className="grid grid-cols-2 gap-1.5">
-                <input
-                  type="number" step="0.0001"
-                  className={INP}
-                  value={lat.toFixed(4)}
-                  onChange={e => {
-                    const newLat = parseFloat(e.target.value);
-                    if (isNaN(newLat)) return;
-                    const { x, y } = latLngToDcs(newLat, lon);
-                    save({ x, y, units: group.units.map(u => ({ ...u, x, y })) });
-                  }}
-                />
-                <input
-                  type="number" step="0.0001"
-                  className={INP}
-                  value={lon.toFixed(4)}
-                  onChange={e => {
-                    const newLon = parseFloat(e.target.value);
-                    if (isNaN(newLon)) return;
-                    const { x, y } = latLngToDcs(lat, newLon);
-                    save({ x, y, units: group.units.map(u => ({ ...u, x, y })) });
-                  }}
-                />
-              </div>
-              <div className="text-[10px] text-slate-600 mt-1">Ou glissez le marqueur sur la carte</div>
-            </div>
+            {/* ── Fiche unité leader ── */}
+            {group.units[0]?.type && (
+              <>
+                <UnitCard unitType={group.units[0].type} coalition={coalition} />
+                <LoadoutPanel unitType={group.units[0].type} coalition={coalition} />
+              </>
+            )}
           </div>
         )}
 
@@ -287,63 +421,70 @@ export default function UnitPanel() {
             </div>
 
             {unit && (
-              <div className="p-3 space-y-3">
-                <div>
-                  <Label>Nom de l'unité</Label>
-                  <input className={INP} value={unit.name}
-                    onChange={e => saveUnit({ name: e.target.value })} />
-                </div>
+              <div className="pb-4">
+                {/* Fiche de l'unité sélectionnée */}
+                <UnitCard unitType={unit.type ?? ''} coalition={coalition} />
 
-                <div>
-                  <Label>Type d'unité</Label>
-                  <input className={`${INP} mb-1.5`} placeholder="🔍 Rechercher…"
-                    value={unitSearch} onChange={e => setUnitSearch(e.target.value)} />
-                  <select className={SEL} value={unit.type} size={5}
-                    onChange={e => { saveUnit({ type: e.target.value }); setUnitSearch(''); }}>
-                    {availableUnits.map(u => (
-                      <option key={u.type} value={u.type}>{u.name}</option>
-                    ))}
-                    {!availableUnits.find(u => u.type === unit.type) && (
-                      <option value={unit.type}>★ {unit.type} (actuel)</option>
-                    )}
-                  </select>
-                  <div className="text-[10px] text-slate-600 mt-1 font-mono">{unit.type}</div>
-                </div>
-
-                <div>
-                  <Label>Niveau IA</Label>
-                  <select className={SEL} value={unit.skill}
-                    onChange={e => saveUnit({ skill: e.target.value as Skill })}>
-                    {SKILLS.map(s => <option key={s} value={s}>{s}</option>)}
-                  </select>
-                  <div className="mt-1 flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full" style={{ background: SKILL_COLOR[unit.skill] ?? '#888' }} />
-                    <span style={{ color: SKILL_COLOR[unit.skill] ?? '#888' }} className="font-medium">{unit.skill}</span>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-2">
+                <div className="p-3 space-y-3 mt-1">
                   <div>
-                    <Label>Altitude (m)</Label>
-                    <input type="number" className={INP}
-                      value={Math.round(unit.alt ?? 0)}
-                      onChange={e => saveUnit({ alt: parseFloat(e.target.value) || 0 })} />
+                    <Label>Nom de l'unité</Label>
+                    <input className={INP} value={unit.name}
+                      onChange={e => saveUnit({ name: e.target.value })} />
                   </div>
+
                   <div>
-                    <Label>Cap (°)</Label>
-                    <input type="number" min={0} max={360} className={INP}
-                      value={Math.round((unit.heading ?? 0) * 180 / Math.PI)}
-                      onChange={e => saveUnit({ heading: (parseFloat(e.target.value) || 0) * Math.PI / 180 })} />
+                    <Label>Type d'unité</Label>
+                    <input className={`${INP} mb-1.5`} placeholder="🔍 Rechercher…"
+                      value={unitSearch} onChange={e => setUnitSearch(e.target.value)} />
+                    <select className={SEL} value={unit.type} size={5}
+                      onChange={e => { saveUnit({ type: e.target.value }); setUnitSearch(''); }}>
+                      {availableUnits.map(u => (
+                        <option key={u.type} value={u.type}>{u.name}</option>
+                      ))}
+                      {!availableUnits.find(u => u.type === unit.type) && (
+                        <option value={unit.type}>★ {unit.type} (actuel)</option>
+                      )}
+                    </select>
+                    <div className="text-[10px] text-slate-600 mt-1 font-mono">{unit.type}</div>
                   </div>
+
+                  <div>
+                    <Label>Niveau IA</Label>
+                    <select className={SEL} value={unit.skill}
+                      onChange={e => saveUnit({ skill: e.target.value as Skill })}>
+                      {SKILLS.map(s => <option key={s} value={s}>{s}</option>)}
+                    </select>
+                    <div className="mt-1 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full" style={{ background: SKILL_COLOR[unit.skill] ?? '#888' }} />
+                      <span style={{ color: SKILL_COLOR[unit.skill] ?? '#888' }} className="font-medium">{unit.skill}</span>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <Label>Altitude (m)</Label>
+                      <input type="number" className={INP}
+                        value={Math.round(unit.alt ?? 0)}
+                        onChange={e => saveUnit({ alt: parseFloat(e.target.value) || 0 })} />
+                    </div>
+                    <div>
+                      <Label>Cap (°)</Label>
+                      <input type="number" min={0} max={360} className={INP}
+                        value={Math.round((unit.heading ?? 0) * 180 / Math.PI)}
+                        onChange={e => saveUnit({ heading: (parseFloat(e.target.value) || 0) * Math.PI / 180 })} />
+                    </div>
+                  </div>
+
+                  {unit.onboard_num !== undefined && (
+                    <div>
+                      <Label>Numéro de bord</Label>
+                      <input className={INP} value={unit.onboard_num ?? ''}
+                        onChange={e => saveUnit({ onboard_num: e.target.value })} />
+                    </div>
+                  )}
                 </div>
 
-                {unit.onboard_num !== undefined && (
-                  <div>
-                    <Label>Numéro de bord</Label>
-                    <input className={INP} value={unit.onboard_num ?? ''}
-                      onChange={e => saveUnit({ onboard_num: e.target.value })} />
-                  </div>
-                )}
+                <LoadoutPanel unitType={unit.type ?? ''} coalition={coalition} />
               </div>
             )}
           </div>
