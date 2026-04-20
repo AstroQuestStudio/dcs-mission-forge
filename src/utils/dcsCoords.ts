@@ -1,24 +1,24 @@
+import proj4 from 'proj4';
+
+// Projection Transverse Mercator DCS Caucase (extraite du DCS Web Editor)
+// Convention DCS mission files: x = North-South, y = East-West
+// proj4.forward([y, x]) → [lon, lat]
+const DCS_CAUCASUS_PROJ = '+proj=tmerc +lat_0=0 +lon_0=33 +k_0=0.9996 +x_0=-99517 +y_0=-4998115 +datum=WGS84 +units=m +no_defs';
+
+const converter = proj4(DCS_CAUCASUS_PROJ, 'EPSG:4326');
+
 /**
- * Conversion coordonnées DCS Caucase ↔ WGS84 (Leaflet).
- * Calibré sur 2 points connus: Batumi (-194956, 616422) = (41.611, 41.599)
- * et Anapa (197572, 859418) = (44.895, 37.347).
- * Régression linéaire donnant une précision < 500m sur tout le théâtre.
+ * DCS mission coordinate convention:
+ *   x = North-South axis
+ *   y = East-West axis
+ * Returns [lat, lng] for Leaflet.
  */
-
-// Coefficients calibrés empiriquement
-const LAT_A = 0.000013514625755156489; // degrés lat par mètre Y
-const LAT_B = 33.2803;                 // lat à y=0
-const LON_C = -0.000010832348265601424; // degrés lon par mètre X
-const LON_D = 39.4872;                 // lon à x=0
-
 export function dcsToLatLng(x: number, y: number): [number, number] {
-  const lat = LAT_A * y + LAT_B;
-  const lon = LON_C * x + LON_D;
+  const [lon, lat] = converter.forward([y, x]);
   return [lat, lon];
 }
 
 export function latLngToDcs(lat: number, lon: number): { x: number; y: number } {
-  const y = (lat - LAT_B) / LAT_A;
-  const x = (lon - LON_D) / LON_C;
+  const [y, x] = converter.inverse([lon, lat]);
   return { x, y };
 }
