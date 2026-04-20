@@ -1,33 +1,13 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { dcsToLatLng, latLngToDcs } from '../../utils/dcsCoords';
-import { makeMilsymIcon, makeAirportSVG } from '../../utils/milsym';
+import { makeUnitDivIcon, makeAirportDivIcon } from '../../utils/unitSilhouettes';
 import type { GroupEntry } from '../../store/missionStore';
 import type { DCSUnit } from '../../types/dcs';
 
 const COAL_COLOR: Record<string, string> = {
   blue: '#3b82f6', red: '#ef4444', neutrals: '#94a3b8',
 };
-
-function makeNatoIcon(
-  coalition: string,
-  category: string,
-  unitType: string,
-  selected: boolean,
-  isLeader: boolean,
-): L.DivIcon {
-  return L.divIcon(makeMilsymIcon(coalition, category, unitType, selected, isLeader));
-}
-
-function makeAirportIcon() {
-  const svg = makeAirportSVG();
-  return L.divIcon({
-    html: `<div style="cursor:default">${svg}</div>`,
-    className: '',
-    iconSize: [26, 26],
-    iconAnchor: [13, 13],
-  });
-}
 
 export interface RenderState {
   groups: GroupEntry[];
@@ -36,6 +16,7 @@ export interface RenderState {
   showAirports: boolean;
   showZones: boolean;
   showRoutes: boolean;
+  showTopo: boolean;
   zones: { x: number; y: number; radius?: number; name: string }[];
   addMode: boolean;
 }
@@ -46,6 +27,7 @@ export interface MapEngine {
   render(state: RenderState): void;
   flyTo(lat: number, lon: number, zoom?: number): void;
   containerPointToLatLng(x: number, y: number): { lat: number; lon: number } | null;
+  setTopo(enabled: boolean): void;
 }
 
 export function createMapEngine(
@@ -58,9 +40,14 @@ export function createMapEngine(
   let map: L.Map | null = null;
   let markersLayer: L.LayerGroup | null = null;
   let routesLayer: L.LayerGroup | null = null;
+  let waypointsLayer: L.LayerGroup | null = null;
   let zonesLayer: L.LayerGroup | null = null;
   let airportsLayer: L.LayerGroup | null = null;
   let lastSelectedKey = '';
+
+  let osmLayer: L.TileLayer | null = null;
+  let topoLayer: L.TileLayer | null = null;
+  let currentTopo = false;
 
   return {
     init(container: HTMLDivElement) {
@@ -72,15 +59,24 @@ export function createMapEngine(
         preferCanvas: true,
       });
 
-      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      osmLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors',
         maxZoom: 19,
-      }).addTo(map);
+      });
 
-      markersLayer = L.layerGroup().addTo(map);
+      topoLayer = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenTopoMap contributors',
+        maxZoom: 17,
+        subdomains: ['a', 'b', 'c'],
+      });
+
+      osmLayer.addTo(map);
+
       routesLayer = L.layerGroup().addTo(map);
+      waypointsLayer = L.layerGroup().addTo(map);
       zonesLayer = L.layerGroup().addTo(map);
       airportsLayer = L.layerGroup().addTo(map);
+      markersLayer = L.layerGroup().addTo(map);
 
       map.on('click', () => {
         safeEmit('dcs:mapclick', {});
@@ -89,18 +85,29 @@ export function createMapEngine(
 
     destroy() {
       if (map) { map.remove(); map = null; }
-      markersLayer = null; routesLayer = null;
+      markersLayer = null; routesLayer = null; waypointsLayer = null;
       zonesLayer = null; airportsLayer = null;
     },
 
+    setTopo(enabled: boolean) {
+      if (!map || !osmLayer || !topoLayer) return;
+      if (enabled === currentTopo) return;
+      currentTopo = enabled;
+      if (enabled) { osmLayer.remove(); topoLayer.addTo(map); }
+      else { topoLayer.remove(); osmLayer.addTo(map); }
+    },
+
     render(state: RenderState) {
-      if (!map || !markersLayer || !routesLayer || !zonesLayer || !airportsLayer) return;
+      if (!map || !markersLayer || !routesLayer || !waypointsLayer || !zonesLayer || !airportsLayer) return;
 
-      const { groups, selectedEntity, airports, showAirports, showZones, showRoutes, zones } = state;
+      const { groups, selectedEntity, airports, showAirports, showZones, showRoutes, showTopo, zones } = state;
 
-      // ── Marqueurs + routes ────────────────────────────────────────
+      this.setTopo(showTopo);
+
+      // ── Routes + waypoints ────────────────────────────────────────
       markersLayer.clearLayers();
       routesLayer.clearLayers();
+      waypointsLayer.clearLayers();
 
       groups.forEach(entry => {
         const isSelected =
@@ -110,43 +117,67 @@ export function createMapEngine(
           selectedEntity.category === entry.category &&
           selectedEntity.groupIdx === entry.groupIdx;
 
+        const color = COAL_COLOR[entry.coalition] ?? '#888';
+
         if (showRoutes) {
           const wps = (entry.group.route?.points ?? [])
             .filter((wp: { x?: number; y?: number }) => wp.x != null && wp.y != null)
             .map((wp: { x: number; y: number }) => dcsToLatLng(wp.x, wp.y) as L.LatLngTuple);
+
           if (wps.length > 1) {
+            // Ligne de route style DCS Web Planner
             L.polyline(wps, {
-              color: COAL_COLOR[entry.coalition] ?? '#888',
-              weight: isSelected ? 2.5 : 1,
-              opacity: isSelected ? 0.85 : 0.25,
-              dashArray: isSelected ? '8 4' : '3 6',
+              color,
+              weight: isSelected ? 2.5 : 1.5,
+              opacity: isSelected ? 0.9 : 0.35,
+              dashArray: isSelected ? undefined : '6 5',
             }).addTo(routesLayer!);
+
+            // Cercles de waypoints style DCS Web Planner (sauf le premier = position unité)
+            if (isSelected || entry.group.units.length === 0) {
+              wps.slice(1).forEach((wp) => {
+                L.circleMarker(wp, {
+                  radius: 5,
+                  color,
+                  weight: 1.5,
+                  fillColor: '#0f172a',
+                  fillOpacity: 0.8,
+                  opacity: 0.8,
+                }).addTo(waypointsLayer!);
+              });
+            }
           }
         }
 
         (entry.group.units ?? []).forEach((unit: DCSUnit, ui: number) => {
           const isLeader = ui === 0;
           const [lat, lon] = dcsToLatLng(unit.x ?? 0, unit.y ?? 0);
-          const icon = makeNatoIcon(
-            entry.coalition,
-            entry.category,
+          const icon = L.divIcon(makeUnitDivIcon(
             unit.type ?? '',
+            entry.category,
+            entry.coalition,
             isSelected && isLeader,
             isLeader,
-          );
+          ));
+
           const marker = L.marker([lat, lon], {
             icon,
             draggable: true,
             zIndexOffset: isSelected ? (isLeader ? 300 : 200) : (isLeader ? 10 : 0),
           });
 
-          const color = COAL_COLOR[entry.coalition] ?? '#888';
-          marker.bindTooltip(`<div style="font-family:monospace;font-size:11px;line-height:1.5">
-            ${isLeader ? `<div style="font-weight:bold;color:${color}">${entry.group.name}</div>` : ''}
-            <div style="color:#cbd5e1">${unit.name ?? ''}</div>
-            <div style="color:#64748b">${unit.type ?? ''} · ${unit.skill ?? '—'} · ${Math.round(unit.alt ?? 0)}m</div>
-            ${isSelected && isLeader ? '<div style="color:#fbbf24;font-size:10px">✦ Sélectionné · glisser = déplacer</div>' : ''}
-          </div>`, { direction: 'top', offset: [0, -14], opacity: 0.97 });
+          marker.bindTooltip(`<div style="background:#0f172a;border:1px solid #334155;border-radius:8px;padding:6px 10px;font-family:monospace;font-size:11px;line-height:1.6;min-width:140px">
+            ${isLeader ? `<div style="font-weight:bold;color:${color};margin-bottom:2px">${entry.group.name}</div>` : ''}
+            <div style="color:#e2e8f0">${unit.name ?? ''}</div>
+            <div style="color:#64748b;font-size:10px">${unit.type ?? ''}</div>
+            <div style="color:#475569;font-size:10px">${unit.skill ?? '—'} · ${Math.round(unit.alt ?? 0)}m</div>
+            ${isSelected && isLeader ? '<div style="color:#fbbf24;font-size:10px;margin-top:2px">✦ glisser pour déplacer</div>' : ''}
+          </div>`, {
+            direction: 'top',
+            offset: [0, -18],
+            opacity: 1,
+            className: 'leaflet-tooltip-dark',
+          });
 
           marker.on('click', (e) => {
             L.DomEvent.stopPropagation(e);
@@ -205,7 +236,7 @@ export function createMapEngine(
           const [lat, lon] = dcsToLatLng(zone.x, zone.y);
           const c = L.circle([lat, lon], {
             radius: zone.radius ?? 1000,
-            color: '#f59e0b', fillColor: '#f59e0b', fillOpacity: 0.07, weight: 1.5, dashArray: '6 4',
+            color: '#f59e0b', fillColor: '#f59e0b', fillOpacity: 0.06, weight: 1.5, dashArray: '6 4',
           });
           c.bindTooltip(`<span style="font-size:10px;color:#fbbf24;font-family:monospace">${zone.name}</span>`,
             { permanent: true, direction: 'center', opacity: 0.9 });
@@ -217,11 +248,11 @@ export function createMapEngine(
       airportsLayer.clearLayers();
       if (showAirports) {
         airports.forEach(ap => {
-          const m = L.marker([ap.lat, ap.lon], { icon: makeAirportIcon() });
-          m.bindTooltip(`<div style="font-family:monospace;font-size:11px;line-height:1.5">
+          const m = L.marker([ap.lat, ap.lon], { icon: L.divIcon(makeAirportDivIcon()) });
+          m.bindTooltip(`<div style="background:#0f172a;border:1px solid #334155;border-radius:8px;padding:6px 10px;font-family:monospace;font-size:11px">
             <div style="font-weight:bold;color:#94a3b8">${ap.name}</div>
-            <div style="color:#64748b">${ap.parkingCount} slots parking</div>
-          </div>`, { direction: 'top', offset: [0, -16], opacity: 0.97 });
+            <div style="color:#475569">${ap.parkingCount} slots</div>
+          </div>`, { direction: 'top', offset: [0, -16], opacity: 1, className: 'leaflet-tooltip-dark' });
           m.addTo(airportsLayer!);
         });
       }

@@ -153,6 +153,7 @@ export default function MapView() {
   const [showAirports, setShowAirports] = useState(true);
   const [showZones, setShowZones] = useState(true);
   const [showRoutes, setShowRoutes] = useState(true);
+  const [showTopo, setShowTopo] = useState(false);
   const [addMode, setAddMode] = useState(false);
   const [pendingAdd, setPendingAdd] = useState<{ lat: number; lon: number } | null>(null);
 
@@ -216,8 +217,8 @@ export default function MapView() {
 
   // Passer les données au moteur après chaque render
   useEffect(() => {
-    engineRef.current?.render({ groups, selectedEntity: sel, airports, showAirports, showZones, showRoutes, zones, addMode });
-  }, [groups, sel, airports, showAirports, showZones, showRoutes, zones, addMode]);
+    engineRef.current?.render({ groups, selectedEntity: sel, airports, showAirports, showZones, showRoutes, showTopo, zones, addMode });
+  }, [groups, sel, airports, showAirports, showZones, showRoutes, showTopo, zones, addMode]);
 
   return (
     <div className="relative h-full w-full">
@@ -231,6 +232,7 @@ export default function MapView() {
             { label: '✈ Aérodromes', val: showAirports, set: setShowAirports },
             { label: '⬡ Zones trigger', val: showZones, set: setShowZones },
             { label: '→ Routes', val: showRoutes, set: setShowRoutes },
+            { label: '🏔 Relief (topo)', val: showTopo, set: setShowTopo },
           ].map(item => (
             <button key={item.label} onClick={() => item.set(v => !v)}
               className={`flex items-center gap-2 w-full text-xs px-2 py-1 rounded-lg transition-colors ${item.val ? 'bg-slate-700 text-slate-200' : 'text-slate-600 hover:text-slate-400'}`}>
