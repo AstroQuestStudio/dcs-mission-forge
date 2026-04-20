@@ -10,7 +10,8 @@ export default function TriggerEditor() {
   );
 
   const zones = extractTriggerZones(miz);
-  const triggers = miz.mission.trigrules ?? [];
+  const triggersRaw = miz.mission.trigrules ?? [];
+  const triggers = Array.isArray(triggersRaw) ? triggersRaw : Object.values(triggersRaw as object);
 
   return (
     <div className="p-4 overflow-y-auto h-full space-y-4">

@@ -1,13 +1,8 @@
 /**
- * Parser de tables Lua DCS vers objets JavaScript.
- * Gère le format spécifique des fichiers .miz (mission, warehouses, options).
+ * Parser de tables Lua DCS → objets JavaScript.
+ * Tables numériques [1]=,[2]= → arrays JS.
+ * Tables mixtes (clés string + number) → objet JS.
  */
-
-export function parseLuaTable(src: string): unknown {
-  const tokens = tokenize(src);
-  const parser = new LuaParser(tokens);
-  return parser.parseFile();
-}
 
 type Token =
   | { type: 'lbrace' }
@@ -28,8 +23,8 @@ function tokenize(src: string): Token[] {
   let i = 0;
 
   while (i < src.length) {
-    // skip whitespace
-    if (/\s/.test(src[i])) { i++; continue; }
+    // whitespace
+    if (src[i] <= ' ') { i++; continue; }
 
     // single-line comment
     if (src[i] === '-' && src[i + 1] === '-' && src[i + 2] !== '[') {
@@ -37,7 +32,7 @@ function tokenize(src: string): Token[] {
       continue;
     }
 
-    // multi-line comment --[[ ... ]]
+    // long comment --[[ ... ]]
     if (src[i] === '-' && src[i + 1] === '-' && src[i + 2] === '[' && src[i + 3] === '[') {
       i += 4;
       while (i < src.length && !(src[i] === ']' && src[i + 1] === ']')) i++;
@@ -49,9 +44,7 @@ function tokenize(src: string): Token[] {
     if (src[i] === '[' && src[i + 1] === '[') {
       i += 2;
       let str = '';
-      while (i < src.length && !(src[i] === ']' && src[i + 1] === ']')) {
-        str += src[i++];
-      }
+      while (i < src.length && !(src[i] === ']' && src[i + 1] === ']')) str += src[i++];
       i += 2;
       tokens.push({ type: 'string', value: str });
       continue;
@@ -64,39 +57,46 @@ function tokenize(src: string): Token[] {
       while (i < src.length && src[i] !== q) {
         if (src[i] === '\\') {
           i++;
-          const esc: Record<string, string> = { n: '\n', t: '\t', r: '\r', '\\': '\\', '"': '"', "'": "'" };
-          str += esc[src[i]] ?? src[i];
+          const c = src[i] ?? '';
+          str += c === 'n' ? '\n' : c === 't' ? '\t' : c === 'r' ? '\r' : c;
         } else {
           str += src[i];
         }
         i++;
       }
-      i++;
+      if (i < src.length) i++; // closing quote
       tokens.push({ type: 'string', value: str });
       continue;
     }
 
-    // number (including negative)
-    if (/[0-9]/.test(src[i]) || (src[i] === '-' && /[0-9]/.test(src[i + 1]))) {
+    // negative number: only if not a comment start
+    if (src[i] === '-' && /[0-9]/.test(src[i + 1] ?? '')) {
+      let num = '-';
+      i++;
+      while (i < src.length && /[0-9eE.]/.test(src[i])) num += src[i++];
+      tokens.push({ type: 'number', value: parseFloat(num) });
+      continue;
+    }
+
+    // positive number
+    if (/[0-9]/.test(src[i])) {
       let num = '';
-      if (src[i] === '-') num += src[i++];
-      while (i < src.length && /[0-9eE.+\-x]/.test(src[i])) {
-        num += src[i++];
-      }
+      while (i < src.length && /[0-9eE.x]/.test(src[i])) num += src[i++];
       tokens.push({ type: 'number', value: parseFloat(num) });
       continue;
     }
 
     // punctuation
-    if (src[i] === '{') { tokens.push({ type: 'lbrace' }); i++; continue; }
-    if (src[i] === '}') { tokens.push({ type: 'rbrace' }); i++; continue; }
-    if (src[i] === '[') { tokens.push({ type: 'lbracket' }); i++; continue; }
-    if (src[i] === ']') { tokens.push({ type: 'rbracket' }); i++; continue; }
-    if (src[i] === '=') { tokens.push({ type: 'equals' }); i++; continue; }
-    if (src[i] === ',') { tokens.push({ type: 'comma' }); i++; continue; }
+    const ch = src[i];
+    if (ch === '{') { tokens.push({ type: 'lbrace' }); i++; continue; }
+    if (ch === '}') { tokens.push({ type: 'rbrace' }); i++; continue; }
+    if (ch === '[') { tokens.push({ type: 'lbracket' }); i++; continue; }
+    if (ch === ']') { tokens.push({ type: 'rbracket' }); i++; continue; }
+    if (ch === '=') { tokens.push({ type: 'equals' }); i++; continue; }
+    if (ch === ',') { tokens.push({ type: 'comma' }); i++; continue; }
 
-    // identifier or keyword
-    if (/[a-zA-Z_]/.test(src[i])) {
+    // identifier / keyword
+    if (/[a-zA-Z_]/.test(ch)) {
       let ident = '';
       while (i < src.length && /[a-zA-Z0-9_]/.test(src[i])) ident += src[i++];
       if (ident === 'true') tokens.push({ type: 'bool', value: true });
@@ -113,145 +113,135 @@ function tokenize(src: string): Token[] {
   return tokens;
 }
 
-class LuaParser {
-  private pos = 0;
-  private tokens: Token[];
-  constructor(tokens: Token[]) { this.tokens = tokens; }
+function parseTokens(tokens: Token[]): unknown {
+  let pos = 0;
 
-  private peek(): Token { return this.tokens[this.pos]; }
-  private consume(): Token { return this.tokens[this.pos++]; }
-  private expect(type: Token['type']): Token {
-    const t = this.consume();
-    if (t.type !== type) throw new Error(`Expected ${type}, got ${t.type} at pos ${this.pos}`);
+  const peek = () => tokens[pos];
+  const consume = () => tokens[pos++];
+  const expect = (type: string) => {
+    const t = consume();
+    if (t.type !== type) throw new Error(`Expected ${type} got ${t.type} at pos ${pos}`);
     return t;
-  }
+  };
 
-  parseFile(): unknown {
-    // Skip top-level assignment: "mission = { ... }" or just "{ ... }"
-    const first = this.peek();
-    if (first.type === 'ident') {
-      const ident = first as { type: 'ident'; value: string };
-      this.consume();
-      if (this.peek().type === 'equals') {
-        this.consume(); // consume '='
-        return this.parseValue();
-      }
-      // Identifier alone — shouldn't happen in DCS files
-      return ident.value;
-    }
-    return this.parseValue();
-  }
-
-  private parseValue(): unknown {
-    const t = this.peek();
-
-    if (t.type === 'lbrace') return this.parseTable();
-    if (t.type === 'number') { this.consume(); return (t as { type: 'number'; value: number }).value; }
-    if (t.type === 'string') { this.consume(); return (t as { type: 'string'; value: string }).value; }
-    if (t.type === 'bool') { this.consume(); return (t as { type: 'bool'; value: boolean }).value; }
-    if (t.type === 'nil') { this.consume(); return null; }
-    if (t.type === 'ident') {
-      // Could be a function call like "tostring(...)" — skip for DCS
-      this.consume();
-      return (t as { type: 'ident'; value: string }).value;
-    }
-
+  function parseValue(): unknown {
+    const t = peek();
+    if (t.type === 'lbrace') return parseTable();
+    if (t.type === 'number') { consume(); return (t as { type: 'number'; value: number }).value; }
+    if (t.type === 'string') { consume(); return (t as { type: 'string'; value: string }).value; }
+    if (t.type === 'bool') { consume(); return (t as { type: 'bool'; value: boolean }).value; }
+    if (t.type === 'nil') { consume(); return null; }
+    if (t.type === 'ident') { consume(); return (t as { type: 'ident'; value: string }).value; }
     return null;
   }
 
-  private parseTable(): Record<string, unknown> | unknown[] {
-    this.expect('lbrace');
-    const obj: Record<string, unknown> = {};
-    const arr: unknown[] = [];
-    let arrayMode = true;
-    let arrayIdx = 1;
+  function parseTable(): unknown[] | Record<string, unknown> {
+    expect('lbrace');
 
-    while (this.peek().type !== 'rbrace' && this.peek().type !== 'eof') {
-      const t = this.peek();
+    // numericEntries: clés numériques [1]=, [2]= ...
+    const numericEntries: Record<number, unknown> = {};
+    // stringEntries: clés string ["foo"]= ou ident=
+    const stringEntries: Record<string, unknown> = {};
+    let hasStringKeys = false;
 
-      // [key] = value  or  ["key"] = value
+    while (peek().type !== 'rbrace' && peek().type !== 'eof') {
+      const t = peek();
+
       if (t.type === 'lbracket') {
-        this.consume(); // [
-        const keyTok = this.consume();
-        this.expect('rbracket');
-        this.expect('equals');
-        const value = this.parseValue();
-
-        let key: string;
-        if (keyTok.type === 'string') key = (keyTok as { type: 'string'; value: string }).value;
-        else if (keyTok.type === 'number') key = String((keyTok as { type: 'number'; value: number }).value);
-        else key = String(keyTok);
+        // [key] = value
+        consume(); // [
+        const keyTok = consume();
+        expect('rbracket');
+        expect('equals');
+        const value = parseValue();
 
         if (keyTok.type === 'number') {
-          // Clé numérique [1]=, [2]= etc. → candidat array
-          const numKey = (keyTok as { type: 'number'; value: number }).value;
-          obj[String(numKey)] = value;
-          arr[numKey - 1] = value; // index 0-based dans arr
+          const n = (keyTok as { type: 'number'; value: number }).value;
+          numericEntries[n] = value;
         } else {
-          obj[key] = value;
-          arrayMode = false;
+          const k = keyTok.type === 'string'
+            ? (keyTok as { type: 'string'; value: string }).value
+            : String((keyTok as { type: 'ident'; value: string }).value);
+          stringEntries[k] = value;
+          hasStringKeys = true;
         }
-      }
-      // ident = value
-      else if (t.type === 'ident' && this.tokens[this.pos + 1]?.type === 'equals') {
-        const key = (this.consume() as { type: 'ident'; value: string }).value;
-        this.expect('equals');
-        obj[key] = this.parseValue();
-        arrayMode = false;
-      }
-      // positional value (sans clé)
-      else {
-        const value = this.parseValue();
-        arr.push(value);
-        obj[String(arrayIdx++)] = value;
+      } else if (t.type === 'ident' && tokens[pos + 1]?.type === 'equals') {
+        // ident = value
+        const key = (consume() as { type: 'ident'; value: string }).value;
+        expect('equals');
+        stringEntries[key] = parseValue();
+        hasStringKeys = true;
+      } else {
+        // positional (sans clé)
+        const value = parseValue();
+        const nextIdx = Object.keys(numericEntries).length + 1;
+        numericEntries[nextIdx] = value;
       }
 
-      // optional trailing comma
-      if (this.peek().type === 'comma') this.consume();
+      if (peek().type === 'comma') consume();
     }
 
-    this.expect('rbrace');
+    expect('rbrace');
 
-    // Si toutes les clés sont numériques consécutives depuis 1, retourner un array
-    if (arrayMode && arr.length > 0) return arr;
-    // Vérifier si l'objet n'a QUE des clés numériques consécutives
-    const keys = Object.keys(obj);
-    if (keys.length > 0 && keys.every((k, i) => parseInt(k) === i + 1)) {
-      return keys.map(k => obj[k]);
+    const numKeys = Object.keys(numericEntries).map(Number).sort((a, b) => a - b);
+
+    if (numKeys.length > 0 && !hasStringKeys) {
+      // Table purement numérique → array (index 0-based)
+      return numKeys.map(k => numericEntries[k]);
     }
-    return obj;
+
+    // Table mixte ou purement string → objet
+    const result: Record<string, unknown> = { ...stringEntries };
+    numKeys.forEach(k => { result[String(k)] = numericEntries[k]; });
+    return result;
   }
+
+  // Top-level: "name = { ... }" ou directement "{ ... }"
+  const first = peek();
+  if (first.type === 'ident') {
+    const name = (consume() as { type: 'ident'; value: string }).value;
+    if (peek().type === 'equals') {
+      consume();
+      return parseValue();
+    }
+    return name;
+  }
+  return parseValue();
 }
 
-/** Serialize JS object back to Lua table string */
-export function serializeLuaTable(value: unknown, name?: string, indent = 0): string {
-  const pad = '  '.repeat(indent);
-  const inner = '  '.repeat(indent + 1);
+export function parseLuaTable(src: string): unknown {
+  const tokens = tokenize(src);
+  return parseTokens(tokens);
+}
 
-  if (value === null || value === undefined) return `${name ? `${name} = ` : ''}nil`;
-  if (typeof value === 'boolean') return `${name ? `${name} = ` : ''}${value}`;
-  if (typeof value === 'number') return `${name ? `${name} = ` : ''}${value}`;
+/** Serialize JS → Lua table string */
+export function serializeLuaTable(value: unknown, indent = 0): string {
+  const pad = '\t'.repeat(indent);
+  const inner = '\t'.repeat(indent + 1);
+
+  if (value === null || value === undefined) return 'nil';
+  if (typeof value === 'boolean') return String(value);
+  if (typeof value === 'number') return String(value);
   if (typeof value === 'string') {
-    const escaped = value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
-    return `${name ? `${name} = ` : ''}"${escaped}"`;
+    const escaped = value.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, '\\n');
+    return `"${escaped}"`;
   }
 
   if (Array.isArray(value)) {
-    if (value.length === 0) return `${name ? `${name} = ` : ''}{}`;
-    const items = value.map((v, i) => `${inner}[${i + 1}] = ${serializeLuaTable(v, undefined, indent + 1)},`);
-    return `${name ? `${name} = ` : ''}{\n${items.join('\n')}\n${pad}}`;
+    if (value.length === 0) return '{}';
+    const items = value.map((v, i) => `${inner}[${i + 1}] = ${serializeLuaTable(v, indent + 1)},`);
+    return `{\n${items.join('\n')}\n${pad}}`;
   }
 
   if (typeof value === 'object') {
     const entries = Object.entries(value as Record<string, unknown>);
-    if (entries.length === 0) return `${name ? `${name} = ` : ''}{}`;
-
+    if (entries.length === 0) return '{}';
     const items = entries.map(([k, v]) => {
       const key = /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(k) ? k : `["${k}"]`;
-      return `${inner}${key} = ${serializeLuaTable(v, undefined, indent + 1)},`;
+      return `${inner}${key} = ${serializeLuaTable(v, indent + 1)},`;
     });
-    return `${name ? `${name} = ` : ''}{\n${items.join('\n')}\n${pad}}`;
+    return `{\n${items.join('\n')}\n${pad}}`;
   }
 
-  return `${name ? `${name} = ` : ''}nil`;
+  return 'nil';
 }

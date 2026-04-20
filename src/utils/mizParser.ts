@@ -1,5 +1,5 @@
 import JSZip from 'jszip';
-import { parseLuaTable } from './luaParser';
+import { parseLuaTable, serializeLuaTable } from './luaParser';
 import type { MizFile, DCSMission, DCSWarehouses } from '../types/dcs';
 
 export async function parseMiz(file: File): Promise<MizFile> {
@@ -15,6 +15,7 @@ export async function parseMiz(file: File): Promise<MizFile> {
   const missionRaw = await readLua('mission');
   const warehousesRaw = await readLua('warehouses');
   const optionsRaw = await readLua('options');
+
   const theatreFile = zip.file('theatre');
   const theatre = theatreFile ? (await theatreFile.async('string')).trim() : 'Caucasus';
 
@@ -36,25 +37,18 @@ export async function parseMiz(file: File): Promise<MizFile> {
 }
 
 export async function buildMiz(miz: MizFile, extraLua?: string): Promise<Blob> {
-  const { serializeLuaTable } = await import('./luaParser');
   const zip = new JSZip();
 
-  const missionSerialized = `mission =\n${serializeLuaTable(miz.mission, undefined, 0)}\n`;
-  const warehousesSerialized = `warehouses =\n${serializeLuaTable(miz.warehouses, undefined, 0)}\n`;
-  const optionsSerialized = `options =\n${serializeLuaTable(miz.options, undefined, 0)}\n`;
-
-  zip.file('mission', missionSerialized);
-  zip.file('warehouses', warehousesSerialized);
-  zip.file('options', optionsSerialized);
+  zip.file('mission', `mission =\n${serializeLuaTable(miz.mission)}\n`);
+  zip.file('warehouses', `warehouses =\n${serializeLuaTable(miz.warehouses)}\n`);
+  zip.file('options', `options =\n${serializeLuaTable(miz.options)}\n`);
   zip.file('theatre', miz.theatre);
 
   if (miz.dictionary) {
-    const dictSerialized = `dictionary =\n${serializeLuaTable(miz.dictionary, undefined, 0)}\n`;
-    zip.file('l10n/DEFAULT/dictionary', dictSerialized);
+    zip.file('l10n/DEFAULT/dictionary', `dictionary =\n${serializeLuaTable(miz.dictionary)}\n`);
     zip.file('l10n/DEFAULT/mapResource', 'mapResource = {}');
   }
 
-  // Inject MIST init script if provided
   if (extraLua) {
     zip.file('l10n/DEFAULT/mist_init.lua', extraLua);
   }

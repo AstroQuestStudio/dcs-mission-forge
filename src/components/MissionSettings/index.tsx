@@ -82,18 +82,19 @@ export default function MissionSettings() {
       <div className="grid grid-cols-2 gap-3">
         {(['blue', 'red'] as const).map(coal => {
           const cd = miz.mission.coalition[coal];
-          const groupCount = cd?.country?.reduce((acc, c) => {
-            const r = c as unknown as Record<string, { group: unknown[] }>;
+          const countries: unknown[] = Array.isArray(cd?.country) ? cd.country : Object.values(cd?.country ?? {});
+          const groupCount: number = countries.reduce((acc: number, c: unknown) => {
+            const r = c as Record<string, { group: unknown }>;
             return acc + (['plane', 'helicopter', 'vehicle', 'ship', 'static'] as const).reduce(
-              (a2, cat) => a2 + (r[cat]?.group?.length ?? 0), 0
+              (a2: number, cat: string) => { const g = r[cat]?.group; return a2 + (Array.isArray(g) ? g.length : Object.keys((g as object) ?? {}).length); }, 0
             );
-          }, 0) ?? 0;
+          }, 0);
           return (
             <div key={coal} className={`bg-slate-800 rounded p-3 border-l-4 ${coal === 'blue' ? 'border-blue-500' : 'border-red-500'}`}>
               <div className={`text-xs font-bold ${coal === 'blue' ? 'text-blue-400' : 'text-red-400'} mb-1`}>
                 {coal.toUpperCase()}
               </div>
-              <div className="text-xs text-slate-400">{cd?.country?.length ?? 0} pays</div>
+              <div className="text-xs text-slate-400">{countries.length as number} pays</div>
               <div className="text-xs text-slate-400">{groupCount} groupes</div>
             </div>
           );
