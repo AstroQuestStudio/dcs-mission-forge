@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { createWithEqualityFn } from 'zustand/traditional';
 import type { MizFile, DCSGroup, DCSUnit, DCSCountry, DCSTriggerZone, MistConfig } from '../types/dcs';
 
 export type ActiveTab = 'map' | 'groups' | 'triggers' | 'weather' | 'mist' | 'settings' | 'warehouses';
@@ -31,7 +31,7 @@ const DEFAULT_MIST: MistConfig = {
   zoneRespawns: [],
 };
 
-export const useMissionStore = create<MissionStore>((set, get) => ({
+export const useMissionStore = createWithEqualityFn<MissionStore>((set, get) => ({
   miz: null,
   selectedEntity: null,
   activeTab: 'map',
