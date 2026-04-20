@@ -27,7 +27,13 @@ const COAL_COLORS: Record<string, string> = {
 };
 
 export default function App() {
-  const { miz, loadMiz, clearMiz, activeTab, setActiveTab, mistConfig, isDirty } = useMissionStore();
+  const miz = useMissionStore(s => s.miz);
+  const loadMiz = useMissionStore(s => s.loadMiz);
+  const clearMiz = useMissionStore(s => s.clearMiz);
+  const activeTab = useMissionStore(s => s.activeTab);
+  const setActiveTab = useMissionStore(s => s.setActiveTab);
+  const mistConfig = useMissionStore(s => s.mistConfig);
+  const isDirty = useMissionStore(s => s.isDirty);
   const fileRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);

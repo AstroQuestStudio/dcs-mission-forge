@@ -4,11 +4,17 @@
  * pour éviter React error #310 (hooks appelés hors cycle React).
  */
 import { useEffect, useRef, useState, useMemo } from 'react';
+import { flushSync } from 'react-dom';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useMissionStore, extractAllGroups, extractTriggerZones } from '../../store/missionStore';
 import { dcsToLatLng, latLngToDcs } from '../../utils/dcsCoords';
 import type { DCSGroup, DCSUnit } from '../../types/dcs';
+
+// Wrapper sécurisé pour appeler le store depuis des events non-React (Leaflet)
+function callStore(fn: () => void) {
+  flushSync(fn);
+}
 
 // ── Palette ────────────────────────────────────────────────────────────────
 const COAL_COLOR: Record<string, string> = {
@@ -219,14 +225,15 @@ export default function MapView() {
       maxZoom: 19,
     }).addTo(map);
 
-    // Click carte — uniquement via getState(), jamais via hook
+    // Click carte — flushSync pour rester dans le cycle React
     map.on('click', (e: L.LeafletMouseEvent) => {
       if (addModeRef.current) {
-        // Déclencher l'ajout via setState React (safe car c'est juste un setState)
-        setPendingAdd({ lat: e.latlng.lat, lon: e.latlng.lng });
-        setAddMode(false);
+        flushSync(() => {
+          setPendingAdd({ lat: e.latlng.lat, lon: e.latlng.lng });
+          setAddMode(false);
+        });
       } else {
-        useMissionStore.getState().selectEntity(null);
+        callStore(() => useMissionStore.getState().selectEntity(null));
       }
     });
 
@@ -280,8 +287,7 @@ export default function MapView() {
       routesLayerRef.current!.clearLayers();
       zonesLayerRef.current!.clearLayers();
       airportsLayerRef.current!.clearLayers();
-      setStatGroups(0);
-      setStatUnits(0);
+      flushSync(() => { setStatGroups(0); setStatUnits(0); });
       return;
     }
 
@@ -290,8 +296,11 @@ export default function MapView() {
 
     let totalUnits = 0;
     groups.forEach(e => { totalUnits += e.group.units?.length ?? 0; });
-    setStatGroups(groups.length);
-    setStatUnits(totalUnits);
+    // flushSync pour que les setState locaux soient dans le cycle React
+    flushSync(() => {
+      setStatGroups(groups.length);
+      setStatUnits(totalUnits);
+    });
 
     // Redessiner marqueurs + routes
     markersLayerRef.current!.clearLayers();
@@ -339,27 +348,26 @@ export default function MapView() {
           ${isSelected && isLeader ? '<div style="color:#fbbf24;font-size:10px">✦ Sélectionné · glisser = déplacer</div>' : ''}
         </div>`, { direction: 'top', offset: [0, -14], opacity: 0.97 });
 
-        // IMPORTANT: tous les handlers utilisent getState() — jamais de closure sur state React
+        // Handlers via flushSync pour rester dans le cycle React
         marker.on('click', (e: L.LeafletMouseEvent) => {
           L.DomEvent.stopPropagation(e);
-          useMissionStore.getState().selectEntity({
+          callStore(() => useMissionStore.getState().selectEntity({
             type: 'group',
             coalition: entry.coalition,
             countryIdx: entry.countryIdx,
             category: entry.category,
             groupIdx: entry.groupIdx,
-          });
+          }));
         });
 
         marker.on('dragend', () => {
           const ll = marker.getLatLng();
           const { x, y } = latLngToDcs(ll.lat, ll.lng);
-          const s = useMissionStore.getState();
           const { group, coalition, countryIdx, category, groupIdx } = entry;
           const units = [...(group.units ?? [])];
           units[ui] = { ...units[ui], x, y };
           const patch = ui === 0 ? { ...group, x, y, units } : { ...group, units };
-          s.updateGroup(coalition, countryIdx, category, groupIdx, patch);
+          callStore(() => useMissionStore.getState().updateGroup(coalition, countryIdx, category, groupIdx, patch));
         });
 
         marker.addTo(markersLayerRef.current!);
