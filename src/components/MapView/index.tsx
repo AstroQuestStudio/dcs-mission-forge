@@ -1,9 +1,12 @@
 /**
- * MapView — Shell React.
- * - Initialise mapEngine (Leaflet pur, zéro React)
- * - Passe l'état du store au moteur via render()
- * - Écoute les CustomEvents DOM émis par le moteur et met à jour le store
- *   via queueMicrotask() pour rester hors du call stack Leaflet
+ * MapView — Architecture propre React 18 compatible Firefox.
+ *
+ * Principe : React lit le store normalement via hooks, et passe les données
+ * au moteur Leaflet via useEffect. Le moteur Leaflet ne touche JAMAIS React
+ * ni Zustand directement — il envoie des CustomEvents DOM, que React capture
+ * dans ses propres event handlers (onClick, addEventListener dans useEffect).
+ *
+ * Aucun setState ni getState() appelé depuis RAF/setTimeout/queueMicrotask.
  */
 import { useEffect, useRef, useState, useMemo } from 'react';
 import { useMissionStore, extractAllGroups, extractTriggerZones } from '../../store/missionStore';
@@ -12,12 +15,9 @@ import { createMapEngine } from './mapEngine';
 import type { MapEngine } from './mapEngine';
 import type { DCSGroup, DCSUnit } from '../../types/dcs';
 
-// ── Types ──────────────────────────────────────────────────────────────────
 interface Airport { id: number; name: string; lat: number; lon: number; parkingCount: number }
 interface UnitDBEntry { type: string; name: string }
-const CAT_SYM: Record<string, string> = {
-  plane: '✈', helicopter: '🚁', vehicle: '⬛', ship: '⚓', static: '▲',
-};
+const CAT_SYM: Record<string, string> = { plane: '✈', helicopter: '🚁', vehicle: '⬛', ship: '⚓', static: '▲' };
 
 // ── Modal ajout groupe ─────────────────────────────────────────────────────
 const COALITIONS = ['blue', 'red', 'neutrals'] as const;
@@ -63,7 +63,6 @@ function AddGroupModal({ lat, lon, onClose }: { lat: number; lon: number; onClos
       groupId: id, name, x, y, hidden: false, units,
       route: { points: [{ x, y, alt: units[0].alt, type: 'Turning Point', action: 'Turning Point', speed: cat === 'plane' ? 200 : 10, name: 'WP1' }] },
     };
-    // Appel store normal — on est dans un handler React (bouton)
     useMissionStore.getState().addGroup(coal, 0, cat, grp);
     onClose();
   };
@@ -154,20 +153,24 @@ function AddGroupModal({ lat, lon, onClose }: { lat: number; lon: number; onClos
 export default function MapView() {
   const containerRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<MapEngine | null>(null);
-  const addModeRef = useRef(false);
 
-  // État local uniquement pour l'UI React
+  // ── Lire le store via hooks React normaux (pas de getState hors cycle) ──
+  const miz = useMissionStore(s => s.miz);
+  const selectedEntity = useMissionStore(s => s.selectedEntity);
+
+  // ── État local UI ──────────────────────────────────────────────────
   const [airports, setAirports] = useState<Airport[]>([]);
   const [showAirports, setShowAirports] = useState(true);
   const [showZones, setShowZones] = useState(true);
   const [showRoutes, setShowRoutes] = useState(true);
   const [addMode, setAddMode] = useState(false);
   const [pendingAdd, setPendingAdd] = useState<{ lat: number; lon: number } | null>(null);
-  const [statGroups, setStatGroups] = useState(0);
-  const [statUnits, setStatUnits] = useState(0);
-  const [hasMiz, setHasMiz] = useState(false);
 
-  addModeRef.current = addMode;
+  // ── Données dérivées (calculées dans le cycle React) ──────────────
+  const groups = useMemo(() => miz ? extractAllGroups(miz) : [], [miz]);
+  const zones = useMemo(() => miz ? extractTriggerZones(miz) : [], [miz]);
+  const totalUnits = useMemo(() => groups.reduce((a, e) => a + (e.group.units?.length ?? 0), 0), [groups]);
+  const sel = selectedEntity?.type === 'group' ? selectedEntity : null;
 
   // ── Charger aérodromes ─────────────────────────────────────────────
   useEffect(() => {
@@ -175,44 +178,42 @@ export default function MapView() {
       .then(r => r.json()).then(d => setAirports(d as Airport[])).catch(() => {});
   }, []);
 
-  // ── Initialiser le moteur Leaflet ──────────────────────────────────
+  // ── Init moteur Leaflet (une seule fois) ───────────────────────────
   useEffect(() => {
     if (!containerRef.current) return;
 
-    // Émetteur d'événements DOM vers React
+    // Le moteur émet des CustomEvents DOM — capturés plus bas par des
+    // event listeners React-safe (dans useEffect avec addEventListener)
     const emit = (name: string, detail: unknown) => {
-      // queueMicrotask garantit qu'on est hors du call stack Leaflet
-      // avant de toucher React/Zustand
-      queueMicrotask(() => {
-        containerRef.current?.dispatchEvent(new CustomEvent(name, { detail, bubbles: false }));
-      });
+      // Pas de queueMicrotask — on dispatch directement sur window
+      // Les listeners React sont dans useEffect et appellent des actions
+      // Zustand via des handlers DOM natifs, pas depuis un call stack Leaflet
+      window.dispatchEvent(new CustomEvent(name, { detail }));
     };
 
     const engine = createMapEngine(emit);
     engine.init(containerRef.current);
     engineRef.current = engine;
 
-    return () => {
-      engine.destroy();
-      engineRef.current = null;
-    };
+    return () => { engine.destroy(); engineRef.current = null; };
   }, []);
 
-  // ── Écouter les événements du moteur ──────────────────────────────
+  // ── Écouter les events du moteur sur window ────────────────────────
+  // Ces listeners sont des event listeners DOM normaux — React ne les
+  // "possède" pas, donc pas de problème d'ordre de hooks
   useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
     const onSelect = (e: Event) => {
       const d = (e as CustomEvent).detail as { coalition: string; countryIdx: number; category: string; groupIdx: number };
+      // Appel Zustand depuis un event listener DOM = OK, pas dans un cycle React
       useMissionStore.getState().selectEntity({ type: 'group', ...d });
     };
 
     const onMove = (e: Event) => {
       const d = (e as CustomEvent).detail as { coalition: string; countryIdx: number; category: string; groupIdx: number; unitIdx: number; x: number; y: number };
       const s = useMissionStore.getState();
-      const groups = extractAllGroups(s.miz!);
-      const entry = groups.find(g => g.coalition === d.coalition && g.countryIdx === d.countryIdx && g.category === d.category && g.groupIdx === d.groupIdx);
+      if (!s.miz) return;
+      const allGroups = extractAllGroups(s.miz);
+      const entry = allGroups.find(g => g.coalition === d.coalition && g.countryIdx === d.countryIdx && g.category === d.category && g.groupIdx === d.groupIdx);
       if (!entry) return;
       const units = [...(entry.group.units ?? [])];
       units[d.unitIdx] = { ...units[d.unitIdx], x: d.x, y: d.y };
@@ -221,65 +222,27 @@ export default function MapView() {
     };
 
     const onMapClick = () => {
-      if (addModeRef.current) return; // géré par le click sur la carte ci-dessous
       useMissionStore.getState().selectEntity(null);
     };
 
-    el.addEventListener('dcs:select', onSelect);
-    el.addEventListener('dcs:move', onMove);
-    el.addEventListener('dcs:mapclick', onMapClick);
+    window.addEventListener('dcs:select', onSelect);
+    window.addEventListener('dcs:move', onMove);
+    window.addEventListener('dcs:mapclick', onMapClick);
     return () => {
-      el.removeEventListener('dcs:select', onSelect);
-      el.removeEventListener('dcs:move', onMove);
-      el.removeEventListener('dcs:mapclick', onMapClick);
+      window.removeEventListener('dcs:select', onSelect);
+      window.removeEventListener('dcs:move', onMove);
+      window.removeEventListener('dcs:mapclick', onMapClick);
     };
   }, []);
 
-  // ── Subscribe au store → passer au moteur ─────────────────────────
-  // Le moteur est appelé via requestAnimationFrame pour rester hors
-  // du cycle de render React
+  // ── Passer les données au moteur via useEffect (dans le cycle React) ──
+  // useEffect s'exécute APRÈS le render — jamais pendant un cycle React
   useEffect(() => {
-    const renderToEngine = () => {
-      const engine = engineRef.current;
-      if (!engine) return;
-      const { miz, selectedEntity } = useMissionStore.getState();
-
-      if (!miz) {
-        setHasMiz(false);
-        setStatGroups(0);
-        setStatUnits(0);
-        engine.render({ groups: [], selectedEntity: null, airports, showAirports, showZones, showRoutes, zones: [], addMode });
-        return;
-      }
-
-      const groups = extractAllGroups(miz);
-      const zones = extractTriggerZones(miz);
-      const totalUnits = groups.reduce((a, e) => a + (e.group.units?.length ?? 0), 0);
-
-      setHasMiz(true);
-      setStatGroups(groups.length);
-      setStatUnits(totalUnits);
-
-      const sel = selectedEntity?.type === 'group' ? selectedEntity : null;
-      engine.render({ groups, selectedEntity: sel, airports, showAirports, showZones, showRoutes, zones, addMode });
-    };
-
-    // Render initial (différé pour laisser le moteur s'initialiser)
-    const t = setTimeout(renderToEngine, 50);
-
-    // Subscribe aux changements du store
-    const unsub = useMissionStore.subscribe(() => {
-      requestAnimationFrame(renderToEngine);
-    });
-
-    return () => { clearTimeout(t); unsub(); };
-  // Re-subscribe si les options d'affichage changent
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [airports, showAirports, showZones, showRoutes, addMode]);
+    engineRef.current?.render({ groups, selectedEntity: sel, airports, showAirports, showZones, showRoutes, zones, addMode });
+  }, [groups, sel, airports, showAirports, showZones, showRoutes, zones, addMode]);
 
   return (
     <div className="relative h-full w-full">
-      {/* Conteneur carte Leaflet */}
       <div ref={containerRef} className="h-full w-full" style={{ background: '#0d1117' }} />
 
       {/* Overlay contrôles */}
@@ -299,17 +262,17 @@ export default function MapView() {
           ))}
         </div>
 
-        {statGroups > 0 && (
+        {groups.length > 0 && (
           <div className="bg-slate-900/90 backdrop-blur border border-slate-700/60 rounded-xl px-3 py-2 text-xs shadow-xl">
             <div className="text-[9px] text-slate-600 uppercase tracking-widest mb-1">Mission</div>
-            <div className="text-slate-300">{statGroups} groupes · {statUnits} unités</div>
+            <div className="text-slate-300">{groups.length} groupes · {totalUnits} unités</div>
             <div className="text-[10px] text-slate-600 mt-0.5">Glissez pour déplacer</div>
           </div>
         )}
       </div>
 
       {/* Bouton ajouter */}
-      {hasMiz && (
+      {miz && (
         <div className="absolute top-3 right-14 z-[500]">
           {!addMode ? (
             <button onClick={() => setAddMode(true)}
@@ -326,7 +289,7 @@ export default function MapView() {
         </div>
       )}
 
-      {/* Capture click en mode ajout — overlay transparent par-dessus la carte */}
+      {/* Overlay pour capturer le click en mode ajout */}
       {addMode && (
         <div
           className="absolute inset-0 z-[600] cursor-crosshair"
@@ -335,15 +298,11 @@ export default function MapView() {
             if (!engine) return;
             const rect = containerRef.current!.getBoundingClientRect();
             const coords = engine.containerPointToLatLng(e.clientX - rect.left, e.clientY - rect.top);
-            if (coords) {
-              setPendingAdd({ lat: coords.lat, lon: coords.lon });
-              setAddMode(false);
-            }
+            if (coords) { setPendingAdd({ lat: coords.lat, lon: coords.lon }); setAddMode(false); }
           }}
         />
       )}
 
-      {/* Modal création */}
       {pendingAdd && (
         <AddGroupModal lat={pendingAdd.lat} lon={pendingAdd.lon} onClose={() => setPendingAdd(null)} />
       )}
