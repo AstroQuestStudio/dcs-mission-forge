@@ -1,0 +1,258 @@
+{
+  "communities": {
+    "0": [
+      "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_luaparser_ts",
+      "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_mizparser_ts",
+      "luaparser_parseluatable",
+      "luaparser_parsetokens",
+      "luaparser_serializeluatable",
+      "luaparser_tokenize",
+      "mizparser_buildmiz",
+      "mizparser_parsemiz"
+    ],
+    "1": [
+      "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mistpanel_index_tsx",
+      "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_weathereditor_index_tsx",
+      "index_applypreset",
+      "index_removeautorespawn",
+      "index_removezonerespawn",
+      "index_slider",
+      "index_upd"
+    ],
+    "2": [
+      "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mapview_index_tsx",
+      "index_clickhandler",
+      "index_flytoselected",
+      "index_makeaddicon",
+      "index_makeairporticon",
+      "index_makegroupicon"
+    ],
+    "3": [
+      "app_handleexport",
+      "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_app_tsx",
+      "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_main_tsx",
+      "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_mistgenerator_ts",
+      "mistgenerator_generatemistlua",
+      "mizparser_downloadblob"
+    ],
+    "4": [
+      "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_unitpanel_index_tsx",
+      "index_addwaypoint",
+      "index_label",
+      "index_removewaypoint",
+      "index_savewaypoint"
+    ],
+    "5": [
+      "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_store_missionstore_ts",
+      "missionstore_extractallgroups",
+      "missionstore_extracttriggerzones",
+      "missionstore_toarray"
+    ],
+    "6": [
+      "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_dcscoords_ts",
+      "dcscoords_dcstolatlng",
+      "dcscoords_latlngtodcs"
+    ],
+    "7": [
+      "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_dcsunits_ts",
+      "dcsunits_getunitbytype",
+      "dcsunits_getunitsbycategory"
+    ],
+    "8": [
+      "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_grouplist_index_tsx",
+      "index_toggle"
+    ],
+    "9": [
+      "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_missionsettings_index_tsx",
+      "index_missionsettings"
+    ],
+    "10": [
+      "c_users_trufa_saved_games_dcs_dcs_mission_forge_eslint_config_js"
+    ],
+    "11": [
+      "c_users_trufa_saved_games_dcs_dcs_mission_forge_vite_config_ts"
+    ],
+    "12": [
+      "c_users_trufa_saved_games_dcs_dcs_mission_forge_gf_detect_py"
+    ],
+    "13": [
+      "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_triggereditor_index_tsx"
+    ],
+    "14": [
+      "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_types_dcs_ts"
+    ],
+    "15": [
+      "app_App"
+    ],
+    "16": [
+      "missionstore_useMissionStore"
+    ],
+    "17": [
+      "dcscoords_dcsToLatLng"
+    ],
+    "18": [
+      "mizparser_parseMiz"
+    ],
+    "19": [
+      "mapview_MapView"
+    ]
+  },
+  "cohesion": {
+    "0": 0.36,
+    "1": 0.38,
+    "2": 0.33,
+    "3": 0.33,
+    "4": 0.4,
+    "5": 0.83,
+    "6": 0.67,
+    "7": 0.67,
+    "8": 1.0,
+    "9": 1.0,
+    "10": 1.0,
+    "11": 1.0,
+    "12": 1.0,
+    "13": 1.0,
+    "14": 1.0,
+    "15": 1.0,
+    "16": 1.0,
+    "17": 1.0,
+    "18": 1.0,
+    "19": 1.0
+  },
+  "gods": [
+    {
+      "id": "app_handleexport",
+      "label": "handleExport()",
+      "degree": 4
+    },
+    {
+      "id": "index_upd",
+      "label": "upd()",
+      "degree": 4
+    },
+    {
+      "id": "luaparser_parseluatable",
+      "label": "parseLuaTable()",
+      "degree": 4
+    },
+    {
+      "id": "missionstore_toarray",
+      "label": "toArray()",
+      "degree": 3
+    },
+    {
+      "id": "mizparser_buildmiz",
+      "label": "buildMiz()",
+      "degree": 3
+    },
+    {
+      "id": "index_removeautorespawn",
+      "label": "removeAutoRespawn()",
+      "degree": 2
+    },
+    {
+      "id": "index_removezonerespawn",
+      "label": "removeZoneRespawn()",
+      "degree": 2
+    },
+    {
+      "id": "missionstore_extractallgroups",
+      "label": "extractAllGroups()",
+      "degree": 2
+    },
+    {
+      "id": "missionstore_extracttriggerzones",
+      "label": "extractTriggerZones()",
+      "degree": 2
+    },
+    {
+      "id": "luaparser_tokenize",
+      "label": "tokenize()",
+      "degree": 2
+    }
+  ],
+  "surprises": [
+    {
+      "source": "handleExport()",
+      "target": "buildMiz()",
+      "source_files": [
+        "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\App.tsx",
+        "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\mizParser.ts"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; bridges separate communities"
+    },
+    {
+      "source": "handleExport()",
+      "target": "generateMistLua()",
+      "source_files": [
+        "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\App.tsx",
+        "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\mistGenerator.ts"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories"
+    },
+    {
+      "source": "handleExport()",
+      "target": "downloadBlob()",
+      "source_files": [
+        "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\App.tsx",
+        "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\mizParser.ts"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories"
+    },
+    {
+      "source": "parseMiz()",
+      "target": "parseLuaTable()",
+      "source_files": [
+        "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\mizParser.ts",
+        "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\luaParser.ts"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories"
+    },
+    {
+      "source": "buildMiz()",
+      "target": "serializeLuaTable()",
+      "source_files": [
+        "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\mizParser.ts",
+        "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\luaParser.ts"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `handleExport()` connect `Community 3` to `Community 0`?",
+      "why": "High betweenness centrality (0.028) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `buildMiz()` connect `Community 0` to `Community 3`?",
+      "why": "High betweenness centrality (0.022) - this node is a cross-community bridge."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 3 inferred relationships involving `handleExport()` (e.g. with `generateMistLua()` and `buildMiz()`) actually correct?",
+      "why": "`handleExport()` has 3 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 2 inferred relationships involving `buildMiz()` (e.g. with `handleExport()` and `serializeLuaTable()`) actually correct?",
+      "why": "`buildMiz()` has 2 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `App Root`, `useMissionStore Zustand`, `dcsToLatLng proj4` to the rest of the system?",
+      "why": "5 weakly-connected nodes found - possible documentation gaps or missing edges."
+    }
+  ]
+}

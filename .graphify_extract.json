@@ -1,0 +1,1359 @@
+{
+  "nodes": [
+    {
+      "id": "c_users_trufa_saved_games_dcs_dcs_mission_forge_eslint_config_js",
+      "label": "eslint.config.js",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\eslint.config.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "c_users_trufa_saved_games_dcs_dcs_mission_forge_vite_config_ts",
+      "label": "vite.config.ts",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\vite.config.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "c_users_trufa_saved_games_dcs_dcs_mission_forge_gf_detect_py",
+      "label": "_gf_detect.py",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\_gf_detect.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_app_tsx",
+      "label": "App.tsx",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\App.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_handleexport",
+      "label": "handleExport()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\App.tsx",
+      "source_location": "L60"
+    },
+    {
+      "id": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_main_tsx",
+      "label": "main.tsx",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\main.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_grouplist_index_tsx",
+      "label": "index.tsx",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\GroupList\\index.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "index_toggle",
+      "label": "toggle()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\GroupList\\index.tsx",
+      "source_location": "L50"
+    },
+    {
+      "id": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mapview_index_tsx",
+      "label": "index.tsx",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MapView\\index.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "index_makegroupicon",
+      "label": "makeGroupIcon()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MapView\\index.tsx",
+      "source_location": "L19"
+    },
+    {
+      "id": "index_makeairporticon",
+      "label": "makeAirportIcon()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MapView\\index.tsx",
+      "source_location": "L42"
+    },
+    {
+      "id": "index_makeaddicon",
+      "label": "makeAddIcon()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MapView\\index.tsx",
+      "source_location": "L57"
+    },
+    {
+      "id": "index_clickhandler",
+      "label": "ClickHandler()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MapView\\index.tsx",
+      "source_location": "L75"
+    },
+    {
+      "id": "index_flytoselected",
+      "label": "FlyToSelected()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MapView\\index.tsx",
+      "source_location": "L89"
+    },
+    {
+      "id": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_missionsettings_index_tsx",
+      "label": "index.tsx",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MissionSettings\\index.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "index_missionsettings",
+      "label": "MissionSettings()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MissionSettings\\index.tsx",
+      "source_location": "L3"
+    },
+    {
+      "id": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mistpanel_index_tsx",
+      "label": "index.tsx",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MistPanel\\index.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "index_upd",
+      "label": "upd()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MistPanel\\index.tsx",
+      "source_location": "L15"
+    },
+    {
+      "id": "index_applypreset",
+      "label": "applyPreset()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MistPanel\\index.tsx",
+      "source_location": "L17"
+    },
+    {
+      "id": "index_removeautorespawn",
+      "label": "removeAutoRespawn()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MistPanel\\index.tsx",
+      "source_location": "L43"
+    },
+    {
+      "id": "index_removezonerespawn",
+      "label": "removeZoneRespawn()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MistPanel\\index.tsx",
+      "source_location": "L49"
+    },
+    {
+      "id": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_triggereditor_index_tsx",
+      "label": "index.tsx",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\TriggerEditor\\index.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_unitpanel_index_tsx",
+      "label": "index.tsx",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\UnitPanel\\index.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "index_label",
+      "label": "Label()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\UnitPanel\\index.tsx",
+      "source_location": "L15"
+    },
+    {
+      "id": "index_savewaypoint",
+      "label": "saveWaypoint()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\UnitPanel\\index.tsx",
+      "source_location": "L77"
+    },
+    {
+      "id": "index_addwaypoint",
+      "label": "addWaypoint()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\UnitPanel\\index.tsx",
+      "source_location": "L83"
+    },
+    {
+      "id": "index_removewaypoint",
+      "label": "removeWaypoint()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\UnitPanel\\index.tsx",
+      "source_location": "L98"
+    },
+    {
+      "id": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_weathereditor_index_tsx",
+      "label": "index.tsx",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\WeatherEditor\\index.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "index_slider",
+      "label": "Slider()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\WeatherEditor\\index.tsx",
+      "source_location": "L4"
+    },
+    {
+      "id": "index_upd",
+      "label": "upd()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\WeatherEditor\\index.tsx",
+      "source_location": "L42"
+    },
+    {
+      "id": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_store_missionstore_ts",
+      "label": "missionStore.ts",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\store\\missionStore.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "missionstore_toarray",
+      "label": "toArray()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\store\\missionStore.ts",
+      "source_location": "L118"
+    },
+    {
+      "id": "missionstore_extractallgroups",
+      "label": "extractAllGroups()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\store\\missionStore.ts",
+      "source_location": "L129"
+    },
+    {
+      "id": "missionstore_extracttriggerzones",
+      "label": "extractTriggerZones()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\store\\missionStore.ts",
+      "source_location": "L168"
+    },
+    {
+      "id": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_types_dcs_ts",
+      "label": "dcs.ts",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\types\\dcs.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_dcscoords_ts",
+      "label": "dcsCoords.ts",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\dcsCoords.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "dcscoords_dcstolatlng",
+      "label": "dcsToLatLng()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\dcsCoords.ts",
+      "source_location": "L16"
+    },
+    {
+      "id": "dcscoords_latlngtodcs",
+      "label": "latLngToDcs()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\dcsCoords.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_dcsunits_ts",
+      "label": "dcsUnits.ts",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\dcsUnits.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "dcsunits_getunitsbycategory",
+      "label": "getUnitsByCategory()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\dcsUnits.ts",
+      "source_location": "L62"
+    },
+    {
+      "id": "dcsunits_getunitbytype",
+      "label": "getUnitByType()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\dcsUnits.ts",
+      "source_location": "L66"
+    },
+    {
+      "id": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_luaparser_ts",
+      "label": "luaParser.ts",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\luaParser.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "luaparser_tokenize",
+      "label": "tokenize()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\luaParser.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "luaparser_parsetokens",
+      "label": "parseTokens()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\luaParser.ts",
+      "source_location": "L116"
+    },
+    {
+      "id": "luaparser_parseluatable",
+      "label": "parseLuaTable()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\luaParser.ts",
+      "source_location": "L212"
+    },
+    {
+      "id": "luaparser_serializeluatable",
+      "label": "serializeLuaTable()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\luaParser.ts",
+      "source_location": "L218"
+    },
+    {
+      "id": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_mistgenerator_ts",
+      "label": "mistGenerator.ts",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\mistGenerator.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "mistgenerator_generatemistlua",
+      "label": "generateMistLua()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\mistGenerator.ts",
+      "source_location": "L7"
+    },
+    {
+      "id": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_mizparser_ts",
+      "label": "mizParser.ts",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\mizParser.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "mizparser_parsemiz",
+      "label": "parseMiz()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\mizParser.ts",
+      "source_location": "L5"
+    },
+    {
+      "id": "mizparser_buildmiz",
+      "label": "buildMiz()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\mizParser.ts",
+      "source_location": "L39"
+    },
+    {
+      "id": "mizparser_downloadblob",
+      "label": "downloadBlob()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\mizParser.ts",
+      "source_location": "L59"
+    },
+    {
+      "id": "app_App",
+      "label": "App Root",
+      "file_type": "code",
+      "source_file": "src/App.tsx",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "missionstore_useMissionStore",
+      "label": "useMissionStore Zustand",
+      "file_type": "code",
+      "source_file": "src/store/missionStore.ts",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "dcscoords_dcsToLatLng",
+      "label": "dcsToLatLng proj4",
+      "file_type": "code",
+      "source_file": "src/utils/dcsCoords.ts",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "mizparser_parseMiz",
+      "label": "parseMiz JSZip",
+      "file_type": "code",
+      "source_file": "src/utils/mizParser.ts",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "mapview_MapView",
+      "label": "MapView Leaflet drag",
+      "file_type": "code",
+      "source_file": "src/components/MapView/index.tsx",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_eslint_config_js",
+      "target": "js",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\eslint.config.js",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_eslint_config_js",
+      "target": "globals",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\eslint.config.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_eslint_config_js",
+      "target": "eslint_plugin_react_hooks",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\eslint.config.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_eslint_config_js",
+      "target": "eslint_plugin_react_refresh",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\eslint.config.js",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_eslint_config_js",
+      "target": "typescript_eslint",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\eslint.config.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_eslint_config_js",
+      "target": "config",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\eslint.config.js",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_vite_config_ts",
+      "target": "vite",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\vite.config.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_vite_config_ts",
+      "target": "plugin_react",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\vite.config.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_vite_config_ts",
+      "target": "vite",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\vite.config.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_gf_detect_py",
+      "target": "sys",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\_gf_detect.py",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_gf_detect_py",
+      "target": "json",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\_gf_detect.py",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_gf_detect_py",
+      "target": "graphify_detect",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\_gf_detect.py",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_gf_detect_py",
+      "target": "pathlib",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\_gf_detect.py",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_app_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\App.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_app_tsx",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_store_missionstore",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\App.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_app_tsx",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_mizparser",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\App.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_app_tsx",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_mistgenerator",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\App.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_app_tsx",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mapview",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\App.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_app_tsx",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_grouplist",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\App.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_app_tsx",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_unitpanel",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\App.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_app_tsx",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_weathereditor",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\App.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_app_tsx",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mistpanel",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\App.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_app_tsx",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_missionsettings",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\App.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_app_tsx",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_triggereditor",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\App.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_app_tsx",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_store_missionstore",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\App.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_app_tsx",
+      "target": "app_handleexport",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\App.tsx",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_main_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\main.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_main_tsx",
+      "target": "client",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\main.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_main_tsx",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_index_css",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\main.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_main_tsx",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_app_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\main.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_grouplist_index_tsx",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_grouplist_store_missionstore",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\GroupList\\index.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_grouplist_index_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\GroupList\\index.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_grouplist_index_tsx",
+      "target": "index_toggle",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\GroupList\\index.tsx",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mapview_index_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MapView\\index.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mapview_index_tsx",
+      "target": "react_leaflet",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MapView\\index.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mapview_index_tsx",
+      "target": "leaflet",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MapView\\index.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mapview_index_tsx",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mapview_store_missionstore",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MapView\\index.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mapview_index_tsx",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mapview_utils_dcscoords",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MapView\\index.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mapview_index_tsx",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mapview_utils_dcsunits",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MapView\\index.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mapview_index_tsx",
+      "target": "index_makegroupicon",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MapView\\index.tsx",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mapview_index_tsx",
+      "target": "index_makeairporticon",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MapView\\index.tsx",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mapview_index_tsx",
+      "target": "index_makeaddicon",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MapView\\index.tsx",
+      "source_location": "L57",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mapview_index_tsx",
+      "target": "index_clickhandler",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MapView\\index.tsx",
+      "source_location": "L75",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mapview_index_tsx",
+      "target": "index_flytoselected",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MapView\\index.tsx",
+      "source_location": "L89",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mapview_index_tsx",
+      "target": "index_makegroupicon",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MapView\\index.tsx",
+      "source_location": "L152",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mapview_index_tsx",
+      "target": "index_makeaddicon",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MapView\\index.tsx",
+      "source_location": "L376",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_missionsettings_index_tsx",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_missionsettings_store_missionstore",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MissionSettings\\index.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_missionsettings_index_tsx",
+      "target": "index_missionsettings",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MissionSettings\\index.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mistpanel_index_tsx",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mistpanel_store_missionstore",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MistPanel\\index.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mistpanel_index_tsx",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mistpanel_utils_mistgenerator",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MistPanel\\index.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mistpanel_index_tsx",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mistpanel_types_dcs",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MistPanel\\index.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mistpanel_index_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MistPanel\\index.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mistpanel_index_tsx",
+      "target": "index_upd",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MistPanel\\index.tsx",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mistpanel_index_tsx",
+      "target": "index_applypreset",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MistPanel\\index.tsx",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mistpanel_index_tsx",
+      "target": "index_removeautorespawn",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MistPanel\\index.tsx",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_mistpanel_index_tsx",
+      "target": "index_removezonerespawn",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MistPanel\\index.tsx",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "index_removeautorespawn",
+      "target": "index_upd",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MistPanel\\index.tsx",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "index_removezonerespawn",
+      "target": "index_upd",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\MistPanel\\index.tsx",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_triggereditor_index_tsx",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_triggereditor_store_missionstore",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\TriggerEditor\\index.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_unitpanel_index_tsx",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_unitpanel_store_missionstore",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\UnitPanel\\index.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_unitpanel_index_tsx",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_unitpanel_utils_dcsunits",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\UnitPanel\\index.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_unitpanel_index_tsx",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_unitpanel_types_dcs",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\UnitPanel\\index.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_unitpanel_index_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\UnitPanel\\index.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_unitpanel_index_tsx",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_unitpanel_utils_dcscoords",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\UnitPanel\\index.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_unitpanel_index_tsx",
+      "target": "index_label",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\UnitPanel\\index.tsx",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_unitpanel_index_tsx",
+      "target": "index_savewaypoint",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\UnitPanel\\index.tsx",
+      "source_location": "L77",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_unitpanel_index_tsx",
+      "target": "index_addwaypoint",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\UnitPanel\\index.tsx",
+      "source_location": "L83",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_unitpanel_index_tsx",
+      "target": "index_removewaypoint",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\UnitPanel\\index.tsx",
+      "source_location": "L98",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_weathereditor_index_tsx",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_weathereditor_store_missionstore",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\WeatherEditor\\index.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_weathereditor_index_tsx",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_weathereditor_types_dcs",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\WeatherEditor\\index.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_weathereditor_index_tsx",
+      "target": "index_slider",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\WeatherEditor\\index.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_components_weathereditor_index_tsx",
+      "target": "index_upd",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\components\\WeatherEditor\\index.tsx",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_store_missionstore_ts",
+      "target": "zustand",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\store\\missionStore.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_store_missionstore_ts",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_store_types_dcs",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\store\\missionStore.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_store_missionstore_ts",
+      "target": "missionstore_toarray",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\store\\missionStore.ts",
+      "source_location": "L118",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_store_missionstore_ts",
+      "target": "missionstore_extractallgroups",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\store\\missionStore.ts",
+      "source_location": "L129",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_store_missionstore_ts",
+      "target": "missionstore_extracttriggerzones",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\store\\missionStore.ts",
+      "source_location": "L168",
+      "weight": 1.0
+    },
+    {
+      "source": "missionstore_extractallgroups",
+      "target": "missionstore_toarray",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\store\\missionStore.ts",
+      "source_location": "L137",
+      "weight": 1.0
+    },
+    {
+      "source": "missionstore_extracttriggerzones",
+      "target": "missionstore_toarray",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\store\\missionStore.ts",
+      "source_location": "L171",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_dcscoords_ts",
+      "target": "proj4",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\dcsCoords.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_dcscoords_ts",
+      "target": "dcscoords_dcstolatlng",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\dcsCoords.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_dcscoords_ts",
+      "target": "dcscoords_latlngtodcs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\dcsCoords.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_dcsunits_ts",
+      "target": "dcsunits_getunitsbycategory",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\dcsUnits.ts",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_dcsunits_ts",
+      "target": "dcsunits_getunitbytype",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\dcsUnits.ts",
+      "source_location": "L66",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_luaparser_ts",
+      "target": "luaparser_tokenize",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\luaParser.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_luaparser_ts",
+      "target": "luaparser_parsetokens",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\luaParser.ts",
+      "source_location": "L116",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_luaparser_ts",
+      "target": "luaparser_parseluatable",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\luaParser.ts",
+      "source_location": "L212",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_luaparser_ts",
+      "target": "luaparser_serializeluatable",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\luaParser.ts",
+      "source_location": "L218",
+      "weight": 1.0
+    },
+    {
+      "source": "luaparser_parseluatable",
+      "target": "luaparser_tokenize",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\luaParser.ts",
+      "source_location": "L213",
+      "weight": 1.0
+    },
+    {
+      "source": "luaparser_parseluatable",
+      "target": "luaparser_parsetokens",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\luaParser.ts",
+      "source_location": "L214",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_mistgenerator_ts",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_types_dcs",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\mistGenerator.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_mistgenerator_ts",
+      "target": "mistgenerator_generatemistlua",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\mistGenerator.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_mizparser_ts",
+      "target": "jszip",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\mizParser.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_mizparser_ts",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_luaparser",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\mizParser.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_mizparser_ts",
+      "target": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_types_dcs",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\mizParser.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_mizparser_ts",
+      "target": "mizparser_parsemiz",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\mizParser.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_mizparser_ts",
+      "target": "mizparser_buildmiz",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\mizParser.ts",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "c_users_trufa_saved_games_dcs_dcs_mission_forge_src_utils_mizparser_ts",
+      "target": "mizparser_downloadblob",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\mizParser.ts",
+      "source_location": "L59",
+      "weight": 1.0
+    },
+    {
+      "source": "app_handleexport",
+      "target": "mistgenerator_generatemistlua",
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\App.tsx",
+      "source_location": "L64",
+      "weight": 1.0
+    },
+    {
+      "source": "app_handleexport",
+      "target": "mizparser_buildmiz",
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\App.tsx",
+      "source_location": "L65",
+      "weight": 1.0
+    },
+    {
+      "source": "app_handleexport",
+      "target": "mizparser_downloadblob",
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\App.tsx",
+      "source_location": "L67",
+      "weight": 1.0
+    },
+    {
+      "source": "mizparser_parsemiz",
+      "target": "luaparser_parseluatable",
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\mizParser.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "mizparser_buildmiz",
+      "target": "luaparser_serializeluatable",
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Users\\trufa\\Saved Games\\DCS\\dcs-mission-forge\\src\\utils\\mizParser.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0
+}
