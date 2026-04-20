@@ -9,7 +9,7 @@ import { useEffect, useRef, useState, useMemo } from 'react';
 import { useMissionStore, extractAllGroups, extractTriggerZones } from '../../store/missionStore';
 import { latLngToDcs } from '../../utils/dcsCoords';
 import { createMapEngine } from './mapEngine';
-import type { MapEngine, RenderState } from './mapEngine';
+import type { MapEngine } from './mapEngine';
 import type { DCSGroup, DCSUnit } from '../../types/dcs';
 
 // ── Types ──────────────────────────────────────────────────────────────────
