@@ -34,17 +34,20 @@ export default function MissionSettings() {
       </div>
 
       <div>
-        <label className="text-xs text-slate-400 block mb-1">Date</label>
+        <label className="text-xs text-slate-400 block mb-1">Date (Jour / Mois / Année)</label>
         <div className="flex gap-2">
           <input type="number" min={1} max={31} value={m.date?.Day ?? 1}
-            className="w-16 bg-slate-700 text-slate-100 text-sm px-2 py-1 rounded border border-slate-600"
-            placeholder="J" readOnly />
+            className="w-16 bg-slate-700 text-slate-100 text-sm px-2 py-1 rounded border border-slate-600 focus:outline-none focus:border-blue-500"
+            placeholder="J"
+            onChange={e => updateMissionMeta({ date: { ...(m.date ?? { Day: 1, Month: 1, Year: 2024 }), Day: Math.max(1, Math.min(31, parseInt(e.target.value) || 1)) } })} />
           <input type="number" min={1} max={12} value={m.date?.Month ?? 1}
-            className="w-16 bg-slate-700 text-slate-100 text-sm px-2 py-1 rounded border border-slate-600"
-            placeholder="M" readOnly />
+            className="w-16 bg-slate-700 text-slate-100 text-sm px-2 py-1 rounded border border-slate-600 focus:outline-none focus:border-blue-500"
+            placeholder="M"
+            onChange={e => updateMissionMeta({ date: { ...(m.date ?? { Day: 1, Month: 1, Year: 2024 }), Month: Math.max(1, Math.min(12, parseInt(e.target.value) || 1)) } })} />
           <input type="number" value={m.date?.Year ?? 2024}
-            className="w-24 bg-slate-700 text-slate-100 text-sm px-2 py-1 rounded border border-slate-600"
-            placeholder="A" readOnly />
+            className="w-24 bg-slate-700 text-slate-100 text-sm px-2 py-1 rounded border border-slate-600 focus:outline-none focus:border-blue-500"
+            placeholder="A"
+            onChange={e => updateMissionMeta({ date: { ...(m.date ?? { Day: 1, Month: 1, Year: 2024 }), Year: parseInt(e.target.value) || 2024 } })} />
         </div>
       </div>
 

@@ -6,7 +6,7 @@ const TABS: { id: ActiveTab; label: string; icon: string }[] = [
   { id: 'triggers',  label: 'Triggers',   icon: '⚡' },
   { id: 'weather',   label: 'Météo',      icon: '🌤️' },
   { id: 'mist',      label: 'MIST',       icon: '🔧' },
-  { id: 'caucasus',  label: 'Caucase',    icon: '🎯' },
+  { id: 'caucasus',  label: 'Nouvelle',   icon: '🎯' },
   { id: 'settings',  label: 'Mission',    icon: '⚙️' },
 ];
 
@@ -25,7 +25,7 @@ export default function BottomNav({ activeTab, onTabChange, hasMiz }: BottomNavP
       <div className="flex items-center h-full px-2 gap-0.5">
         {TABS.map(tab => {
           // Désactiver les onglets qui nécessitent un miz (sauf map, caucasus, generator)
-          const requiresMiz = !['map', 'caucasus', 'generator'].includes(tab.id);
+          const requiresMiz = !['map', 'caucasus'].includes(tab.id);
           const disabled = requiresMiz && !hasMiz;
           const isActive = activeTab === tab.id;
 

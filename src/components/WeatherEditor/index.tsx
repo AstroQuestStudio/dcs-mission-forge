@@ -1,5 +1,6 @@
 import { useMissionStore } from '../../store/missionStore';
 import type { DCSWeather } from '../../types/dcs';
+import { useState, useEffect } from 'react';
 
 function Slider({ label, value, min, max, step = 1, unit = '', onChange }: {
   label: string; value: number; min: number; max: number; step?: number; unit?: string;
@@ -32,6 +33,17 @@ const CLOUD_PRESETS = [
 export default function WeatherEditor() {
   const miz = useMissionStore(s => s.miz);
   const updateWeather = useMissionStore(s => s.updateWeather);
+  const updateMissionMeta = useMissionStore(s => s.updateMissionMeta);
+
+  const startTime = miz?.mission.start_time ?? 0;
+  const [localHours, setLocalHours] = useState(Math.floor(startTime / 3600));
+  const [localMinutes, setLocalMinutes] = useState(Math.floor((startTime % 3600) / 60));
+
+  useEffect(() => {
+    const t = miz?.mission.start_time ?? 0;
+    setLocalHours(Math.floor(t / 3600));
+    setLocalMinutes(Math.floor((t % 3600) / 60));
+  }, [miz?.mission.start_time]);
 
   if (!miz) return (
     <div className="flex-1 flex items-center justify-center text-slate-500 text-sm">
@@ -42,9 +54,9 @@ export default function WeatherEditor() {
   const w = miz.mission.weather;
   const upd = (patch: Partial<DCSWeather>) => updateWeather({ ...w, ...patch });
 
-  const startTime = miz.mission.start_time ?? 0;
-  const hours = Math.floor(startTime / 3600);
-  const minutes = Math.floor((startTime % 3600) / 60);
+  const commitTime = (h: number, m: number) => {
+    updateMissionMeta({ start_time: h * 3600 + m * 60 });
+  };
 
   return (
     <div className="p-4 overflow-y-auto h-full">
@@ -53,25 +65,24 @@ export default function WeatherEditor() {
         <div className="flex-1">
           <label className="text-xs text-slate-400 block mb-1">Heure</label>
           <input
-            type="number" min={0} max={23} value={hours}
+            type="number" min={0} max={23} value={localHours}
             className="w-full bg-slate-700 text-slate-100 text-sm px-2 py-1 rounded border border-slate-600"
             onChange={e => {
-              const h = parseInt(e.target.value) || 0;
-              // update start_time via direct mutation (store handles it)
-              updateWeather(w);
-              (miz.mission as unknown as Record<string, unknown>).start_time = h * 3600 + minutes * 60;
+              const h = Math.max(0, Math.min(23, parseInt(e.target.value) || 0));
+              setLocalHours(h);
+              commitTime(h, localMinutes);
             }}
           />
         </div>
         <div className="flex-1">
           <label className="text-xs text-slate-400 block mb-1">Minutes</label>
           <input
-            type="number" min={0} max={59} value={minutes}
+            type="number" min={0} max={59} value={localMinutes}
             className="w-full bg-slate-700 text-slate-100 text-sm px-2 py-1 rounded border border-slate-600"
             onChange={e => {
-              const m = parseInt(e.target.value) || 0;
-              (miz.mission as unknown as Record<string, unknown>).start_time = hours * 3600 + m * 60;
-              updateWeather(w);
+              const m = Math.max(0, Math.min(59, parseInt(e.target.value) || 0));
+              setLocalMinutes(m);
+              commitTime(localHours, m);
             }}
           />
         </div>

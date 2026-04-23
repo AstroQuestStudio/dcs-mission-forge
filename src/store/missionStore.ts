@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 import { temporal } from 'zundo';
-import type { MizFile, DCSGroup, DCSUnit, DCSCountry, DCSTriggerZone, MistConfig } from '../types/dcs';
+import type { MizFile, DCSGroup, DCSUnit, DCSCountry, DCSTriggerZone, MistConfig, DCSTrigger } from '../types/dcs';
 
-export type ActiveTab = 'map' | 'groups' | 'triggers' | 'weather' | 'mist' | 'settings' | 'warehouses' | 'generator' | 'caucasus';
+export type ActiveTab = 'map' | 'groups' | 'triggers' | 'weather' | 'mist' | 'settings' | 'caucasus';
 export type SelectedEntity = { type: 'group'; coalition: string; countryIdx: number; category: string; groupIdx: number } | null;
 
 interface MissionStore {
@@ -21,8 +21,15 @@ interface MissionStore {
   updateUnit: (coalition: string, countryIdx: number, category: string, groupIdx: number, unitIdx: number, unit: DCSUnit) => void;
   addGroup: (coalition: string, countryIdx: number, category: string, group: DCSGroup) => void;
   deleteGroup: (coalition: string, countryIdx: number, category: string, groupIdx: number) => void;
+  updateWaypoint: (coalition: string, countryIdx: number, category: string, groupIdx: number, wpIdx: number, x: number, y: number) => void;
   updateWeather: (weather: MizFile['mission']['weather']) => void;
-  updateMissionMeta: (meta: Partial<Pick<MizFile['mission'], 'sortie' | 'descriptionText' | 'descriptionBlueTask' | 'descriptionRedTask'>>) => void;
+  updateMissionMeta: (meta: Partial<Pick<MizFile['mission'], 'sortie' | 'descriptionText' | 'descriptionBlueTask' | 'descriptionRedTask' | 'start_time' | 'date'>>) => void;
+  addTrigger: (trigger: DCSTrigger) => void;
+  updateTrigger: (idx: number, trigger: DCSTrigger) => void;
+  deleteTrigger: (idx: number) => void;
+  addTriggerZone: (zone: DCSTriggerZone) => void;
+  updateTriggerZone: (idx: number, zone: DCSTriggerZone) => void;
+  deleteTriggerZone: (idx: number) => void;
 }
 
 const DEFAULT_MIST: MistConfig = {
@@ -94,6 +101,25 @@ export const useMissionStore = create<MissionStore>()(
         set({ miz: { ...miz }, isDirty: true });
       },
 
+      updateWaypoint: (coalition, countryIdx, category, groupIdx, wpIdx, x, y) => {
+        const miz = get().miz;
+        if (!miz) return;
+        const countries = (miz.mission.coalition as Record<string, { country: unknown[] }>)[coalition]?.country;
+        if (!countries) return;
+        const country = countries[countryIdx] as unknown as Record<string, { group: DCSGroup[] }>;
+        if (!country?.[category]) return;
+        const group = country[category].group[groupIdx];
+        if (!group?.route?.points) return;
+        const pts = [...group.route.points];
+        pts[wpIdx] = { ...pts[wpIdx], x, y };
+        country[category].group[groupIdx] = { ...group, route: { ...group.route, points: pts } };
+        if (wpIdx === 0) {
+          country[category].group[groupIdx].x = x;
+          country[category].group[groupIdx].y = y;
+        }
+        set({ miz: { ...miz }, isDirty: true });
+      },
+
       updateWeather: (weather) => {
         const miz = get().miz;
         if (!miz) return;
@@ -105,10 +131,58 @@ export const useMissionStore = create<MissionStore>()(
         if (!miz) return;
         set({ miz: { ...miz, mission: { ...miz.mission, ...meta } }, isDirty: true });
       },
+
+      addTrigger: (trigger) => {
+        const miz = get().miz;
+        if (!miz) return;
+        const rules = Array.isArray(miz.mission.trigrules) ? [...miz.mission.trigrules] : [];
+        rules.push(trigger);
+        set({ miz: { ...miz, mission: { ...miz.mission, trigrules: rules } }, isDirty: true });
+      },
+
+      updateTrigger: (idx, trigger) => {
+        const miz = get().miz;
+        if (!miz) return;
+        const rules = Array.isArray(miz.mission.trigrules) ? [...miz.mission.trigrules] : [];
+        rules[idx] = trigger;
+        set({ miz: { ...miz, mission: { ...miz.mission, trigrules: rules } }, isDirty: true });
+      },
+
+      deleteTrigger: (idx) => {
+        const miz = get().miz;
+        if (!miz) return;
+        const rules = Array.isArray(miz.mission.trigrules) ? [...miz.mission.trigrules] : [];
+        rules.splice(idx, 1);
+        set({ miz: { ...miz, mission: { ...miz.mission, trigrules: rules } }, isDirty: true });
+      },
+
+      addTriggerZone: (zone) => {
+        const miz = get().miz;
+        if (!miz) return;
+        const zones = toArray<DCSTriggerZone>(miz.mission.triggers?.zones);
+        zones.push(zone);
+        set({ miz: { ...miz, mission: { ...miz.mission, triggers: { ...miz.mission.triggers, zones: Object.fromEntries(zones.map((z, i) => [i + 1, z])) } } }, isDirty: true });
+      },
+
+      updateTriggerZone: (idx, zone) => {
+        const miz = get().miz;
+        if (!miz) return;
+        const zones = toArray<DCSTriggerZone>(miz.mission.triggers?.zones);
+        zones[idx] = zone;
+        set({ miz: { ...miz, mission: { ...miz.mission, triggers: { ...miz.mission.triggers, zones: Object.fromEntries(zones.map((z, i) => [i + 1, z])) } } }, isDirty: true });
+      },
+
+      deleteTriggerZone: (idx) => {
+        const miz = get().miz;
+        if (!miz) return;
+        const zones = toArray<DCSTriggerZone>(miz.mission.triggers?.zones);
+        zones.splice(idx, 1);
+        set({ miz: { ...miz, mission: { ...miz.mission, triggers: { ...miz.mission.triggers, zones: Object.fromEntries(zones.map((z, i) => [i + 1, z])) } } }, isDirty: true });
+      },
     }),
     {
       partialize: (state) => ({ miz: state.miz }),
-      limit: 50,
+      limit: 200,
     }
   )
 );

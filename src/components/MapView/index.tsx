@@ -238,15 +238,26 @@ export default function MapView() {
     const onZoom = (e: Event) => {
       setMapZoom((e as CustomEvent).detail.zoom);
     };
+
+    const onWpMove = (e: Event) => {
+      const d = (e as CustomEvent).detail as {
+        coalition: string; countryIdx: number; category: string;
+        groupIdx: number; wpIdx: number; x: number; y: number;
+      };
+      useMissionStore.getState().updateWaypoint(d.coalition, d.countryIdx, d.category, d.groupIdx, d.wpIdx, d.x, d.y);
+    };
+
     window.addEventListener('dcs:select', onSelect);
     window.addEventListener('dcs:move', onMove);
     window.addEventListener('dcs:mapclick', onMapClick);
     window.addEventListener('dcs:zoom', onZoom);
+    window.addEventListener('dcs:waypoint-move', onWpMove);
     return () => {
       window.removeEventListener('dcs:select', onSelect);
       window.removeEventListener('dcs:move', onMove);
       window.removeEventListener('dcs:mapclick', onMapClick);
       window.removeEventListener('dcs:zoom', onZoom);
+      window.removeEventListener('dcs:waypoint-move', onWpMove);
     };
   }, []);
 

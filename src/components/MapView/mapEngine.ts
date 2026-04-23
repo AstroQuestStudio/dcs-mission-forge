@@ -166,12 +166,12 @@ export function createMapEngine(
         const color = COAL_COLOR[entry.coalition] ?? '#888';
 
         if (showRoutes) {
-          const wps = (entry.group.route?.points ?? [])
+          const rawWps = entry.group.route?.points ?? [];
+          const wps = rawWps
             .filter((wp: { x?: number; y?: number }) => wp.x != null && wp.y != null)
             .map((wp: { x: number; y: number }) => dcsToLatLng(wp.x, wp.y) as L.LatLngTuple);
 
           if (wps.length > 1) {
-            // Ligne de route style DCS Web Planner
             L.polyline(wps, {
               color,
               weight: isSelected ? 2.5 : 1.5,
@@ -179,16 +179,61 @@ export function createMapEngine(
               dashArray: isSelected ? undefined : '6 5',
             }).addTo(routesLayer!);
 
-            // Cercles de waypoints style DCS Web Planner (sauf le premier = position unité)
-            if (isSelected || entry.group.units.length === 0) {
+            // Waypoints draggables quand le groupe est sélectionné
+            if (isSelected) {
+              wps.forEach((wp, wi) => {
+                const isFirst = wi === 0;
+                const rawWp = rawWps[wi] as { x: number; y: number; name?: string };
+                const wpLabel = rawWp?.name ?? `WP${wi + 1}`;
+
+                const icon = L.divIcon({
+                  html: `<div style="
+                    width:${isFirst ? 22 : 20}px;height:${isFirst ? 22 : 20}px;
+                    border-radius:50%;
+                    background:${isFirst ? color : '#0f172a'};
+                    border:2.5px solid ${color};
+                    display:flex;align-items:center;justify-content:center;
+                    font-size:8px;font-weight:bold;color:${isFirst ? '#fff' : color};
+                    font-family:monospace;cursor:grab;
+                    box-shadow:0 2px 6px rgba(0,0,0,0.5)
+                  ">${wi + 1}</div>`,
+                  className: '',
+                  iconSize: [isFirst ? 22 : 20, isFirst ? 22 : 20],
+                  iconAnchor: [isFirst ? 11 : 10, isFirst ? 11 : 10],
+                });
+
+                const wpMarker = L.marker(wp, { icon, draggable: true, zIndexOffset: 500 });
+
+                wpMarker.bindTooltip(
+                  `<span style="font-family:monospace;font-size:10px;color:${color}">${wpLabel}</span>`,
+                  { direction: 'top', offset: [0, -14], opacity: 1 }
+                );
+
+                wpMarker.on('dragend', () => {
+                  const ll = wpMarker.getLatLng();
+                  const { x, y } = latLngToDcs(ll.lat, ll.lng);
+                  safeEmit('dcs:waypoint-move', {
+                    coalition: entry.coalition,
+                    countryIdx: entry.countryIdx,
+                    category: entry.category,
+                    groupIdx: entry.groupIdx,
+                    wpIdx: wi,
+                    x, y,
+                  });
+                });
+
+                wpMarker.addTo(waypointsLayer!);
+              });
+            } else {
+              // Non sélectionné : cercles simples non-draggables
               wps.slice(1).forEach((wp) => {
                 L.circleMarker(wp, {
-                  radius: 5,
+                  radius: 4,
                   color,
                   weight: 1.5,
                   fillColor: '#0f172a',
                   fillOpacity: 0.8,
-                  opacity: 0.8,
+                  opacity: 0.5,
                 }).addTo(waypointsLayer!);
               });
             }

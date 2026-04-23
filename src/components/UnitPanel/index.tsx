@@ -155,7 +155,7 @@ export default function UnitPanel() {
   const updateGroup = useMissionStore(s => s.updateGroup);
   const deleteGroup = useMissionStore(s => s.deleteGroup);
   const [activeUnit, setActiveUnit] = useState(0);
-  const [tab, setTab] = useState<'group' | 'unit' | 'waypoints'>('group');
+  const [tab, setTab] = useState<'group' | 'unit' | 'waypoints' | 'loadout'>('group');
   const [showPicker, setShowPicker] = useState(false);
 
   useEffect(() => { setActiveUnit(0); setTab('group'); }, [selectedEntity]);
@@ -268,6 +268,7 @@ export default function UnitPanel() {
           { id: 'group',    label: 'Groupe' },
           { id: 'unit',     label: `Unité (${group.units.length})` },
           { id: 'waypoints',label: `Route (${group.route?.points?.length ?? 0})` },
+          ...(category === 'plane' || category === 'helicopter' ? [{ id: 'loadout' as const, label: 'Armement' }] : []),
         ] as { id: typeof tab; label: string }[]).map(t => (
           <button
             key={t.id}
@@ -579,7 +580,135 @@ export default function UnitPanel() {
             </div>
           </div>
         )}
+
+        {/* ── Tab Armement ── */}
+        {tab === 'loadout' && unit && (
+          <LoadoutEditorPanel
+            unit={unit}
+            unitType={unit.type ?? ''}
+            coalition={coalition}
+            onSave={saveUnit}
+          />
+        )}
       </div>
+    </div>
+  );
+}
+
+// ── Éditeur de loadout ────────────────────────────────────────────────────
+
+function LoadoutEditorPanel({
+  unit, unitType, coalition, onSave,
+}: {
+  unit: import('../../types/dcs').DCSUnit;
+  unitType: string;
+  coalition: string;
+  onSave: (u: Partial<import('../../types/dcs').DCSUnit>) => void;
+}) {
+  const info = useMemo(() => getUnitInfo(unitType), [unitType]);
+  const accent = COAL_ACCENT[coalition] ?? '#94a3b8';
+
+  const pylons = useMemo(() => {
+    const raw = unit.payload?.pylons;
+    if (!raw || typeof raw !== 'object') return {};
+    return raw as Record<string, { CLSID?: string; num?: number }>;
+  }, [unit.payload]);
+
+  const applyPreset = (loadout: { pylons: { station: number; weapon: string; count: number }[] }) => {
+    const newPylons: Record<string, { CLSID: string; num: number }> = {};
+    for (const p of loadout.pylons) {
+      newPylons[String(p.station)] = { CLSID: p.weapon, num: p.count };
+    }
+    onSave({ payload: { ...unit.payload, pylons: newPylons } });
+  };
+
+  const clearPylon = (station: string) => {
+    const newPylons = { ...pylons };
+    delete newPylons[station];
+    onSave({ payload: { ...unit.payload, pylons: newPylons } });
+  };
+
+  const pylonStations = Object.keys(pylons).sort((a, b) => parseInt(a) - parseInt(b));
+
+  return (
+    <div className="pb-4">
+      {/* Pylones actuels */}
+      <div className="px-3 pt-3">
+        <div className="text-[10px] text-slate-500 uppercase tracking-wider mb-2 font-bold">Chargement actuel</div>
+        {pylonStations.length === 0 ? (
+          <div className="text-xs text-slate-600 italic py-2">Aucun armement configuré</div>
+        ) : (
+          <div className="space-y-1">
+            {pylonStations.map(s => {
+              const p = pylons[s];
+              return (
+                <div key={s} className="flex items-center gap-2 bg-slate-800/50 rounded-lg px-3 py-1.5">
+                  <span className="text-[9px] text-slate-600 font-mono w-10">S{s}</span>
+                  <span className="text-xs text-slate-300 flex-1 truncate">{p.CLSID ?? '—'}</span>
+                  {p.num !== undefined && p.num > 0 && (
+                    <span className="text-[10px] text-slate-500">×{p.num}</span>
+                  )}
+                  <button
+                    onClick={() => clearPylon(s)}
+                    className="text-slate-600 hover:text-red-400 text-sm flex-shrink-0"
+                    title="Vider ce pylon"
+                  >×</button>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      {/* Carburant / compteurs */}
+      {unit.payload && (
+        <div className="px-3 pt-3 grid grid-cols-3 gap-2">
+          {(['fuel', 'flare', 'chaff'] as const).map(k => {
+            const val = unit.payload?.[k];
+            if (val === undefined) return null;
+            return (
+              <div key={k}>
+                <label className="text-[9px] text-slate-600 uppercase tracking-wider block mb-0.5">{k}</label>
+                <input
+                  type="number" min={0}
+                  className="w-full bg-slate-800 text-slate-200 text-[10px] px-2 py-1 rounded border border-slate-700 focus:outline-none focus:border-blue-500"
+                  value={Number(val)}
+                  onChange={e => onSave({ payload: { ...unit.payload, [k]: parseFloat(e.target.value) || 0 } })}
+                />
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Presets */}
+      {info?.loadouts && info.loadouts.length > 0 && (
+        <div className="px-3 pt-4">
+          <div className="text-[10px] text-slate-500 uppercase tracking-wider mb-2 font-bold">Appliquer un preset</div>
+          <div className="space-y-1.5">
+            {info.loadouts.map((lo, i) => (
+              <button
+                key={i}
+                onClick={() => applyPreset(lo)}
+                className="w-full flex items-center gap-2.5 rounded-lg border border-slate-700/60 bg-slate-800/40 px-3 py-2 text-left hover:border-slate-600 hover:bg-slate-800 transition-all group"
+              >
+                <div className="flex-1 min-w-0">
+                  <div className="text-xs text-slate-200 font-medium">{lo.name}</div>
+                  <div className="text-[10px] mt-0.5" style={{ color: accent }}>{lo.role} · {lo.pylons.length} stations</div>
+                </div>
+                <span className="text-slate-600 group-hover:text-slate-400 text-xs">Appliquer →</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {!info?.loadouts?.length && (
+        <div className="px-3 pt-3 text-[10px] text-slate-600 italic">
+          Pas de loadouts de référence pour {unitType}.<br/>
+          Modifiez les pylones directement dans DCS Mission Editor après import.
+        </div>
+      )}
     </div>
   );
 }

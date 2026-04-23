@@ -36,7 +36,14 @@ export interface DCSUnit {
   onboard_num?: string;
   psi?: number;
   callsign?: string | Record<string, unknown>;
-  payload?: Record<string, unknown>;
+  payload?: {
+    pylons?: Record<string, { CLSID?: string; num?: number }>;
+    fuel?: number;
+    flare?: number;
+    chaff?: number;
+    gun?: number;
+    [key: string]: unknown;
+  };
   hardpoint_racks?: boolean;
 }
 
